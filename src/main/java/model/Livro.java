@@ -19,8 +19,18 @@ public class Livro {
     @Id
     private Long cddLivro;
     
-    private String nomePessoa;
-    
+    private String tituloLivro ;
+    private String subTituloLivro;
+    private String autorLivro;
+    private String editoraLivro;
+    private String edicaoLivro;
+    private String serieLivro; //passar para INT
+    private String anoLivro;
+    private String paginas; //passar para INT
+    private String assunto;
+    private String isbn;
+    private String idioma;
+        
     
     public Long getCddLivro() {
         return cddLivro;

@@ -189,11 +189,11 @@ public class telaLogin extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (cTxtUsuarioTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
+            } else if (cTxtSenhaTelaLogin.getPassword().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
-            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
+            } else if (!cTxtSenhaTelaLogin.getPassword().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "A senha está incorreta!");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "Acesso Permitido!");
@@ -214,11 +214,11 @@ public class telaLogin extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (cTxtUsuarioTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
+            } else if (cTxtSenhaTelaLogin.getPassword().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
-            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
+            } else if (!cTxtSenhaTelaLogin.getPassword().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "A senha está incorreta!");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "Acesso Permitido!");

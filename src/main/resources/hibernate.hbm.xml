@@ -42,4 +42,5 @@ Contributor(s):
 <hibernate-mapping>
   <class name="model.Pessoa" table="pessoa"/>
   <class name="model.Livro" table="livro"/>
+  <class name="model.Bibliotecaria" table="bibliotecaria"/>
 </hibernate-mapping>

@@ -17,6 +17,10 @@ public class Pessoa {
 
     @Id
     private Long codigoPessoa;
+    private String nomePessoa;
+    private String dtnascimento;
+    private String cpfPessoa;
+    private String tipo; //passar para CHAR
 
     public Long getCodigoPessoa() {
         return codigoPessoa;
@@ -25,5 +29,5 @@ public class Pessoa {
     public void setCodigoPessoa(Long codigoPessoa) {
         this.codigoPessoa = codigoPessoa;
     }
-    
+
 }
