@@ -16,6 +16,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
      */
     public TelaAdvertencia() {
         initComponents();
+        //Olámundo
     }
 
     /**
