@@ -43,4 +43,6 @@ Contributor(s):
   <class name="model.Pessoa" table="pessoa"/>
   <class name="model.Livro" table="livro"/>
   <class name="model.Bibliotecaria" table="bibliotecaria"/>
+  <class name="model.Emprestimos" table="emprestimos"/>
+  <class name="model.Professor" table="professor"/>
 </hibernate-mapping>

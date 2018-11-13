@@ -17,7 +17,7 @@ import javax.persistence.Id;
 public class Livro {
 
     @Id
-    private Long cddLivro;
+    private int cddLivro;
     
     private String tituloLivro ;
     private String subTituloLivro;
@@ -32,11 +32,11 @@ public class Livro {
     private String idioma;
         
     
-    public Long getCddLivro() {
+    public int getCddLivro() {
         return cddLivro;
     }
 
-    public void setCddLivro(Long cddLivro) {
+    public void setCddLivro(int cddLivro) {
         this.cddLivro = cddLivro;
     }
     

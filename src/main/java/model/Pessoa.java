@@ -16,17 +16,17 @@ import javax.persistence.Id;
 public class Pessoa {
 
     @Id
-    private Long codigoPessoa;
+    private int codigoPessoa;
     private String nomePessoa;
     private String dtnascimento;
     private String cpfPessoa;
     private String tipo; //passar para CHAR
 
-    public Long getCodigoPessoa() {
+    public int getCodigoPessoa() {
         return codigoPessoa;
     }
 
-    public void setCodigoPessoa(Long codigoPessoa) {
+    public void setCodigoPessoa(int codigoPessoa) {
         this.codigoPessoa = codigoPessoa;
     }
 

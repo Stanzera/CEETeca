@@ -17,14 +17,18 @@ import javax.persistence.Id;
 public class Bibliotecaria {
 
     @Id
-    private Long numeroFuncionalBibliotecaria;
-    
+    private int numeroFuncionalBibliotecaria;
+    private String senhaBibliotecaria;
+    //tirar duvida sobre chave estrangeira e sobre o numero funcional.
+    //Se vai colocar o de cada tabela ou vai usar o extends para pegar
+    //da tabela de pessoa e atribuir a tabela bibliotecario.
 
-    public Long getNumeroFuncionalBibliotecaria() {
+
+    public int getNumeroFuncionalBibliotecaria() {
         return numeroFuncionalBibliotecaria;
     }
 
-    public void setNumeroFuncionalBibliotecaria(Long numeroFuncionalBibliotecaria) {
+    public void setNumeroFuncionalBibliotecaria(int numeroFuncionalBibliotecaria) {
         this.numeroFuncionalBibliotecaria = numeroFuncionalBibliotecaria;
     }
     
