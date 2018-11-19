@@ -10,7 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,11 +24,14 @@ import javax.persistence.Table;
 public class Bibliotecaria {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="bibliotecariaSeq")
-    @SequenceGenerator(name="bibliotecarioSeq", sequenceName="biblio_seq")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="numeroFuncionalBibliotecaria")
     private Long numeroFuncionalBibliotecaria;
+    @Column(name="senhaBibliotecaria")
     private String senhaBibliotecaria;
+    @OneToOne
+    @JoinColumn(name="pessoa_codigoPessoa")
+    private Pessoa codigoPessoa;
     //tirar duvida sobre chave estrangeira e sobre o numero funcional.
     //Se vai colocar o de cada tabela ou vai usar o extends para pegar
     //da tabela de pessoa e atribuir a tabela bibliotecario.
@@ -39,6 +43,22 @@ public class Bibliotecaria {
 
     public void setNumeroFuncionalBibliotecaria(Long numeroFuncionalBibliotecaria) {
         this.numeroFuncionalBibliotecaria = numeroFuncionalBibliotecaria;
+    }
+
+    public String getSenhaBibliotecaria() {
+        return senhaBibliotecaria;
+    }
+
+    public void setSenhaBibliotecaria(String senhaBibliotecaria) {
+        this.senhaBibliotecaria = senhaBibliotecaria;
+    }
+
+    public Pessoa getCodigoPessoa() {
+        return codigoPessoa;
+    }
+
+    public void setCodigoPessoa(Pessoa codigoPessoa) {
+        this.codigoPessoa = codigoPessoa;
     }
     
 }

@@ -5,7 +5,10 @@
  */
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,11 +21,16 @@ import javax.persistence.Table;
 public class Pessoa {
 
     @Id
-    
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="codigoPessoa")
     private Long codigoPessoa;
+    @Column(name="nomePessoa")
     private String nomePessoa;
+    @Column(name="dtnascimento")
     private String dtnascimento;
+    @Column(name="cpfPessoa")
     private String cpfPessoa;
+    @Column(name="tipo")
     private String tipo; //passar para CHAR
 
     public Long getCodigoPessoa() {

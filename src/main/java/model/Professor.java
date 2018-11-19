@@ -5,8 +5,13 @@
  */
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,15 +24,28 @@ import javax.persistence.Table;
 public class Professor {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="numeroFuncionalProfessor")
     private int numeroFuncionalProfessor;
+    @OneToOne
+    @JoinColumn(name="pessoa_codigoPessoa")
+    private int codigoPessoa;
     
-
+    
     public int getNumeroFuncionalProfessor() {
         return numeroFuncionalProfessor;
     }
 
     public void setNumeroFuncionalProfessor(int numeroFuncionalProfessor) {
         this.numeroFuncionalProfessor = numeroFuncionalProfessor;
+    }
+
+    public int getCodigoPessoa() {
+        return codigoPessoa;
+    }
+
+    public void setCodigoPessoa(int codigoPessoa) {
+        this.codigoPessoa = codigoPessoa;
     }
     
     
