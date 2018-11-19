@@ -256,6 +256,11 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
 
         cTxtAreaObservacoesCadEmprestimo.setColumns(20);
         cTxtAreaObservacoesCadEmprestimo.setRows(5);
+        cTxtAreaObservacoesCadEmprestimo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cTxtAreaObservacoesCadEmprestimoKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(cTxtAreaObservacoesCadEmprestimo);
 
         javax.swing.GroupLayout painelDetalhamentoCadEmprestimoLayout = new javax.swing.GroupLayout(painelDetalhamentoCadEmprestimo);
@@ -343,15 +348,16 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(jLabel18)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(btLimparCadEmprestimo1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(btVoltarCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btRegistrarCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(btLimparCadEmprestimo1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(btVoltarCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btRegistrarCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,12 +381,12 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDetalhamentoCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btLimparCadEmprestimo1)
                     .addComponent(btVoltarCadEmprestimo)
                     .addComponent(btRegistrarCadEmprestimo))
-                .addGap(41, 41, 41))
+                .addContainerGap())
         );
 
         pack();
@@ -484,6 +490,11 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         
         cTxtNomeCadEmprestimo.setText(cTxtNomeCadEmprestimo.getText().toUpperCase());
     }//GEN-LAST:event_cTxtNomeCadEmprestimoKeyReleased
+
+    private void cTxtAreaObservacoesCadEmprestimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtAreaObservacoesCadEmprestimoKeyReleased
+        // TODO add your handling code here:
+         cTxtAreaObservacoesCadEmprestimo.setText(cTxtAreaObservacoesCadEmprestimo.getText().toUpperCase());
+    }//GEN-LAST:event_cTxtAreaObservacoesCadEmprestimoKeyReleased
 
     /**
      * @param args the command line arguments

@@ -77,17 +77,41 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Titulo:");
 
+        cTxtTituloCadLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cTxtTituloCadLivroKeyReleased(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Autor:");
 
+        cTxtAutorCadLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cTxtAutorCadLivroKeyReleased(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Editora:");
+
+        cTxtEditoraCadLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cTxtEditoraCadLivroKeyReleased(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Edição:");
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Subtítulo:");
+
+        cTxtSubtituloCadLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cTxtSubtituloCadLivroKeyReleased(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("ISBN:");
@@ -101,6 +125,12 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel12.setText("Assunto:");
+
+        cTxtAssuntoCadLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cTxtAssuntoCadLivroKeyReleased(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel14.setText("Ano de Publicação:");
@@ -358,6 +388,35 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         new TelaGerenciarLivro().setVisible(true);
         
     }//GEN-LAST:event_btVoltarCadLivroActionPerformed
+
+    private void cTxtTituloCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtTituloCadLivroKeyReleased
+        // TODO add your handling code here:
+         cTxtTituloCadLivro.setText(cTxtTituloCadLivro.getText().toUpperCase());
+        
+    }//GEN-LAST:event_cTxtTituloCadLivroKeyReleased
+
+    private void cTxtSubtituloCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtSubtituloCadLivroKeyReleased
+        // TODO add your handling code here:
+        
+        cTxtSubtituloCadLivro.setText(cTxtSubtituloCadLivro.getText().toUpperCase());
+    }//GEN-LAST:event_cTxtSubtituloCadLivroKeyReleased
+
+    private void cTxtAutorCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtAutorCadLivroKeyReleased
+        // TODO add your handling code here:
+        
+         cTxtAutorCadLivro.setText(cTxtAutorCadLivro.getText().toUpperCase());
+    }//GEN-LAST:event_cTxtAutorCadLivroKeyReleased
+
+    private void cTxtAssuntoCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtAssuntoCadLivroKeyReleased
+        // TODO add your handling code here:
+        
+         cTxtAssuntoCadLivro.setText(cTxtAssuntoCadLivro.getText().toUpperCase());
+    }//GEN-LAST:event_cTxtAssuntoCadLivroKeyReleased
+
+    private void cTxtEditoraCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEditoraCadLivroKeyReleased
+        // TODO add your handling code here:
+        cTxtEditoraCadLivro.setText(cTxtEditoraCadLivro.getText().toUpperCase());
+    }//GEN-LAST:event_cTxtEditoraCadLivroKeyReleased
 
     public void limpar() {
         cTxtAnoPublicacaoCadLivro.setText("");

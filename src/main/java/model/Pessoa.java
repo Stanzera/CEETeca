@@ -7,27 +7,62 @@ package model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Aluno
  */
 @Entity
+@Table(name="pessoa")
 public class Pessoa {
 
     @Id
-    private int codigoPessoa;
+    
+    private Long codigoPessoa;
     private String nomePessoa;
     private String dtnascimento;
     private String cpfPessoa;
     private String tipo; //passar para CHAR
 
-    public int getCodigoPessoa() {
+    public Long getCodigoPessoa() {
         return codigoPessoa;
     }
 
-    public void setCodigoPessoa(int codigoPessoa) {
+    public void setCodigoPessoa(Long codigoPessoa) {
         this.codigoPessoa = codigoPessoa;
+    }
+
+    public String getNomePessoa() {
+        return nomePessoa;
+    }
+
+    public void setNomePessoa(String nomePessoa) {
+        this.nomePessoa = nomePessoa;
+    }
+
+    public String getDtnascimento() {
+        return dtnascimento;
+    }
+
+    public void setDtnascimento(String dtnascimento) {
+        this.dtnascimento = dtnascimento;
+    }
+
+    public String getCpfPessoa() {
+        return cpfPessoa;
+    }
+
+    public void setCpfPessoa(String cpfPessoa) {
+        this.cpfPessoa = cpfPessoa;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 }

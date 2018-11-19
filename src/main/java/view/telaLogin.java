@@ -84,7 +84,7 @@ public class telaLogin extends javax.swing.JFrame {
 
         btEntrarTelaLogin.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btEntrarTelaLogin.setText("Entrar");
-        btEntrarTelaLogin.setToolTipText("");
+        btEntrarTelaLogin.setToolTipText("Pressione o botão para ENTRAR");
         btEntrarTelaLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEntrarTelaLoginActionPerformed(evt);
@@ -182,18 +182,35 @@ public class telaLogin extends javax.swing.JFrame {
     }*/
 
     private void btEntrarTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarTelaLoginActionPerformed
-
+       
+            if (cTxtUsuarioTelaLogin.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
+            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Está faltando a senha!");
+            } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
+                JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
+            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
+                JOptionPane.showMessageDialog(null, "A senha está incorreta!");
+            } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
+                JOptionPane.showMessageDialog(null, "Acesso Permitido!");
+                TelaPrincipal tela = new TelaPrincipal();
+                //Deixa uma janela visível(true), ou invisível(false)        
+                tela.setVisible(true);
+                //Fecha a janela para poder exibir a próxima
+                dispose();
+            }
+        
     }//GEN-LAST:event_btEntrarTelaLoginActionPerformed
 
     private void btEntrarTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btEntrarTelaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (cTxtUsuarioTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getPassword().equals("")) {
+            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
-            } else if (!cTxtSenhaTelaLogin.getPassword().equals("1234")) {
+            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "A senha está incorreta!");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "Acesso Permitido!");
@@ -214,11 +231,11 @@ public class telaLogin extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (cTxtUsuarioTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getPassword().equals("")) {
+            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
-            } else if (!cTxtSenhaTelaLogin.getPassword().equals("1234")) {
+            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "A senha está incorreta!");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "Acesso Permitido!");
@@ -235,11 +252,11 @@ public class telaLogin extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (cTxtUsuarioTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getPassword().equals("")) {
+            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
-            } else if (!cTxtSenhaTelaLogin.getPassword().equals("1234")) {
+            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "A senha está incorreta!");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
                 JOptionPane.showMessageDialog(null, "Acesso Permitido!");

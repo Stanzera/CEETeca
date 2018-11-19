@@ -7,6 +7,7 @@ package model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
@@ -14,6 +15,7 @@ import javax.persistence.Id;
  */
 
 @Entity
+@Table(name="professor")
 public class Professor {
 
     @Id

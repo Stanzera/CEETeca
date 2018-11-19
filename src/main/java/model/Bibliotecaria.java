@@ -5,8 +5,13 @@
  */
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -14,21 +19,25 @@ import javax.persistence.Id;
  */
 
 @Entity
+@Table(name = "bibliotecaria")
 public class Bibliotecaria {
 
     @Id
-    private int numeroFuncionalBibliotecaria;
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="bibliotecariaSeq")
+    @SequenceGenerator(name="bibliotecarioSeq", sequenceName="biblio_seq")
+    @Column(name="numeroFuncionalBibliotecaria")
+    private Long numeroFuncionalBibliotecaria;
     private String senhaBibliotecaria;
     //tirar duvida sobre chave estrangeira e sobre o numero funcional.
     //Se vai colocar o de cada tabela ou vai usar o extends para pegar
     //da tabela de pessoa e atribuir a tabela bibliotecario.
 
 
-    public int getNumeroFuncionalBibliotecaria() {
+    public Long getNumeroFuncionalBibliotecaria() {
         return numeroFuncionalBibliotecaria;
     }
 
-    public void setNumeroFuncionalBibliotecaria(int numeroFuncionalBibliotecaria) {
+    public void setNumeroFuncionalBibliotecaria(Long numeroFuncionalBibliotecaria) {
         this.numeroFuncionalBibliotecaria = numeroFuncionalBibliotecaria;
     }
     

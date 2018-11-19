@@ -51,16 +51,17 @@
                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
-                      <Component id="btLimparCadEmprestimo1" min="-2" pref="110" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="btVoltarCadEmprestimo" min="-2" pref="110" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btRegistrarCadEmprestimo" min="-2" pref="110" max="-2" attributes="0"/>
-                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
+              <Component id="btLimparCadEmprestimo1" min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Component id="btVoltarCadEmprestimo" min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btRegistrarCadEmprestimo" min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -86,13 +87,13 @@
               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="painelDetalhamentoCadEmprestimo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btLimparCadEmprestimo1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btVoltarCadEmprestimo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btRegistrarCadEmprestimo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -441,6 +442,9 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtAreaObservacoesCadEmprestimoKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

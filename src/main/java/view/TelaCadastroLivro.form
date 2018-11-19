@@ -242,6 +242,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="cTxtTituloCadLivro">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtTituloCadLivroKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -252,6 +255,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="cTxtAutorCadLivro">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtAutorCadLivroKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -262,6 +268,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="cTxtEditoraCadLivro">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtEditoraCadLivroKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -282,6 +291,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="cTxtSubtituloCadLivro">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtSubtituloCadLivroKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
@@ -332,6 +344,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="cTxtAssuntoCadLivro">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtAssuntoCadLivroKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="cGiraExemplarCadLivro">
         </Component>

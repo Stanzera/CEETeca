@@ -289,7 +289,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void gerLivroTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerLivroTelaPrincipalActionPerformed
         // TODO add your handling code here:
 
-        this.setVisible(true);
+        this.setVisible(false);
         new TelaGerenciarLivro().setVisible(true);
 
     }//GEN-LAST:event_gerLivroTelaPrincipalActionPerformed
