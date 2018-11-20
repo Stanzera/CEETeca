@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="der" name="models.Endereco" optimistic-lock="version" table="endereco">
+    <composite-id class="models.EnderecoId" name="id">
+      <key-property name="cep" type="int">
+        <column name="cep"/>
+      </key-property>
+      <key-property name="pessoaCodigoPessoa" type="int">
+        <column name="pessoa_codigoPessoa"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="models.Pessoa" fetch="select" insert="false" name="pessoa" update="false">
+      <column name="pessoa_codigoPessoa" not-null="true"/>
+    </many-to-one>
+    <property name="lougradouroEndereco" type="string">
+      <column length="65" name="lougradouroEndereco" not-null="true"/>
+    </property>
+    <property name="bairroEndereco" type="string">
+      <column length="45" name="bairroEndereco" not-null="true"/>
+    </property>
+    <property name="cidadeEndereco" type="string">
+      <column length="45" name="cidadeEndereco" not-null="true"/>
+    </property>
+    <property name="estadoEndereco" type="string">
+      <column length="30" name="estadoEndereco" not-null="true"/>
+    </property>
+    <property name="numeroEndereco" type="int">
+      <column name="numeroEndereco" not-null="true"/>
+    </property>
+    <property name="complementoEndereco" type="string">
+      <column length="50" name="complementoEndereco" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

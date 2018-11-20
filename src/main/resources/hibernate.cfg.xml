@@ -41,12 +41,28 @@ Contributor(s):
 -->
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/der?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/der?createDatabaseIfNotExist=TRUE&amp;useTimezone=true&amp;serverTimezone=UTC&amp;unicode=true&amp;characterEncoding=UTF-8</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
-    <mapping resource="hibernate.hbm.xml"/>
-    <mapping resource="../java/model/hibernate1.hbm.xml"/>
+    <property name="hibernate.connection.pool_size">5</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <mapping resource="model/Emprestimo.hbm.xml" />
+    <mapping resource="model/Aluno.hbm.xml"/>
+    <mapping resource="model/Turno.hbm.xml"/>
+    <mapping resource="model/ProfessorHasCurso.hbm.xml"/>
+    <mapping resource="model/Modulo.hbm.xml"/>
+    <mapping resource="model/Advertencia.hbm.xml"/>
+    <mapping resource="model/Bibliotecaria.hbm.xml"/>
+    <mapping resource="model/Professor.hbm.xml"/>
+    <mapping resource="model/Endereco.hbm.xml"/>
+    <mapping resource="model/Curso.hbm.xml"/>
+    <mapping resource="model/Exemplar.hbm.xml"/>
+    <mapping resource="model/Livro.hbm.xml"/>
+    <mapping resource="model/LivroHasEmprestimo.hbm.xml"/>
+    <mapping resource="model/Pessoa.hbm.xml"/>
+    <mapping resource="model/Contato.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

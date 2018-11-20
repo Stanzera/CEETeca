@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="der" name="models.Pessoa" optimistic-lock="version" table="pessoa">
+    <id name="codigoPessoa" type="int">
+      <column name="codigoPessoa"/>
+      <generator class="increment"/>
+    </id>
+    <property name="nomePessoa" type="string">
+      <column length="100" name="nomePessoa" not-null="true"/>
+    </property>
+    <property name="dtnascimento" type="date">
+      <column length="10" name="dtnascimento" not-null="true"/>
+    </property>
+    <property name="cpfPessoa" type="string">
+      <column length="15" name="cpfPessoa" not-null="true"/>
+    </property>
+    <property name="tipo" type="char">
+      <column length="1" name="tipo" not-null="true"/>
+    </property>
+    <one-to-one class="models.Contato" name="contato"/>
+    <set fetch="select" inverse="true" lazy="true" name="emprestimos" table="emprestimo">
+      <key>
+        <column name="pessoa_codigoPessoa" not-null="true"/>
+      </key>
+      <one-to-many class="models.Emprestimo"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="bibliotecarias" table="bibliotecaria">
+      <key>
+        <column name="pessoa_codigoPessoa" not-null="true"/>
+      </key>
+      <one-to-many class="models.Bibliotecaria"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="professors" table="professor">
+      <key>
+        <column name="pessoa_codigoPessoa" not-null="true"/>
+      </key>
+      <one-to-many class="models.Professor"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="alunos" table="aluno">
+      <key>
+        <column name="pessoa_codigoPessoa" not-null="true"/>
+      </key>
+      <one-to-many class="models.Aluno"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="enderecos" table="endereco">
+      <key>
+        <column name="pessoa_codigoPessoa" not-null="true"/>
+      </key>
+      <one-to-many class="models.Endereco"/>
+    </set>
+  </class>
+</hibernate-mapping>
