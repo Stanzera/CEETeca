@@ -67,9 +67,9 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btConfirmarCadProfessor" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                           <Component id="btLimparCadProfessor" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           <Component id="btVoltarCadProfessor" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
@@ -110,8 +110,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btVoltarCadProfessor" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btLimparCadProfessor" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btConfirmarCadProfessor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btLimparCadProfessor" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="btConfirmarCadProfessor" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

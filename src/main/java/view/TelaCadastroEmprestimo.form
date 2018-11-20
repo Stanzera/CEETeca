@@ -55,13 +55,13 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
-              <Component id="btLimparCadEmprestimo1" min="-2" pref="110" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Component id="btVoltarCadEmprestimo" min="-2" pref="110" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btRegistrarCadEmprestimo" min="-2" pref="110" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Component id="btLimparCadEmprestimo1" min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Component id="btVoltarCadEmprestimo" min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

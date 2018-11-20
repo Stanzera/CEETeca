@@ -218,7 +218,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
                         .addComponent(btExcluirGerLivro)
                         .addComponent(btVoltarGerLivro)
                         .addComponent(btEditarGerLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 34, Short.MAX_VALUE))
         );
 
         pack();

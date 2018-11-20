@@ -215,7 +215,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
                     .addComponent(btExcluirGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEditarGerProfessor)
                     .addComponent(btCadastrarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
