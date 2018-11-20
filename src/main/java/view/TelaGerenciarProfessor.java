@@ -86,6 +86,11 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("(Digite o nome ou CPF do professor!)");
 
+        cTxtBuscaGerProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cTxtBuscaGerProfessorActionPerformed(evt);
+            }
+        });
         cTxtBuscaGerProfessor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cTxtBuscaGerProfessorKeyReleased(evt);
@@ -240,6 +245,10 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
         
         cTxtBuscaGerProfessor.setText(cTxtBuscaGerProfessor.getText().toUpperCase());
     }//GEN-LAST:event_cTxtBuscaGerProfessorKeyReleased
+
+    private void cTxtBuscaGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cTxtBuscaGerProfessorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cTxtBuscaGerProfessorActionPerformed
 
     /**
      * @param args the command line arguments

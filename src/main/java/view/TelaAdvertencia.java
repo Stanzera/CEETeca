@@ -280,6 +280,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
                 new TelaAdvertencia().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
