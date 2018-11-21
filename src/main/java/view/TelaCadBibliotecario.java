@@ -9,6 +9,17 @@ import DAO.Banco;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import getSet.bibliotecarioGetSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.Bibliotecaria;
+import models.Contato;
+import models.Endereco;
+import models.Pessoa;
+import models.Turno;
 import testeControle.controleBibliotecario;
 
 /**
@@ -17,20 +28,16 @@ import testeControle.controleBibliotecario;
  */
 public class TelaCadBibliotecario extends javax.swing.JFrame {
 
-
-
     /**
      * Creates new form TelaCadBibliotecario
      */
     public TelaCadBibliotecario() {
         initComponents();
-        
+
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
 
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,9 +55,6 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         lblCPFCadBibliotecario = new javax.swing.JLabel();
         lblDtNascCadBibliotecario = new javax.swing.JLabel();
         lblTurnoCadBibliotecario = new javax.swing.JLabel();
-        cListTurnoCadBibliotecario = new javax.swing.JComboBox<>();
-        lblUsuarioCadBibliotecario = new javax.swing.JLabel();
-        cTxtUsuarioCadBibliotecario = new javax.swing.JTextField();
         cTxtSenhaCadBibliotecario = new javax.swing.JPasswordField();
         jLabel9 = new javax.swing.JLabel();
         cTxtDtNascimentoCadBibliotecario = new javax.swing.JFormattedTextField();
@@ -59,6 +63,9 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         cTxtConfirmSenhaCadBibliotecario = new javax.swing.JPasswordField();
         jLabel22 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        cTxtTurnoCadBibliotecario = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         painelEnderecoCadBibliotecario = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cTxtCEPCadBibliotecario = new javax.swing.JFormattedTextField();
@@ -117,12 +124,6 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         lblTurnoCadBibliotecario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblTurnoCadBibliotecario.setText("Turno:");
 
-        cListTurnoCadBibliotecario.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        cListTurnoCadBibliotecario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "M", "V", "N" }));
-
-        lblUsuarioCadBibliotecario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblUsuarioCadBibliotecario.setText("Usuário:");
-
         cTxtSenhaCadBibliotecario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cTxtSenhaCadBibliotecarioActionPerformed(evt);
@@ -157,6 +158,18 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Confirmar Senha:");
 
+        try {
+            cTxtTurnoCadBibliotecario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel3.setText("*Usar somente a  primeira letra do turno. EX: M,V,N");
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel5.setText("* O numero funcional será o usuario de acesso do programa.");
+
         javax.swing.GroupLayout painelDadosCadBibliotecarioLayout = new javax.swing.GroupLayout(painelDadosCadBibliotecario);
         painelDadosCadBibliotecario.setLayout(painelDadosCadBibliotecarioLayout);
         painelDadosCadBibliotecarioLayout.setHorizontalGroup(
@@ -165,75 +178,82 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
                         .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9)
                             .addComponent(lblNFuncCadBibliotecario)
-                            .addComponent(lblNomeCadBibliotecario)
-                            .addComponent(lblUsuarioCadBibliotecario)
-                            .addComponent(lblCPFCadBibliotecario)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
+                                .addComponent(cTxtNumFuncionalCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(57, 57, 57)
+                                .addComponent(lblTurnoCadBibliotecario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cTxtTurnoCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
+                                .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cTxtConfirmSenhaCadBibliotecario, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                    .addComponent(cTxtSenhaCadBibliotecario))
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabel3)))
+                        .addGap(0, 55, Short.MAX_VALUE))
+                    .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(23, 23, 23)
+                        .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblNomeCadBibliotecario)
+                            .addComponent(lblCPFCadBibliotecario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(cTxtNomeCadBibliotecario)
                             .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
-                                .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
-                                        .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
-                                                .addComponent(cTxtCPFCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(lblDtNascCadBibliotecario))
-                                            .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
-                                                .addComponent(cTxtNumFuncionalCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblTurnoCadBibliotecario))
-                                            .addComponent(cTxtUsuarioCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(cTxtDtNascimentoCadBibliotecario)
-                                            .addComponent(cListTurnoCadBibliotecario, 0, 128, Short.MAX_VALUE)))
-                                    .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(cTxtConfirmSenhaCadBibliotecario, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                                        .addComponent(cTxtSenhaCadBibliotecario)))
-                                .addGap(0, 163, Short.MAX_VALUE)))
-                        .addGap(8, 8, 8))))
+                                .addComponent(cTxtCPFCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblDtNascCadBibliotecario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cTxtDtNascimentoCadBibliotecario, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addGap(0, 118, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         painelDadosCadBibliotecarioLayout.setVerticalGroup(
             painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22)
+                .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel22))
+                    .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cTxtNomeCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNomeCadBibliotecario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCPFCadBibliotecario)
+                            .addComponent(lblDtNascCadBibliotecario)
+                            .addComponent(cTxtDtNascimentoCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cTxtCPFCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cTxtNomeCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNomeCadBibliotecario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCPFCadBibliotecario)
-                    .addComponent(lblDtNascCadBibliotecario)
-                    .addComponent(cTxtDtNascimentoCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cTxtCPFCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addGap(4, 4, 4)
                 .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNFuncCadBibliotecario)
                     .addComponent(lblTurnoCadBibliotecario)
-                    .addComponent(cListTurnoCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cTxtNumFuncionalCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cTxtUsuarioCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsuarioCadBibliotecario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cTxtNumFuncionalCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cTxtTurnoCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cTxtSenhaCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cTxtConfirmSenhaCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)))
+                    .addComponent(jLabel4))
+                .addContainerGap())
         );
 
         painelEnderecoCadBibliotecario.setPreferredSize(new java.awt.Dimension(634, 200));
@@ -497,7 +517,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator4)
-                            .addComponent(painelEnderecoCadBibliotecario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+                            .addComponent(painelEnderecoCadBibliotecario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                             .addComponent(painelContatoCadBibliotecario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(painelDadosCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -513,7 +533,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDadosCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jLabel16)
@@ -570,6 +590,11 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     }
 
     private void btConfirmCadBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmCadBibliotecarioActionPerformed
+        dateCadBiblio();
+    }//GEN-LAST:event_btConfirmCadBibliotecarioActionPerformed
+
+    private void dateCadBiblio(){
+    
         // Setando as informações dos textField
 
         //try {
@@ -577,20 +602,29 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         //Pegando informações de dados pessoais.
         String nome = cTxtNomeCadBibliotecario.getText();
         String cpf = cTxtCPFCadBibliotecario.getText();
-        String dtNascimento = cTxtDtNascimentoCadBibliotecario.getText();
-        String numFuncional = cTxtNumFuncionalCadBibliotecario.getText();
-        String turno = String.valueOf(cListTurnoCadBibliotecario.getSelectedIndex());
-        String usuario = cTxtUsuarioCadBibliotecario.getText();
+        
+        
+        Date dtNascimento;
+        try {
+            SimpleDateFormat in = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+            dtNascimento = out.parse(cTxtDtNascimentoCadBibliotecario.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        int numFuncional = Integer.parseInt(cTxtNumFuncionalCadBibliotecario.getText());
+        char turno = cTxtTurnoCadBibliotecario.getText().charAt(0);
         String senha = String.valueOf(cTxtSenhaCadBibliotecario.getPassword());
         String confirmarSenha = String.valueOf(cTxtConfirmSenhaCadBibliotecario.getPassword());
 
         //Pegando informações de Endereço.
-        String cep = cTxtCEPCadBibliotecario.getText();
+        int cep = Integer.parseInt(cTxtCEPCadBibliotecario.getText());
         String avRua = cTxtRuaCadBibliotecario.getText();
         String bairro = cTxtBairroCadBibliotecario.getText();
         String cidade = cTxtCidadeCadBibliotecario.getText();
         String complemento = cTxtComplementoCadBibliotecario.getText();
-        String numero = String.valueOf(cTxtNumCadBibliotecario);
+        int numero = Integer.parseInt(cTxtNumCadBibliotecario.getText());
         String uf = String.valueOf(cListUFCadBibliotecario.getSelectedIndex());
         //Pegando informações de contato.
         String celular = cTxtCelularCadBibliotecario.getText();
@@ -598,59 +632,67 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         String email = cTxtEmailCadBibliotecario.getText();
         //Atribuindo valores a classe usuario.
         //Valores Dados Pessoais
-        bibliotecarioGetSet infos = new bibliotecarioGetSet();
-        infos.setNome(nome);
-        infos.setCpf(cpf);
-        infos.setDtNascimento(dtNascimento);
-        infos.setNumFuncional(numFuncional);
-        infos.setTurno(turno);
-        infos.setUsuario(usuario);
-        infos.setSenha(senha);
-        infos.setConfirmSenha(confirmarSenha);
+        //bibliotecarioGetSet infos = new bibliotecarioGetSet();
+        Pessoa pessoa = new Pessoa();
+        Bibliotecaria bibliotecaria = new Bibliotecaria();
+        Turno turno = new Turno();
+
+        pessoa.setNomePessoa(nome);
+        pessoa.setCpfPessoa(cpf);
+        pessoa.setDtnascimento(dtNascimento);//
+        pessoa.setCodigoPessoa(numFuncional);
+        turno.setDescricaoTurno(turno);
+        bibliotecaria.setSenhaBibliotecaria(senha);
         //Valores Endereço
-        infos.setCep(cep);
-        infos.setRua(avRua);
-        infos.setBairro(bairro);
-        infos.setCidade(cidade);
-        infos.setComplemento(complemento);
-        infos.setNumero(numero);
-        infos.setUf(uf);
+        Endereco endereco = new Endereco();
+        endereco.setId(cep);//
+        endereco.setLougradouroEndereco(avRua);
+        endereco.setBairroEndereco(bairro);
+        endereco.setCidadeEndereco(cidade);
+        endereco.setComplementoEndereco(complemento);
+        endereco.setNumeroEndereco(numero);
+        endereco.setEstadoEndereco(uf);
         //Valores contato
-        infos.setCelular(celular);
-        infos.setTelefone(telefone);
-        infos.setEmail(email);
+        Contato ctt = new Contato();
+        ctt.setCelularContato(celular);
+        ctt.setTelefoneContato(telefone);
+        ctt.setEmailContato(email);
         //Adicionando as informações a um array dentro da classe Banco.
-         Banco.bibliotecarios.add(infos);
 
-        /*        } catch (Exception e) {
-            //faltando infomormações para o cadastro    
-            JOptionPane.showMessageDialog(null, "Falta informações para cadastro");
+        ArrayList<String> infos = new ArrayList<String>();
+        infos.add(pessoa);
 
-        }*/
-        // bibliotecarioGetSet conferirSalvar = new bibliotecarioGetSet(
-        // nome,cpf,dtNascimento,numFuncional,turno,usuario,senha,confirmarSenha,
-        //         cep,avRua,bairro,cidade,numero,uf,celular,telefone,email);
-        controleBibliotecario controlador = new controleBibliotecario();
-        if (controlador.testaConferirBibliotecario(infos)) {
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-        } else if (!senha.equals(confirmarSenha)) {
-            JOptionPane.showMessageDialog(null, "O campo SENHA está diferente do campo CONFIRMAR SENHA!!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Está faltando Dados ou ");
+        Banco.bibliotecarios.add();
+
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+
+        switch (sim) {
+
+            case 0:
+                controleBibliotecario controlador = new controleBibliotecario();
+                if (controlador.testaConferirBibliotecario(infos)) {
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                } else if (!senha.equals(confirmarSenha)) {
+                    JOptionPane.showMessageDialog(null, "O campo SENHA está diferente do campo CONFIRMAR SENHA!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Está faltando Dados ou ");
+                }
+
         }
-    }//GEN-LAST:event_btConfirmCadBibliotecarioActionPerformed
 
+    
+    }
+    
     private void btVoltarCadBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadBibliotecarioActionPerformed
         // Volta para a tela anterior aqui.
 
-        
         setVisible(false);
         new TelaGerenciarBibliotecario().setVisible(true);
     }//GEN-LAST:event_btVoltarCadBibliotecarioActionPerformed
 
     private void cTxtNomeCadBibliotecarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtNomeCadBibliotecarioKeyReleased
         // TODO add your handling code here:
-         cTxtNomeCadBibliotecario.setText(cTxtNomeCadBibliotecario.getText().toUpperCase());
+        cTxtNomeCadBibliotecario.setText(cTxtNomeCadBibliotecario.getText().toUpperCase());
     }//GEN-LAST:event_cTxtNomeCadBibliotecarioKeyReleased
 
     private void cTxtRuaCadBibliotecarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtRuaCadBibliotecarioKeyReleased
@@ -675,7 +717,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
 
     private void cTxtEmailCadBibliotecarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEmailCadBibliotecarioKeyReleased
         // TODO add your handling code here:
-       cTxtEmailCadBibliotecario.setText(cTxtEmailCadBibliotecario.getText().toUpperCase());
+        cTxtEmailCadBibliotecario.setText(cTxtEmailCadBibliotecario.getText().toUpperCase());
     }//GEN-LAST:event_cTxtEmailCadBibliotecarioKeyReleased
 
     /**
@@ -712,7 +754,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaCadBibliotecario().setVisible(true);
-                
+
             }
         });
     }
@@ -721,7 +763,6 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     private javax.swing.JButton btConfirmCadBibliotecario;
     private javax.swing.JButton btLimparCadBibliotecario;
     private javax.swing.JButton btVoltarCadBibliotecario;
-    private javax.swing.JComboBox<String> cListTurnoCadBibliotecario;
     private javax.swing.JComboBox<String> cListUFCadBibliotecario;
     private javax.swing.JTextField cTxtBairroCadBibliotecario;
     private javax.swing.JFormattedTextField cTxtCEPCadBibliotecario;
@@ -738,7 +779,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     private javax.swing.JTextField cTxtRuaCadBibliotecario;
     private javax.swing.JPasswordField cTxtSenhaCadBibliotecario;
     private javax.swing.JFormattedTextField cTxtTelefoneCadBibliotecario;
-    private javax.swing.JTextField cTxtUsuarioCadBibliotecario;
+    private javax.swing.JFormattedTextField cTxtTurnoCadBibliotecario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -753,7 +794,9 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -764,7 +807,6 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     private javax.swing.JLabel lblNFuncCadBibliotecario;
     private javax.swing.JLabel lblNomeCadBibliotecario;
     private javax.swing.JLabel lblTurnoCadBibliotecario;
-    private javax.swing.JLabel lblUsuarioCadBibliotecario;
     private javax.swing.JPanel painelContatoCadBibliotecario;
     private javax.swing.JPanel painelDadosCadBibliotecario;
     private javax.swing.JPanel painelEnderecoCadBibliotecario;

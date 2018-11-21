@@ -11,6 +11,7 @@ public class Endereco  implements java.io.Serializable {
 
      private EnderecoId id;
      private Pessoa pessoa;
+     
      private String lougradouroEndereco;
      private String bairroEndereco;
      private String cidadeEndereco;

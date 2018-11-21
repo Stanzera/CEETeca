@@ -9,6 +9,7 @@ import DAO.Banco;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import getSet.bibliotecarioGetSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -150,6 +151,11 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
 
         btExcluirGerBibliotecario.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btExcluirGerBibliotecario.setText("Excluir");
+        btExcluirGerBibliotecario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirGerBibliotecarioActionPerformed(evt);
+            }
+        });
 
         btEditarGerBibliotecario.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btEditarGerBibliotecario.setText("Editar");
@@ -241,6 +247,13 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
         
          cTxtBuscaGerBibliotecario.setText(cTxtBuscaGerBibliotecario.getText().toUpperCase());
     }//GEN-LAST:event_cTxtBuscaGerBibliotecarioKeyReleased
+
+    private void btExcluirGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerBibliotecarioActionPerformed
+        // TODO add your handling code here:
+        
+        int sim  = JOptionPane.showConfirmDialog(null, "Deseja excluir o usuário?");
+        
+    }//GEN-LAST:event_btExcluirGerBibliotecarioActionPerformed
 
     /**
      * @param args the command line arguments

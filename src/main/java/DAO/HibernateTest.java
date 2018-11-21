@@ -105,10 +105,10 @@ public class HibernateTest {
         Date data = new Date();
         data.setDate(10);
         data.setMonth(8);
-        data.setYear(1992);
+        data.setYear(1992);/*
         data.setHours(18);
         data.setMinutes(0);
-        data.setSeconds(0);
+        data.setSeconds(0);*/
         
         Pessoa pessoa = new Pessoa();
         
