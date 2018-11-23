@@ -106,7 +106,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         jLabel4.setText("Nº Funcional:");
 
         try {
-            cTxtNumFuncionalCadProfessor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#######")));
+            cTxtNumFuncionalCadProfessor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -125,6 +125,11 @@ public class TelaCadProfessor extends javax.swing.JFrame {
 
         cComboBoxTurnoCadProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         cComboBoxTurnoCadProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----------", "Matutino", "Vespertino", "Noturno" }));
+        cComboBoxTurnoCadProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cComboBoxTurnoCadProfessorActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("CPF:");
 
@@ -643,6 +648,10 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         // TODO add your handling code here:
         cTxtEmailCadProfessor.setText(cTxtEmailCadProfessor.getText().toUpperCase());
     }//GEN-LAST:event_cTxtEmailCadProfessorKeyReleased
+
+    private void cComboBoxTurnoCadProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cComboBoxTurnoCadProfessorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cComboBoxTurnoCadProfessorActionPerformed
 
     public void Limpar() {
 

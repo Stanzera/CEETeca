@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,10 +11,8 @@ import java.util.Set;
 public class Curso  implements java.io.Serializable {
 
 
-     private int codigoCurso;
+     private int idCurso;
      private String descricaoCurso;
-     private char turnoCurso;
-     private String moduloCurso;
      private Set professorHasCursos = new HashSet(0);
      private Set turnos = new HashSet(0);
 
@@ -22,27 +20,23 @@ public class Curso  implements java.io.Serializable {
     }
 
 	
-    public Curso(int codigoCurso, String descricaoCurso, char turnoCurso, String moduloCurso) {
-        this.codigoCurso = codigoCurso;
+    public Curso(int idCurso, String descricaoCurso) {
+        this.idCurso = idCurso;
         this.descricaoCurso = descricaoCurso;
-        this.turnoCurso = turnoCurso;
-        this.moduloCurso = moduloCurso;
     }
-    public Curso(int codigoCurso, String descricaoCurso, char turnoCurso, String moduloCurso, Set professorHasCursos, Set turnos) {
-       this.codigoCurso = codigoCurso;
+    public Curso(int idCurso, String descricaoCurso, Set professorHasCursos, Set turnos) {
+       this.idCurso = idCurso;
        this.descricaoCurso = descricaoCurso;
-       this.turnoCurso = turnoCurso;
-       this.moduloCurso = moduloCurso;
        this.professorHasCursos = professorHasCursos;
        this.turnos = turnos;
     }
    
-    public int getCodigoCurso() {
-        return this.codigoCurso;
+    public int getIdCurso() {
+        return this.idCurso;
     }
     
-    public void setCodigoCurso(int codigoCurso) {
-        this.codigoCurso = codigoCurso;
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
     public String getDescricaoCurso() {
         return this.descricaoCurso;
@@ -50,20 +44,6 @@ public class Curso  implements java.io.Serializable {
     
     public void setDescricaoCurso(String descricaoCurso) {
         this.descricaoCurso = descricaoCurso;
-    }
-    public char getTurnoCurso() {
-        return this.turnoCurso;
-    }
-    
-    public void setTurnoCurso(char turnoCurso) {
-        this.turnoCurso = turnoCurso;
-    }
-    public String getModuloCurso() {
-        return this.moduloCurso;
-    }
-    
-    public void setModuloCurso(String moduloCurso) {
-        this.moduloCurso = moduloCurso;
     }
     public Set getProfessorHasCursos() {
         return this.professorHasCursos;

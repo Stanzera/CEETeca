@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 
@@ -9,9 +9,9 @@ package models;
 public class Endereco  implements java.io.Serializable {
 
 
-     private EnderecoId id;
+     private int idEndereco;
      private Pessoa pessoa;
-     
+     private String cep;
      private String lougradouroEndereco;
      private String bairroEndereco;
      private String cidadeEndereco;
@@ -22,9 +22,10 @@ public class Endereco  implements java.io.Serializable {
     public Endereco() {
     }
 
-    public Endereco(EnderecoId id, Pessoa pessoa, String lougradouroEndereco, String bairroEndereco, String cidadeEndereco, String estadoEndereco, int numeroEndereco, String complementoEndereco) {
-       this.id = id;
+    public Endereco(int idEndereco, Pessoa pessoa, String cep, String lougradouroEndereco, String bairroEndereco, String cidadeEndereco, String estadoEndereco, int numeroEndereco, String complementoEndereco) {
+       this.idEndereco = idEndereco;
        this.pessoa = pessoa;
+       this.cep = cep;
        this.lougradouroEndereco = lougradouroEndereco;
        this.bairroEndereco = bairroEndereco;
        this.cidadeEndereco = cidadeEndereco;
@@ -33,12 +34,12 @@ public class Endereco  implements java.io.Serializable {
        this.complementoEndereco = complementoEndereco;
     }
    
-    public EnderecoId getId() {
-        return this.id;
+    public int getIdEndereco() {
+        return this.idEndereco;
     }
     
-    public void setId(EnderecoId id) {
-        this.id = id;
+    public void setIdEndereco(int idEndereco) {
+        this.idEndereco = idEndereco;
     }
     public Pessoa getPessoa() {
         return this.pessoa;
@@ -46,6 +47,13 @@ public class Endereco  implements java.io.Serializable {
     
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+    public String getCep() {
+        return this.cep;
+    }
+    
+    public void setCep(String cep) {
+        this.cep = cep;
     }
     public String getLougradouroEndereco() {
         return this.lougradouroEndereco;

@@ -40,20 +40,20 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="CEETECA"/>
-  <table-filter match-name="endereco"/>
-  <table-filter match-name="advertencia"/>
-  <table-filter match-name="professor"/>
-  <table-filter match-name="bibliotecaria"/>
-  <table-filter match-name="livro_has_emprestimo"/>
-  <table-filter match-name="modulo"/>
-  <table-filter match-name="curso"/>
+  <schema-selection match-catalog="der"/>
   <table-filter match-name="turno"/>
-  <table-filter match-name="livro"/>
-  <table-filter match-name="emprestimo"/>
-  <table-filter match-name="professor_has_curso"/>
-  <table-filter match-name="aluno"/>
-  <table-filter match-name="pessoa"/>
-  <table-filter match-name="exemplar"/>
   <table-filter match-name="contato"/>
+  <table-filter match-name="professor_has_curso"/>
+  <table-filter match-name="livro"/>
+  <table-filter match-name="modulo"/>
+  <table-filter match-name="aluno"/>
+  <table-filter match-name="emprestimo"/>
+  <table-filter match-name="advertencia"/>
+  <table-filter match-name="pessoa"/>
+  <table-filter match-name="endereco"/>
+  <table-filter match-name="exemplar"/>
+  <table-filter match-name="livro_has_emprestimo"/>
+  <table-filter match-name="bibliotecaria"/>
+  <table-filter match-name="curso"/>
+  <table-filter match-name="professor"/>
 </hibernate-reverse-engineering>

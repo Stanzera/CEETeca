@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 
@@ -9,25 +9,25 @@ package models;
 public class Aluno  implements java.io.Serializable {
 
 
-     private AlunoId id;
+     private int idAluno;
      private Modulo modulo;
      private Pessoa pessoa;
 
     public Aluno() {
     }
 
-    public Aluno(AlunoId id, Modulo modulo, Pessoa pessoa) {
-       this.id = id;
+    public Aluno(int idAluno, Modulo modulo, Pessoa pessoa) {
+       this.idAluno = idAluno;
        this.modulo = modulo;
        this.pessoa = pessoa;
     }
    
-    public AlunoId getId() {
-        return this.id;
+    public int getIdAluno() {
+        return this.idAluno;
     }
     
-    public void setId(AlunoId id) {
-        this.id = id;
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
     }
     public Modulo getModulo() {
         return this.modulo;

@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 
@@ -9,25 +9,25 @@ package models;
 public class ProfessorHasCurso  implements java.io.Serializable {
 
 
-     private int codigoProfessorHasCurso;
+     private int idProfessorHasCurso;
      private Curso curso;
      private Professor professor;
 
     public ProfessorHasCurso() {
     }
 
-    public ProfessorHasCurso(int codigoProfessorHasCurso, Curso curso, Professor professor) {
-       this.codigoProfessorHasCurso = codigoProfessorHasCurso;
+    public ProfessorHasCurso(int idProfessorHasCurso, Curso curso, Professor professor) {
+       this.idProfessorHasCurso = idProfessorHasCurso;
        this.curso = curso;
        this.professor = professor;
     }
    
-    public int getCodigoProfessorHasCurso() {
-        return this.codigoProfessorHasCurso;
+    public int getIdProfessorHasCurso() {
+        return this.idProfessorHasCurso;
     }
     
-    public void setCodigoProfessorHasCurso(int codigoProfessorHasCurso) {
-        this.codigoProfessorHasCurso = codigoProfessorHasCurso;
+    public void setIdProfessorHasCurso(int idProfessorHasCurso) {
+        this.idProfessorHasCurso = idProfessorHasCurso;
     }
     public Curso getCurso() {
         return this.curso;

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Exemplar" table="exemplar" catalog="ceeteca" optimistic-lock="version">
+        <id name="idExemplar" type="int">
+            <column name="idExemplar" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="livro" class="models.Livro" fetch="select">
+            <column name="livro_idLivro" not-null="true" />
+        </many-to-one>
+        <property name="quantidadeExemplar" type="int">
+            <column name="quantidadeExemplar" not-null="true" />
+        </property>
+        <set name="livroHasEmprestimos" table="livro_has_emprestimo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="exemplar_idExemplar" not-null="true" />
+            </key>
+            <one-to-many class="models.LivroHasEmprestimo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -9,12 +9,7 @@ package DAO;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
-import models.Aluno;
-import models.AlunoId;
-import models.Curso;
-import models.Modulo;
-import models.Pessoa;
-import models.Turno;
+import models.*;
 import org.hibernate.Session;
 
 /**
@@ -46,44 +41,47 @@ public class HibernateTest {
         
         //Cria uma nova pessoa
         Pessoa pessoa = new Pessoa();
+        Date data = new Date();
+        data.setDate(10);
+        data.setMonth(8);
+        data.setYear(1992);/*
+        data.setHours(18);
+        data.setMinutes(0);
+        data.setSeconds(0);*/
+        
+        pessoa.setNomePessoa("Waldiskleyson");
+        pessoa.setMatriculaPessoa("1234567890");
+        pessoa.setCpfPessoa("12345678910");
+        pessoa.setTipo('a');
+        pessoa.setDtnascimento(data);
         
         //Busca a lista de pessoa para pegar um usuário
         for (int i = 0; i < pessoas.size(); i++) {
             pessoa = pessoas.get(i);
-            if(pessoa.getCodigoPessoa() == 0){
+            if(pessoa.getIdPessoa()== 0){
                 break;
             }
         }
         
         //Criação de um curso
-        Curso curso = new Curso(8, "Necromancia", 'V', "loucura");
+        Curso curso = new Curso(0,"Necromancia");
         
         //Criação de um turno
         Turno turno = new Turno(12, curso, 'V');
         
         //Criação de um módulo
         Modulo modulo = new Modulo();
-        modulo.setCodigoModulo(1234567890);
-        modulo.setDescricaoModulo("XCI");
+        modulo.setDescricaoModulo("XI");
         modulo.setTurno(turno);
-        
-        //Cria um aluno ID pois é uma chave composta
-        AlunoId alunoId = new AlunoId("1234567890", pessoa.getCodigoPessoa());
-        
         //Cria um novo aluno
         Aluno aluno = new Aluno();
-        aluno.setId(alunoId);
+        aluno.setIdAluno(0);
         aluno.setPessoa(pessoa);
         aluno.setModulo(modulo);
         
         //Salva o objeto na sessão
-        //actualSession.save(pessoa);
+        actualSession.save(pessoa);
         actualSession.save(curso);
-        //Confirma a operação do banco
-        actualSession.getTransaction().commit();
-        
-        //Começa uma nova transição
-        actualSession.beginTransaction();
         actualSession.save(turno);
         actualSession.save(modulo);
         actualSession.save(aluno);
@@ -112,8 +110,8 @@ public class HibernateTest {
         
         Pessoa pessoa = new Pessoa();
         
-        pessoa.setNomePessoa("");
-        pessoa.setCpfPessoa("123654799");
+        pessoa.setNomePessoa("Waldiskleyson");
+        pessoa.setCpfPessoa("12345678910");
         pessoa.setTipo('a');
         pessoa.setDtnascimento(data);
         

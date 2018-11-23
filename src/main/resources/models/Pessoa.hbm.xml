@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Pessoa" table="pessoa" catalog="ceeteca" optimistic-lock="version">
+        <id name="idPessoa" type="int">
+            <column name="idPessoa" />
+            <generator class="increment" />
+        </id>
+        <property name="matriculaPessoa" type="string">
+            <column name="matriculaPessoa" length="10" not-null="true" />
+        </property>
+        <property name="nomePessoa" type="string">
+            <column name="nomePessoa" length="100" not-null="true" />
+        </property>
+        <property name="dtnascimento" type="date">
+            <column name="dtnascimento" length="10" not-null="true" />
+        </property>
+        <property name="cpfPessoa" type="string">
+            <column name="cpfPessoa" length="15" not-null="true" />
+        </property>
+        <property name="tipo" type="char">
+            <column name="tipo" length="1" not-null="true" />
+        </property>
+        <set name="contatos" table="contato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idPessoa" not-null="true" />
+            </key>
+            <one-to-many class="models.Contato" />
+        </set>
+        <set name="emprestimos" table="emprestimo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idPessoa" not-null="true" />
+            </key>
+            <one-to-many class="models.Emprestimo" />
+        </set>
+        <set name="bibliotecarias" table="bibliotecaria" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idPessoa" not-null="true" />
+            </key>
+            <one-to-many class="models.Bibliotecaria" />
+        </set>
+        <set name="professors" table="professor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idPessoa" not-null="true" />
+            </key>
+            <one-to-many class="models.Professor" />
+        </set>
+        <set name="alunos" table="aluno" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idPessoa" not-null="true" />
+            </key>
+            <one-to-many class="models.Aluno" />
+        </set>
+        <set name="enderecos" table="endereco" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pessoa_idPessoa" not-null="true" />
+            </key>
+            <one-to-many class="models.Endereco" />
+        </set>
+    </class>
+</hibernate-mapping>

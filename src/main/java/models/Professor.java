@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class Professor  implements java.io.Serializable {
 
 
-     private String numeroFuncionalProfessor;
+     private int idProfessor;
      private Pessoa pessoa;
      private Set professorHasCursos = new HashSet(0);
 
@@ -19,22 +19,22 @@ public class Professor  implements java.io.Serializable {
     }
 
 	
-    public Professor(String numeroFuncionalProfessor, Pessoa pessoa) {
-        this.numeroFuncionalProfessor = numeroFuncionalProfessor;
+    public Professor(int idProfessor, Pessoa pessoa) {
+        this.idProfessor = idProfessor;
         this.pessoa = pessoa;
     }
-    public Professor(String numeroFuncionalProfessor, Pessoa pessoa, Set professorHasCursos) {
-       this.numeroFuncionalProfessor = numeroFuncionalProfessor;
+    public Professor(int idProfessor, Pessoa pessoa, Set professorHasCursos) {
+       this.idProfessor = idProfessor;
        this.pessoa = pessoa;
        this.professorHasCursos = professorHasCursos;
     }
    
-    public String getNumeroFuncionalProfessor() {
-        return this.numeroFuncionalProfessor;
+    public int getIdProfessor() {
+        return this.idProfessor;
     }
     
-    public void setNumeroFuncionalProfessor(String numeroFuncionalProfessor) {
-        this.numeroFuncionalProfessor = numeroFuncionalProfessor;
+    public void setIdProfessor(int idProfessor) {
+        this.idProfessor = idProfessor;
     }
     public Pessoa getPessoa() {
         return this.pessoa;

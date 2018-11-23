@@ -24,6 +24,7 @@ public class livroGetSet {
     private String anoPublicacao;
     private String numPaginas;
     private String qtdExemplar;
+    private String qtdLivro;
     private String numChamada;
 
     public String getNumChamada() {
@@ -136,6 +137,14 @@ public class livroGetSet {
 
     public void setQtdExemplar(String qtdExemplar) {
         this.qtdExemplar = qtdExemplar;
+    }
+
+    public String getQtdLivro() {
+        return qtdLivro;
+    }
+
+    public void setQtdLivro(String qtdLivro) {
+        this.qtdLivro = qtdLivro;
     }
 
 }

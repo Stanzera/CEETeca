@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.Date;
 public class Advertencia  implements java.io.Serializable {
 
 
-     private int codigoAdvertencia;
+     private int idAdvertencia;
      private LivroHasEmprestimo livroHasEmprestimo;
      private String descricaoAdvertencia;
      private Date dtAdvertencia;
@@ -18,19 +18,19 @@ public class Advertencia  implements java.io.Serializable {
     public Advertencia() {
     }
 
-    public Advertencia(int codigoAdvertencia, LivroHasEmprestimo livroHasEmprestimo, String descricaoAdvertencia, Date dtAdvertencia) {
-       this.codigoAdvertencia = codigoAdvertencia;
+    public Advertencia(int idAdvertencia, LivroHasEmprestimo livroHasEmprestimo, String descricaoAdvertencia, Date dtAdvertencia) {
+       this.idAdvertencia = idAdvertencia;
        this.livroHasEmprestimo = livroHasEmprestimo;
        this.descricaoAdvertencia = descricaoAdvertencia;
        this.dtAdvertencia = dtAdvertencia;
     }
    
-    public int getCodigoAdvertencia() {
-        return this.codigoAdvertencia;
+    public int getIdAdvertencia() {
+        return this.idAdvertencia;
     }
     
-    public void setCodigoAdvertencia(int codigoAdvertencia) {
-        this.codigoAdvertencia = codigoAdvertencia;
+    public void setIdAdvertencia(int idAdvertencia) {
+        this.idAdvertencia = idAdvertencia;
     }
     public LivroHasEmprestimo getLivroHasEmprestimo() {
         return this.livroHasEmprestimo;

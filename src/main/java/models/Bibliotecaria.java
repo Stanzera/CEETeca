@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 
@@ -9,25 +9,27 @@ package models;
 public class Bibliotecaria  implements java.io.Serializable {
 
 
-     private BibliotecariaId id;
+     private int idBibliotecaria;
      private Pessoa pessoa;
+     private String usuarioBibliotecaria;
      private String senhaBibliotecaria;
 
     public Bibliotecaria() {
     }
 
-    public Bibliotecaria(BibliotecariaId id, Pessoa pessoa, String senhaBibliotecaria) {
-       this.id = id;
+    public Bibliotecaria(int idBibliotecaria, Pessoa pessoa, String usuarioBibliotecaria, String senhaBibliotecaria) {
+       this.idBibliotecaria = idBibliotecaria;
        this.pessoa = pessoa;
+       this.usuarioBibliotecaria = usuarioBibliotecaria;
        this.senhaBibliotecaria = senhaBibliotecaria;
     }
    
-    public BibliotecariaId getId() {
-        return this.id;
+    public int getIdBibliotecaria() {
+        return this.idBibliotecaria;
     }
     
-    public void setId(BibliotecariaId id) {
-        this.id = id;
+    public void setIdBibliotecaria(int idBibliotecaria) {
+        this.idBibliotecaria = idBibliotecaria;
     }
     public Pessoa getPessoa() {
         return this.pessoa;
@@ -35,6 +37,13 @@ public class Bibliotecaria  implements java.io.Serializable {
     
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+    public String getUsuarioBibliotecaria() {
+        return this.usuarioBibliotecaria;
+    }
+    
+    public void setUsuarioBibliotecaria(String usuarioBibliotecaria) {
+        this.usuarioBibliotecaria = usuarioBibliotecaria;
     }
     public String getSenhaBibliotecaria() {
         return this.senhaBibliotecaria;

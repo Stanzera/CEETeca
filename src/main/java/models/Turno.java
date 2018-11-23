@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class Turno  implements java.io.Serializable {
 
 
-     private int codigoTurno;
+     private int idTurno;
      private Curso curso;
      private char descricaoTurno;
      private Set modulos = new HashSet(0);
@@ -20,24 +20,24 @@ public class Turno  implements java.io.Serializable {
     }
 
 	
-    public Turno(int codigoTurno, Curso curso, char descricaoTurno) {
-        this.codigoTurno = codigoTurno;
+    public Turno(int idTurno, Curso curso, char descricaoTurno) {
+        this.idTurno = idTurno;
         this.curso = curso;
         this.descricaoTurno = descricaoTurno;
     }
-    public Turno(int codigoTurno, Curso curso, char descricaoTurno, Set modulos) {
-       this.codigoTurno = codigoTurno;
+    public Turno(int idTurno, Curso curso, char descricaoTurno, Set modulos) {
+       this.idTurno = idTurno;
        this.curso = curso;
        this.descricaoTurno = descricaoTurno;
        this.modulos = modulos;
     }
    
-    public int getCodigoTurno() {
-        return this.codigoTurno;
+    public int getIdTurno() {
+        return this.idTurno;
     }
     
-    public void setCodigoTurno(int codigoTurno) {
-        this.codigoTurno = codigoTurno;
+    public void setIdTurno(int idTurno) {
+        this.idTurno = idTurno;
     }
     public Curso getCurso() {
         return this.curso;

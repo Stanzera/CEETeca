@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,6 +11,7 @@ import java.util.Set;
 public class Livro  implements java.io.Serializable {
 
 
+     private int idLivro;
      private int cddLivro;
      private String tituloLivro;
      private String subTituloLivro;
@@ -29,7 +30,8 @@ public class Livro  implements java.io.Serializable {
     }
 
 	
-    public Livro(int cddLivro, String tituloLivro, String subTituloLivro, String autorLivro, String editoraLivro, String edicaoLivro, int serieLivro, String anoLivro, int paginas, String assunto, String isbn, String idioma) {
+    public Livro(int idLivro, int cddLivro, String tituloLivro, String subTituloLivro, String autorLivro, String editoraLivro, String edicaoLivro, int serieLivro, String anoLivro, int paginas, String assunto, String isbn, String idioma) {
+        this.idLivro = idLivro;
         this.cddLivro = cddLivro;
         this.tituloLivro = tituloLivro;
         this.subTituloLivro = subTituloLivro;
@@ -43,7 +45,8 @@ public class Livro  implements java.io.Serializable {
         this.isbn = isbn;
         this.idioma = idioma;
     }
-    public Livro(int cddLivro, String tituloLivro, String subTituloLivro, String autorLivro, String editoraLivro, String edicaoLivro, int serieLivro, String anoLivro, int paginas, String assunto, String isbn, String idioma, Set exemplars) {
+    public Livro(int idLivro, int cddLivro, String tituloLivro, String subTituloLivro, String autorLivro, String editoraLivro, String edicaoLivro, int serieLivro, String anoLivro, int paginas, String assunto, String isbn, String idioma, Set exemplars) {
+       this.idLivro = idLivro;
        this.cddLivro = cddLivro;
        this.tituloLivro = tituloLivro;
        this.subTituloLivro = subTituloLivro;
@@ -59,6 +62,13 @@ public class Livro  implements java.io.Serializable {
        this.exemplars = exemplars;
     }
    
+    public int getIdLivro() {
+        return this.idLivro;
+    }
+    
+    public void setIdLivro(int idLivro) {
+        this.idLivro = idLivro;
+    }
     public int getCddLivro() {
         return this.cddLivro;
     }

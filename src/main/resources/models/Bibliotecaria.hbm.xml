@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Bibliotecaria" table="bibliotecaria" catalog="ceeteca" optimistic-lock="version">
+        <id name="idBibliotecaria" type="int">
+            <column name="idBibliotecaria" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="pessoa" class="models.Pessoa" fetch="select">
+            <column name="pessoa_idPessoa" not-null="true" />
+        </many-to-one>
+        <property name="usuarioBibliotecaria" type="string">
+            <column name="UsuarioBibliotecaria" length="20" not-null="true" />
+        </property>
+        <property name="senhaBibliotecaria" type="string">
+            <column name="senhaBibliotecaria" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

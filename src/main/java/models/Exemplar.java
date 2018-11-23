@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,30 +11,33 @@ import java.util.Set;
 public class Exemplar  implements java.io.Serializable {
 
 
-     private String codigoExemplar;
+     private int idExemplar;
      private Livro livro;
+     private int quantidadeExemplar;
      private Set livroHasEmprestimos = new HashSet(0);
 
     public Exemplar() {
     }
 
 	
-    public Exemplar(String codigoExemplar, Livro livro) {
-        this.codigoExemplar = codigoExemplar;
+    public Exemplar(int idExemplar, Livro livro, int quantidadeExemplar) {
+        this.idExemplar = idExemplar;
         this.livro = livro;
+        this.quantidadeExemplar = quantidadeExemplar;
     }
-    public Exemplar(String codigoExemplar, Livro livro, Set livroHasEmprestimos) {
-       this.codigoExemplar = codigoExemplar;
+    public Exemplar(int idExemplar, Livro livro, int quantidadeExemplar, Set livroHasEmprestimos) {
+       this.idExemplar = idExemplar;
        this.livro = livro;
+       this.quantidadeExemplar = quantidadeExemplar;
        this.livroHasEmprestimos = livroHasEmprestimos;
     }
    
-    public String getCodigoExemplar() {
-        return this.codigoExemplar;
+    public int getIdExemplar() {
+        return this.idExemplar;
     }
     
-    public void setCodigoExemplar(String codigoExemplar) {
-        this.codigoExemplar = codigoExemplar;
+    public void setIdExemplar(int idExemplar) {
+        this.idExemplar = idExemplar;
     }
     public Livro getLivro() {
         return this.livro;
@@ -42,6 +45,13 @@ public class Exemplar  implements java.io.Serializable {
     
     public void setLivro(Livro livro) {
         this.livro = livro;
+    }
+    public int getQuantidadeExemplar() {
+        return this.quantidadeExemplar;
+    }
+    
+    public void setQuantidadeExemplar(int quantidadeExemplar) {
+        this.quantidadeExemplar = quantidadeExemplar;
     }
     public Set getLivroHasEmprestimos() {
         return this.livroHasEmprestimos;

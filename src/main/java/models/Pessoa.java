@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,12 +12,13 @@ import java.util.Set;
 public class Pessoa  implements java.io.Serializable {
 
 
-     private int codigoPessoa;
+     private int idPessoa;
+     private String matriculaPessoa;
      private String nomePessoa;
      private Date dtnascimento;
      private String cpfPessoa;
      private char tipo;
-     private Contato contato;
+     private Set contatos = new HashSet(0);
      private Set emprestimos = new HashSet(0);
      private Set bibliotecarias = new HashSet(0);
      private Set professors = new HashSet(0);
@@ -28,20 +29,22 @@ public class Pessoa  implements java.io.Serializable {
     }
 
 	
-    public Pessoa(int codigoPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa, char tipo) {
-        this.codigoPessoa = codigoPessoa;
+    public Pessoa(int idPessoa, String matriculaPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa, char tipo) {
+        this.idPessoa = idPessoa;
+        this.matriculaPessoa = matriculaPessoa;
         this.nomePessoa = nomePessoa;
         this.dtnascimento = dtnascimento;
         this.cpfPessoa = cpfPessoa;
         this.tipo = tipo;
     }
-    public Pessoa(int codigoPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa, char tipo, Contato contato, Set emprestimos, Set bibliotecarias, Set professors, Set alunos, Set enderecos) {
-       this.codigoPessoa = codigoPessoa;
+    public Pessoa(int idPessoa, String matriculaPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa, char tipo, Set contatos, Set emprestimos, Set bibliotecarias, Set professors, Set alunos, Set enderecos) {
+       this.idPessoa = idPessoa;
+       this.matriculaPessoa = matriculaPessoa;
        this.nomePessoa = nomePessoa;
        this.dtnascimento = dtnascimento;
        this.cpfPessoa = cpfPessoa;
        this.tipo = tipo;
-       this.contato = contato;
+       this.contatos = contatos;
        this.emprestimos = emprestimos;
        this.bibliotecarias = bibliotecarias;
        this.professors = professors;
@@ -49,12 +52,19 @@ public class Pessoa  implements java.io.Serializable {
        this.enderecos = enderecos;
     }
    
-    public int getCodigoPessoa() {
-        return this.codigoPessoa;
+    public int getIdPessoa() {
+        return this.idPessoa;
     }
     
-    public void setCodigoPessoa(int codigoPessoa) {
-        this.codigoPessoa = codigoPessoa;
+    public void setIdPessoa(int idPessoa) {
+        this.idPessoa = idPessoa;
+    }
+    public String getMatriculaPessoa() {
+        return this.matriculaPessoa;
+    }
+    
+    public void setMatriculaPessoa(String matriculaPessoa) {
+        this.matriculaPessoa = matriculaPessoa;
     }
     public String getNomePessoa() {
         return this.nomePessoa;
@@ -84,12 +94,12 @@ public class Pessoa  implements java.io.Serializable {
     public void setTipo(char tipo) {
         this.tipo = tipo;
     }
-    public Contato getContato() {
-        return this.contato;
+    public Set getContatos() {
+        return this.contatos;
     }
     
-    public void setContato(Contato contato) {
-        this.contato = contato;
+    public void setContatos(Set contatos) {
+        this.contatos = contatos;
     }
     public Set getEmprestimos() {
         return this.emprestimos;

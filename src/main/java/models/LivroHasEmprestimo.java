@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class LivroHasEmprestimo  implements java.io.Serializable {
 
 
-     private int codigoLivroEmprestimo;
+     private int idLivroEmprestimo;
      private Emprestimo emprestimo;
      private Exemplar exemplar;
      private Set advertencias = new HashSet(0);
@@ -20,24 +20,24 @@ public class LivroHasEmprestimo  implements java.io.Serializable {
     }
 
 	
-    public LivroHasEmprestimo(int codigoLivroEmprestimo, Emprestimo emprestimo, Exemplar exemplar) {
-        this.codigoLivroEmprestimo = codigoLivroEmprestimo;
+    public LivroHasEmprestimo(int idLivroEmprestimo, Emprestimo emprestimo, Exemplar exemplar) {
+        this.idLivroEmprestimo = idLivroEmprestimo;
         this.emprestimo = emprestimo;
         this.exemplar = exemplar;
     }
-    public LivroHasEmprestimo(int codigoLivroEmprestimo, Emprestimo emprestimo, Exemplar exemplar, Set advertencias) {
-       this.codigoLivroEmprestimo = codigoLivroEmprestimo;
+    public LivroHasEmprestimo(int idLivroEmprestimo, Emprestimo emprestimo, Exemplar exemplar, Set advertencias) {
+       this.idLivroEmprestimo = idLivroEmprestimo;
        this.emprestimo = emprestimo;
        this.exemplar = exemplar;
        this.advertencias = advertencias;
     }
    
-    public int getCodigoLivroEmprestimo() {
-        return this.codigoLivroEmprestimo;
+    public int getIdLivroEmprestimo() {
+        return this.idLivroEmprestimo;
     }
     
-    public void setCodigoLivroEmprestimo(int codigoLivroEmprestimo) {
-        this.codigoLivroEmprestimo = codigoLivroEmprestimo;
+    public void setIdLivroEmprestimo(int idLivroEmprestimo) {
+        this.idLivroEmprestimo = idLivroEmprestimo;
     }
     public Emprestimo getEmprestimo() {
         return this.emprestimo;

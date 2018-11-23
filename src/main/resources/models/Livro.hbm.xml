@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Livro" table="livro" catalog="ceeteca" optimistic-lock="version">
+        <id name="idLivro" type="int">
+            <column name="idLivro" />
+            <generator class="increment" />
+        </id>
+        <property name="cddLivro" type="int">
+            <column name="cddLivro" not-null="true" />
+        </property>
+        <property name="tituloLivro" type="string">
+            <column name="tituloLivro" length="45" not-null="true" />
+        </property>
+        <property name="subTituloLivro" type="string">
+            <column name="subTituloLivro" length="45" not-null="true" />
+        </property>
+        <property name="autorLivro" type="string">
+            <column name="autorLivro" length="45" not-null="true" />
+        </property>
+        <property name="editoraLivro" type="string">
+            <column name="editoraLivro" length="45" not-null="true" />
+        </property>
+        <property name="edicaoLivro" type="string">
+            <column name="edicaoLivro" length="15" not-null="true" />
+        </property>
+        <property name="serieLivro" type="int">
+            <column name="serieLivro" not-null="true" />
+        </property>
+        <property name="anoLivro" type="string">
+            <column name="anoLivro" length="4" not-null="true" />
+        </property>
+        <property name="paginas" type="int">
+            <column name="paginas" not-null="true" />
+        </property>
+        <property name="assunto" type="string">
+            <column name="assunto" length="45" not-null="true" />
+        </property>
+        <property name="isbn" type="string">
+            <column name="isbn" length="15" not-null="true" />
+        </property>
+        <property name="idioma" type="string">
+            <column name="idioma" length="30" not-null="true" />
+        </property>
+        <set name="exemplars" table="exemplar" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="livro_idLivro" not-null="true" />
+            </key>
+            <one-to-many class="models.Exemplar" />
+        </set>
+    </class>
+</hibernate-mapping>

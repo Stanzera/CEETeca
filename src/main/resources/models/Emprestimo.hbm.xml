@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Emprestimo" table="emprestimo" catalog="ceeteca" optimistic-lock="version">
+        <id name="idEmprestimo" type="int">
+            <column name="idEmprestimo" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="pessoa" class="models.Pessoa" fetch="select">
+            <column name="pessoa_idPessoa" not-null="true" />
+        </many-to-one>
+        <property name="quantidadeLivroEmprestimo" type="int">
+            <column name="quantidadeLivroEmprestimo" not-null="true" />
+        </property>
+        <property name="dtSaidaEmprestimo" type="date">
+            <column name="dtSaidaEmprestimo" length="10" not-null="true" />
+        </property>
+        <property name="dtDevolucaoEmprestimo" type="date">
+            <column name="dtDevolucaoEmprestimo" length="10" not-null="true" />
+        </property>
+        <property name="observacaoEmprestimo" type="string">
+            <column name="observacaoEmprestimo" length="100" not-null="true" />
+        </property>
+        <set name="livroHasEmprestimos" table="livro_has_emprestimo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="emprestimo_idEmprestimo" not-null="true" />
+            </key>
+            <one-to-many class="models.LivroHasEmprestimo" />
+        </set>
+    </class>
+</hibernate-mapping>

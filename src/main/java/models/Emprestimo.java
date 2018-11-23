@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,39 +12,42 @@ import java.util.Set;
 public class Emprestimo  implements java.io.Serializable {
 
 
-     private int codigoEmprestimo;
+     private int idEmprestimo;
      private Pessoa pessoa;
      private int quantidadeLivroEmprestimo;
      private Date dtSaidaEmprestimo;
      private Date dtDevolucaoEmprestimo;
+     private String observacaoEmprestimo;
      private Set livroHasEmprestimos = new HashSet(0);
 
     public Emprestimo() {
     }
 
 	
-    public Emprestimo(int codigoEmprestimo, Pessoa pessoa, int quantidadeLivroEmprestimo, Date dtSaidaEmprestimo, Date dtDevolucaoEmprestimo) {
-        this.codigoEmprestimo = codigoEmprestimo;
+    public Emprestimo(int idEmprestimo, Pessoa pessoa, int quantidadeLivroEmprestimo, Date dtSaidaEmprestimo, Date dtDevolucaoEmprestimo, String observacaoEmprestimo) {
+        this.idEmprestimo = idEmprestimo;
         this.pessoa = pessoa;
         this.quantidadeLivroEmprestimo = quantidadeLivroEmprestimo;
         this.dtSaidaEmprestimo = dtSaidaEmprestimo;
         this.dtDevolucaoEmprestimo = dtDevolucaoEmprestimo;
+        this.observacaoEmprestimo = observacaoEmprestimo;
     }
-    public Emprestimo(int codigoEmprestimo, Pessoa pessoa, int quantidadeLivroEmprestimo, Date dtSaidaEmprestimo, Date dtDevolucaoEmprestimo, Set livroHasEmprestimos) {
-       this.codigoEmprestimo = codigoEmprestimo;
+    public Emprestimo(int idEmprestimo, Pessoa pessoa, int quantidadeLivroEmprestimo, Date dtSaidaEmprestimo, Date dtDevolucaoEmprestimo, String observacaoEmprestimo, Set livroHasEmprestimos) {
+       this.idEmprestimo = idEmprestimo;
        this.pessoa = pessoa;
        this.quantidadeLivroEmprestimo = quantidadeLivroEmprestimo;
        this.dtSaidaEmprestimo = dtSaidaEmprestimo;
        this.dtDevolucaoEmprestimo = dtDevolucaoEmprestimo;
+       this.observacaoEmprestimo = observacaoEmprestimo;
        this.livroHasEmprestimos = livroHasEmprestimos;
     }
    
-    public int getCodigoEmprestimo() {
-        return this.codigoEmprestimo;
+    public int getIdEmprestimo() {
+        return this.idEmprestimo;
     }
     
-    public void setCodigoEmprestimo(int codigoEmprestimo) {
-        this.codigoEmprestimo = codigoEmprestimo;
+    public void setIdEmprestimo(int idEmprestimo) {
+        this.idEmprestimo = idEmprestimo;
     }
     public Pessoa getPessoa() {
         return this.pessoa;
@@ -73,6 +76,13 @@ public class Emprestimo  implements java.io.Serializable {
     
     public void setDtDevolucaoEmprestimo(Date dtDevolucaoEmprestimo) {
         this.dtDevolucaoEmprestimo = dtDevolucaoEmprestimo;
+    }
+    public String getObservacaoEmprestimo() {
+        return this.observacaoEmprestimo;
+    }
+    
+    public void setObservacaoEmprestimo(String observacaoEmprestimo) {
+        this.observacaoEmprestimo = observacaoEmprestimo;
     }
     public Set getLivroHasEmprestimos() {
         return this.livroHasEmprestimos;

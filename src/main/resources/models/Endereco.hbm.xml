@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Endereco" table="endereco" catalog="ceeteca" optimistic-lock="version">
+        <id name="idEndereco" type="int">
+            <column name="idEndereco" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="pessoa" class="models.Pessoa" fetch="select">
+            <column name="pessoa_idPessoa" not-null="true" />
+        </many-to-one>
+        <property name="cep" type="string">
+            <column name="cep" length="11" not-null="true" />
+        </property>
+        <property name="lougradouroEndereco" type="string">
+            <column name="lougradouroEndereco" length="65" not-null="true" />
+        </property>
+        <property name="bairroEndereco" type="string">
+            <column name="bairroEndereco" length="45" not-null="true" />
+        </property>
+        <property name="cidadeEndereco" type="string">
+            <column name="cidadeEndereco" length="45" not-null="true" />
+        </property>
+        <property name="estadoEndereco" type="string">
+            <column name="estadoEndereco" length="30" not-null="true" />
+        </property>
+        <property name="numeroEndereco" type="int">
+            <column name="numeroEndereco" not-null="true" />
+        </property>
+        <property name="complementoEndereco" type="string">
+            <column name="complementoEndereco" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

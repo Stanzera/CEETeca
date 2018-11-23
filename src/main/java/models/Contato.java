@@ -1,5 +1,5 @@
 package models;
-// Generated 20/11/2018 13:58:57 by Hibernate Tools 4.3.1
+// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
 
 
 
@@ -9,7 +9,7 @@ package models;
 public class Contato  implements java.io.Serializable {
 
 
-     private int pessoaCodigoPessoa;
+     private int idContato;
      private Pessoa pessoa;
      private String emailContato;
      private String telefoneContato;
@@ -19,24 +19,26 @@ public class Contato  implements java.io.Serializable {
     }
 
 	
-    public Contato(Pessoa pessoa, String emailContato, String celularContato) {
+    public Contato(int idContato, Pessoa pessoa, String emailContato, String celularContato) {
+        this.idContato = idContato;
         this.pessoa = pessoa;
         this.emailContato = emailContato;
         this.celularContato = celularContato;
     }
-    public Contato(Pessoa pessoa, String emailContato, String telefoneContato, String celularContato) {
+    public Contato(int idContato, Pessoa pessoa, String emailContato, String telefoneContato, String celularContato) {
+       this.idContato = idContato;
        this.pessoa = pessoa;
        this.emailContato = emailContato;
        this.telefoneContato = telefoneContato;
        this.celularContato = celularContato;
     }
    
-    public int getPessoaCodigoPessoa() {
-        return this.pessoaCodigoPessoa;
+    public int getIdContato() {
+        return this.idContato;
     }
     
-    public void setPessoaCodigoPessoa(int pessoaCodigoPessoa) {
-        this.pessoaCodigoPessoa = pessoaCodigoPessoa;
+    public void setIdContato(int idContato) {
+        this.idContato = idContato;
     }
     public Pessoa getPessoa() {
         return this.pessoa;

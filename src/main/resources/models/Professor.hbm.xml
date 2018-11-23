@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="models.Professor" table="professor" catalog="ceeteca" optimistic-lock="version">
+        <id name="idProfessor" type="int">
+            <column name="idProfessor" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="pessoa" class="models.Pessoa" fetch="select">
+            <column name="pessoa_idPessoa" not-null="true" />
+        </many-to-one>
+        <set name="professorHasCursos" table="professor_has_curso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="professor_idProfessor" not-null="true" />
+            </key>
+            <one-to-many class="models.ProfessorHasCurso" />
+        </set>
+    </class>
+</hibernate-mapping>
