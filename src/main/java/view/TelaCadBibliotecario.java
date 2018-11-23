@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Bibliotecaria;
 import models.Contato;
+import models.Curso;
 import models.Endereco;
 import models.Pessoa;
 import models.Turno;
@@ -604,7 +605,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         }
 
         String t = cListTurnoCadBibliotecario.getSelectedItem().toString();
-        int numFuncional = Integer.parseInt(cTxtNumFuncionalCadBibliotecario.getText());
+        String numFuncional = cTxtNumFuncionalCadBibliotecario.getText();
         char turno = t.charAt(0);
         String usuario = cTxtUsuarioCadBibliotecario.getText();
         String senha = String.valueOf(cTxtSenhaCadBibliotecario.getText());
@@ -625,16 +626,17 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         //Atribuindo valores a classe usuario.
         //Valores Dados Pessoais
         //bibliotecarioGetSet infos = new bibliotecarioGetSet();
+        
         Pessoa pessoa = new Pessoa();
-        Bibliotecaria bibliotecaria = new Bibliotecaria();
-        Turno turnoObj = new Turno();
-
         pessoa.setNomePessoa(nome);
         pessoa.setCpfPessoa(cpf);
         pessoa.setDtnascimento(dtNascimento);//
-        pessoa.setIdPessoa(numFuncional);
-        turnoObj.setDescricaoTurno(turno);
+        pessoa.setMatriculaPessoa(numFuncional);
+        
+        Bibliotecaria bibliotecaria = new Bibliotecaria();
         bibliotecaria.setSenhaBibliotecaria(senha);
+        bibliotecaria.setUsuarioBibliotecaria(usuario);
+        bibliotecaria.setPessoa(pessoa);
         
         //Valores Endereço
         Endereco endereco = new Endereco();
@@ -645,29 +647,33 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         endereco.setComplementoEndereco(complemento);
         endereco.setNumeroEndereco(numero);
         endereco.setEstadoEndereco(uf);
+        endereco.setPessoa(pessoa);
         
         //Valores contato
         Contato ctt = new Contato();
         ctt.setCelularContato(celular);
         ctt.setTelefoneContato(telefone);
         ctt.setEmailContato(email);
+        ctt.setPessoa(pessoa);
         //Adicionando as informações a um array dentro da classe Banco.
         
         if (!senha.equals(confirmarSenha)) {
             JOptionPane.showMessageDialog(null, "O campo SENHA está diferente do campo CONFIRMAR SENHA!!");
         }else{
         int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
-            if(sim == 1){
+            if(sim == 0){
             try(Session actualSession = NewHibernateUtil.getSessionFactory().openSession()){
                 actualSession.beginTransaction();
                 actualSession.save(pessoa);
                 actualSession.save(endereco);
                 actualSession.save(ctt);
-                actualSession.save(turnoObj);
                 actualSession.save(bibliotecaria);
+                actualSession.getTransaction().commit();
+                actualSession.close();
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro "+e.getMessage());
+                NewHibernateUtil.getSessionFactory().getCurrentSession().close();
             }
             }else{
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
