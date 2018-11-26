@@ -25,6 +25,8 @@ public class Livro  implements java.io.Serializable {
      private String isbn;
      private String idioma;
      private Set exemplars = new HashSet(0);
+     
+     
 
     public Livro() {
     }

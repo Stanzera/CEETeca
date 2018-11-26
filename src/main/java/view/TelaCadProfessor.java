@@ -9,6 +9,16 @@ import DAO.Banco;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import getSet.professorGetSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.Contato;
+import models.Curso;
+import models.Endereco;
+import models.Pessoa;
+import models.Turno;
 import testeControle.controleProfessor;
 
 /**
@@ -564,7 +574,15 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         String nome = cTxtNomeCadProfessor.getText();
         String numFuncional = cTxtNumFuncionalCadProfessor.getText();
         String cpf = cTxtCPFCadProfessor.getText();
-        String dtNascimento = cTxtDtNascimentoCadProfessor.getText();
+        Date dtNascimento = null;
+        try {
+            SimpleDateFormat in = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+            dtNascimento = out.parse(cTxtDtNascimentoCadProfessor.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         String cep = cTxtCEPCadProfessor.getText();
         String email = cTxtEmailCadProfessor.getText();
         String celular = cTxtCelularCadProfessor.getText();
@@ -572,35 +590,44 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         String todosCurso = cTxtAreaAllCursosCadProfessor.getText();
         String cursoSelecionado = cTxtAreaSelecionadosCadProfessor.getText();
         String turno = String.valueOf(cComboBoxTurnoCadProfessor.getSelectedIndex());
+        char turno = cComboBoxTurnoCadProfessor.getSelectedObjects().charAt(0);
         String estado = String.valueOf(cComboBoxUFCadProfessor.getSelectedIndex());
         String rua = cTxtRuaCadProfessor.getText();
-        String numero = cTxtNumeroCadProfessor.getText();
+        int numero = Integer.parseInt(cTxtNumeroCadProfessor.getText());
         String bairro = cTxtBairroCadProfessor.getText();
         String cidade = cTxtCidadeCadProfessor.getText();
         String complemento = cTxtComplementoCadProfessor.getText();
 
         
-        professorGetSet infos = new professorGetSet();
+        Pessoa pss = new Pessoa();
+        pss.setNomePessoa(nome);
+        pss.setMatriculaPessoa(numFuncional);
+        pss.setCpfPessoa(cpf);
+        pss.setDtnascimento(dtNascimento);
+        
+        Contato ctt = new Contato();
+        ctt.setEmailContato(email);
+        ctt.setCelularContato(celular);
+        ctt.setTelefoneContato(telefone);
+        ctt.setPessoa(pss);
+        
+        Curso crs = new Curso();
+        crs.setDescricaoCurso(cursoSelecionado);
+        crs.setTurnos(turnos);
+        
+        Turno trn = new Turno();
+        trn.setDescricaoTurno(turno);
+        trn.setCurso(crs);
+        
+        Endereco end = new Endereco();
+        end.setEstadoEndereco(estado);
+        end.setLougradouroEndereco(rua);
+        end.setNumeroEndereco(numero);
+        end.setBairroEndereco(bairro);
+        end.setCidadeEndereco(cidade);
+        end.setComplementoEndereco(complemento);
+        end.setCep(cep);
 
-        infos.setNome(nome);
-        infos.setNumFuncional(numFuncional);
-        infos.setCpf(cpf);
-        infos.setDtNascimento(dtNascimento);
-        infos.setEmail(email);
-        infos.setCelular(celular);
-        infos.setTelefone(telefone);
-        infos.setCursoSelect(cursoSelecionado);
-        infos.setlCurso(todosCurso);
-        infos.setTurno(turno);
-        infos.setEstado(estado);
-        infos.setLogradouro(rua);
-        infos.setNumResidencia(numero);
-        infos.setBairro(bairro);
-        infos.setCidade(cidade);
-        infos.setComplemento(complemento);
-        infos.setCep(cep);
-
-        Banco.professores.add(infos);
 
         controleProfessor controlador = new controleProfessor();
         if (controlador.TestaConferirProfessor(infos)) {

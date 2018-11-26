@@ -6,7 +6,8 @@
 package testeControle;
 
 import javax.swing.JOptionPane;
-import getSet.livroGetSet;
+import models.Exemplar;
+import models.Livro;
 
 /**
  *
@@ -14,24 +15,25 @@ import getSet.livroGetSet;
  */
 public class controleLivro {
 
-    public boolean TestaConferirLivro(livroGetSet i) {
+    public boolean TestaConferirLivro(Livro l, Exemplar e) {
 
         boolean result = false;
 
-        if (i != null
-                && i.getTitulo().length() > 0
-                && i.getSubtitulo().length() > 0
-                && i.getAutor().length() > 0
-                && i.getAssunto().length() > 0
-                && i.getIsbn().length() > 0
-                && i.getCdd().length() > 0
-                && i.getQtdExemplar().length() > 0
-                && i.getEditora().length() > 0
-                && i.getEdicao().length() > 0
-                && i.getIdioma().length() >0
-                && i.getSerie().length()>0
-                && i.getAnoPublicacao().length()>0
-                && i.getNumPaginas().length()>0) {
+        if (l != null
+                && e !=null
+                && l.getTituloLivro().length() > 0
+                && l.getSubTituloLivro().length() > 0
+                && l.getAutorLivro().length() > 0
+                && l.getAssunto().length() > 0
+                && l.getIsbn().length() > 0
+                && l.getCddLivro().length() > 0
+                && l.getEditoraLivro().length() > 0
+                && l.getEdicaoLivro().length() > 0
+                && l.getIdioma().length() >0
+                && l.getSerieLivro().length()>0
+                && l.getAnoLivro().length()>0
+                && l.getPaginas().length()>0
+                && e.getQuantidadeExemplar().) {
             
             result = true;
         }else{

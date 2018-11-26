@@ -5,9 +5,14 @@
  */
 package view;
 
-import DAO.Banco;
+import DAO.NewHibernateUtil;
+import java.text.ParseException;
 import javax.swing.ImageIcon;
-import getSet.livroGetSet;
+import javax.swing.JOptionPane;
+import models.Exemplar;
+import models.Livro;
+import org.hibernate.Session;
+import testeControle.controleProfessor;
 
 /**
  *
@@ -56,14 +61,12 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         cComboBoxIdiomaCadLivro = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         cTxtAssuntoCadLivro = new javax.swing.JTextField();
-        cGiraQtdCadLivro = new javax.swing.JSpinner();
         jLabel14 = new javax.swing.JLabel();
         cTxtAnoPublicacaoCadLivro = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         cTxtSerieCadLivro = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         cTxtNumPgCadLivro = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         cGiraExemplarCadLivro = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -143,9 +146,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel17.setText("N° de páginas:");
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel1.setText("Quantidade:");
-
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Exemplar:");
 
@@ -160,16 +160,20 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(383, 383, 383))
                     .addGroup(painelCadLivroLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel9)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel8))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(painelCadLivroLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel8)))
+                            .addGroup(painelCadLivroLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadLivroLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5)))
                         .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelCadLivroLayout.createSequentialGroup()
                                 .addGap(9, 9, 9)
@@ -177,15 +181,16 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                                     .addComponent(cTxtSubtituloCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cTxtAutorCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cTxtTituloCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(cTxtAssuntoCadLivro, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cTxtISBNCadLivro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))))
+                                    .addComponent(cTxtAssuntoCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painelCadLivroLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cTxtCDDCadLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .addComponent(cGiraQtdCadLivro)
-                                    .addComponent(cGiraExemplarCadLivro))))
+                                .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelCadLivroLayout.createSequentialGroup()
+                                        .addComponent(cTxtISBNCadLivro)
+                                        .addGap(114, 114, 114))
+                                    .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cTxtCDDCadLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                        .addComponent(cGiraExemplarCadLivro)))))
                         .addGap(104, 104, 104)))
                 .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelCadLivroLayout.createSequentialGroup()
@@ -256,20 +261,16 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                         .addComponent(cTxtISBNCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(cTxtCDDCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10)
                     .addComponent(cTxtNumPgCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(18, 18, 18)
-                .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cGiraQtdCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel17)
+                        .addComponent(cTxtCDDCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cGiraExemplarCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -356,33 +357,74 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         String edicao = cTxtEdicaoCadLivro.getText();
         String editora = cTxtEditoraCadLivro.getText();
         String isbn = cTxtISBNCadLivro.getText();
-        String numPaginas = cTxtNumPgCadLivro.getText();
-        String serie = cTxtSerieCadLivro.getText();
+        int numPaginas = Integer.parseInt(cTxtNumPgCadLivro.getText());
+        int serie = Integer.parseInt(cTxtSerieCadLivro.getText());
         String subTitulo = cTxtSubtituloCadLivro.getText();
         String titulo = cTxtTituloCadLivro.getText();
         String Idioma = String.valueOf(cComboBoxIdiomaCadLivro.getSelectedIndex());
-        String qtdLivro = String.valueOf(cGiraQtdCadLivro.getValue());
-        String qtdExemplar = String.valueOf(cGiraExemplarCadLivro.getValue());
         
-        livroGetSet infos = new livroGetSet();
+        try {
+            cGiraExemplarCadLivro.commitEdit();
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro "+e.getMessage());
+        }
+        int qtdExemplar = (Integer)cGiraExemplarCadLivro.getValue();
+        //Integer.parseInt(qtdExemplar);
         
-        infos.setAnoPublicacao(anoPublicado);
-        infos.setAssunto(assunto);
-        infos.setAutor(Autor);
-        infos.setCdd(cdd);
-        infos.setEdicao(edicao);
-        infos.setEditora(editora);
-        infos.setIdioma(Idioma);
-        infos.setIsbn(isbn);
-        infos.setNumPaginas(numPaginas);
-        infos.setQtdExemplar(qtdExemplar);
-        infos.setQtdLivro(qtdLivro);
-        infos.setSerie(serie);
-        infos.setSubtitulo(subTitulo);
-        infos.setTitulo(titulo);
+        Livro livro = new Livro();
+        Exemplar exemplar = new Exemplar();
         
-        Banco.livros.add(infos);
+        livro.setAnoLivro(anoPublicado);
+        livro.setAssunto(assunto);
+        livro.setAutorLivro(Autor);
+        livro.setCddLivro(cdd);
+        livro.setEdicaoLivro(edicao);
+        livro.setEditoraLivro(editora);
+        livro.setIdioma(Idioma);
+        livro.setIsbn(isbn);
+        livro.setPaginas(numPaginas);
+        livro.setSerieLivro(serie);
+        livro.setSubTituloLivro(subTitulo);
+        livro.setTituloLivro(titulo);
         
+        exemplar.setQuantidadeExemplar(qtdExemplar);
+        
+        exemplar.setLivro(livro);
+
+        
+        if (cTxtAnoPublicacaoCadLivro.getText().equals(" ")
+                && cTxtAssuntoCadLivro.getText().equals(" ")
+                && cTxtAutorCadLivro.getText().equals(" ")
+                && cTxtCDDCadLivro.getText().equals(" ")
+                && cTxtEdicaoCadLivro.getText().equals(" ")
+                && cTxtEditoraCadLivro.getText().equals(" ")
+                && cTxtISBNCadLivro.getText().equals(" ")
+                && cTxtNumPgCadLivro.getText().equals(" ")
+                && cTxtSerieCadLivro.getText().equals(" ")
+                && cTxtSubtituloCadLivro.getText().equals(" ")
+                && cTxtTituloCadLivro.getText().equals(" ")
+                && cComboBoxIdiomaCadLivro.equals(0)
+                && cGiraExemplarCadLivro.getValue().equals(0)) {
+            
+            
+        }else{
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+            if(sim == 0){
+            try(Session actualSession = NewHibernateUtil.getSessionFactory().openSession()){
+                actualSession.beginTransaction();
+                actualSession.save(livro);
+                actualSession.save(exemplar);
+                actualSession.getTransaction().commit();
+                actualSession.close();
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro "+e.getMessage());
+                NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+            }
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+            }
+        }
     }//GEN-LAST:event_btConfirmarCadLivroActionPerformed
 
     private void btLimparCadLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparCadLivroActionPerformed
@@ -442,7 +484,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         cTxtSubtituloCadLivro.setText("");
         cTxtTituloCadLivro.setText("");
         cComboBoxIdiomaCadLivro.setSelectedIndex(0);
-        cGiraQtdCadLivro.setValue(0);
         cGiraExemplarCadLivro.setValue(0);
         
     }
@@ -489,7 +530,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
     private javax.swing.JButton btVoltarCadLivro;
     private javax.swing.JComboBox<String> cComboBoxIdiomaCadLivro;
     private javax.swing.JSpinner cGiraExemplarCadLivro;
-    private javax.swing.JSpinner cGiraQtdCadLivro;
     private javax.swing.JTextField cTxtAnoPublicacaoCadLivro;
     private javax.swing.JTextField cTxtAssuntoCadLivro;
     private javax.swing.JTextField cTxtAutorCadLivro;
@@ -501,7 +541,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
     private javax.swing.JTextField cTxtSerieCadLivro;
     private javax.swing.JTextField cTxtSubtituloCadLivro;
     private javax.swing.JTextField cTxtTituloCadLivro;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
