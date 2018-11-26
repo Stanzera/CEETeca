@@ -405,6 +405,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                 && cTxtTituloCadLivro.getText().equals(" ")
                 && cComboBoxIdiomaCadLivro.equals(0)
                 && cGiraExemplarCadLivro.getValue().equals(0)) {
+            JOptionPane.showMessageDialog(null, "Está");
             
             
         }else{

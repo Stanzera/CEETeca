@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import models.Aluno;
-import models.AlunoId;
 import models.Curso;
 import models.Modulo;
 import models.Pessoa;
