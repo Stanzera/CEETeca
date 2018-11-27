@@ -1,5 +1,5 @@
 package models;
-// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
+// Generated 27/11/2018 14:35:48 by Hibernate Tools 4.3.1
 
 
 
@@ -12,7 +12,7 @@ public class Endereco  implements java.io.Serializable {
      private int idEndereco;
      private Pessoa pessoa;
      private String cep;
-     private String lougradouroEndereco;
+     private String logradouroEndereco;
      private String bairroEndereco;
      private String cidadeEndereco;
      private String estadoEndereco;
@@ -22,11 +22,11 @@ public class Endereco  implements java.io.Serializable {
     public Endereco() {
     }
 
-    public Endereco(int idEndereco, Pessoa pessoa, String cep, String lougradouroEndereco, String bairroEndereco, String cidadeEndereco, String estadoEndereco, int numeroEndereco, String complementoEndereco) {
+    public Endereco(int idEndereco, Pessoa pessoa, String cep, String logradouroEndereco, String bairroEndereco, String cidadeEndereco, String estadoEndereco, int numeroEndereco, String complementoEndereco) {
        this.idEndereco = idEndereco;
        this.pessoa = pessoa;
        this.cep = cep;
-       this.lougradouroEndereco = lougradouroEndereco;
+       this.logradouroEndereco = logradouroEndereco;
        this.bairroEndereco = bairroEndereco;
        this.cidadeEndereco = cidadeEndereco;
        this.estadoEndereco = estadoEndereco;
@@ -55,12 +55,12 @@ public class Endereco  implements java.io.Serializable {
     public void setCep(String cep) {
         this.cep = cep;
     }
-    public String getLougradouroEndereco() {
-        return this.lougradouroEndereco;
+    public String getLogradouroEndereco() {
+        return this.logradouroEndereco;
     }
     
-    public void setLougradouroEndereco(String lougradouroEndereco) {
-        this.lougradouroEndereco = lougradouroEndereco;
+    public void setLogradouroEndereco(String logradouroEndereco) {
+        this.logradouroEndereco = logradouroEndereco;
     }
     public String getBairroEndereco() {
         return this.bairroEndereco;

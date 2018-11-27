@@ -3,15 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package Telas;
 
-import DAO.Banco;
+import DAO.NewHibernateUtil;
+import com.mysql.cj.core.util.StringUtils;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import getSet.alunoGetSet;
 import getSet.emprestimoGetSet;
 import getSet.livroGetSet;
 import getSet.professorGetSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPopupMenu;
+import models.Aluno;
+import models.Emprestimo;
+import models.Livro;
+import models.Pessoa;
+import models.Professor;
+import org.hibernate.Session;
 import testeControle.controleEmprestimo;
 
 /**
@@ -411,31 +424,107 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
     private void btRegistrarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarCadEmprestimoActionPerformed
         String areaObs = cTxtAreaObservacoesCadEmprestimo.getText();
         String cpf = cTxtCPFCadEmprestimo.getText();
-        String dtDevolucao = cTxtDtDevolucaoCadEmprestimo.getText();
-        String nome = cTxtNomeCadEmprestimo.getText();
-        String numChamada = cTxtNumChamadaCadEmprestimo.getText();
-        String tipo = String.valueOf(cComboBoxTipoCadEmprestimo.getSelectedIndex());
-        emprestimoGetSet infos = new emprestimoGetSet();
-        infos.setTipo(tipo);
-        infos.setNome(nome);
-        infos.setCpf(cpf);
-        infos.setNumChamada(numChamada);
-        infos.setObservacoes(areaObs);
-        infos.setDtDevolucao(dtDevolucao);
-        Banco.emprestimos.add(infos);
-        controleEmprestimo controlador = new controleEmprestimo();
-        if (controlador.TestaConferirEmprestimos(infos)) {
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Está faltando Dados");
+        Date dtDevolucao = null;
+        try {
+            SimpleDateFormat out = new SimpleDateFormat("yyyy/MM/dd");
+            dtDevolucao = out.parse(cTxtDtDevolucaoCadEmprestimo.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
         }
+        String nome = cTxtNomeCadEmprestimo.getText();
+        int numChamadaLivro = Integer.parseInt(cTxtNumChamadaCadEmprestimo.getText());
+        String tipo = String.valueOf(cComboBoxTipoCadEmprestimo.getSelectedIndex());
+
+        if (tipo.equals("1")) {
+            Pessoa pss = new Pessoa();
+            pss.setNomePessoa(nome);
+            pss.setCpfPessoa(cpf);
+            Livro lvr = new Livro();
+            lvr.setCddLivro(numChamadaLivro);//REAVALIAR.
+            Emprestimo emp = new Emprestimo();
+            emp.setDtDevolucaoEmprestimo(dtDevolucao);
+            emp.setObservacaoEmprestimo(areaObs);
+            Aluno aln = new Aluno();
+            aln.setPessoa(pss);
+
+            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAreaObservacoesCadEmprestimo.getText()) || cTxtAreaObservacoesCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtDevolucaoCadEmprestimo.getText()) || cTxtDtDevolucaoCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadEmprestimo.getText()) || cTxtNomeCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText()) || cTxtNumChamadaCadEmprestimo.getText().length() == 0
+                    && cComboBoxTipoCadEmprestimo.getSelectedIndex() != 0) {
+                JOptionPane.showMessageDialog(null, "Está faltando dados!");
+
+            } else {
+                int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+                if (sim == 0) {
+                    try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                        actualSession.beginTransaction();
+                        actualSession.saveOrUpdate(pss);
+                        actualSession.saveOrUpdate(lvr);
+                        actualSession.saveOrUpdate(emp);
+                        actualSession.saveOrUpdate(aln);
+                        actualSession.getTransaction().commit();
+                        actualSession.close();
+                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                        NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+                }
+            }
+        } else if (tipo.equals("2")) {
+            Pessoa pss = new Pessoa();
+            pss.setNomePessoa(nome);
+            pss.setCpfPessoa(cpf);
+            Livro lvr = new Livro();
+            lvr.setCddLivro(numChamadaLivro);//REAVALIAR.
+            Emprestimo emp = new Emprestimo();
+            emp.setDtDevolucaoEmprestimo(dtDevolucao);
+            emp.setObservacaoEmprestimo(areaObs);
+            Professor prf = new Professor();
+            prf.setPessoa(pss);
+            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAreaObservacoesCadEmprestimo.getText()) || cTxtAreaObservacoesCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtDevolucaoCadEmprestimo.getText()) || cTxtDtDevolucaoCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadEmprestimo.getText()) || cTxtNomeCadEmprestimo.getText().length() == 0
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText()) || cTxtNumChamadaCadEmprestimo.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Está faltando dados!");
+
+            } else {
+                int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+                if (sim == 0) {
+                    try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                        actualSession.beginTransaction();
+                        actualSession.saveOrUpdate(pss);
+                        actualSession.saveOrUpdate(lvr);
+                        actualSession.saveOrUpdate(emp);
+                        actualSession.saveOrUpdate(prf);
+                        actualSession.getTransaction().commit();
+                        actualSession.close();
+                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                        NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Opção Inválida");
+        }
+
+
     }//GEN-LAST:event_btRegistrarCadEmprestimoActionPerformed
 
 
     private void btBuscarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarCadEmprestimoActionPerformed
         //String nchamada = cTxtNumChamadaCadEmprestimo.getText();
-        if (!cTxtNumChamadaCadEmprestimo.getText().equals("")) {
-            for (int i = 0; i < Banco.livros.size(); i++) {
+        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText())) {
+            for (int i = 0; i < Emprestimo; i++) {
                 livroGetSet livro = Banco.livros.get(i);
                 emprestimoGetSet emprestimo = Banco.emprestimos.get(i);
                 if (cTxtNumChamadaCadEmprestimo.getText().equals(livro.getNumChamada())) {
@@ -478,8 +567,15 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não a ninguem com essas\n"
-                    + "informações cadastrado");
+            int sim = JOptionPane.showConfirmDialog(null, "Não a ninguem com essas\n"
+                    + "informações cadastrado.\n"
+                    + "Deseja Cadastrar?");
+
+            if (sim == 0) {
+                setVisible(false);
+                new TelaCadastroAluno().setVisible(true);
+            }
+
         }
 
 
@@ -487,13 +583,13 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
 
     private void cTxtNomeCadEmprestimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtNomeCadEmprestimoKeyReleased
         // TODO add your handling code here:
-        
+
         cTxtNomeCadEmprestimo.setText(cTxtNomeCadEmprestimo.getText().toUpperCase());
     }//GEN-LAST:event_cTxtNomeCadEmprestimoKeyReleased
 
     private void cTxtAreaObservacoesCadEmprestimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtAreaObservacoesCadEmprestimoKeyReleased
         // TODO add your handling code here:
-         cTxtAreaObservacoesCadEmprestimo.setText(cTxtAreaObservacoesCadEmprestimo.getText().toUpperCase());
+        cTxtAreaObservacoesCadEmprestimo.setText(cTxtAreaObservacoesCadEmprestimo.getText().toUpperCase());
     }//GEN-LAST:event_cTxtAreaObservacoesCadEmprestimoKeyReleased
 
     /**

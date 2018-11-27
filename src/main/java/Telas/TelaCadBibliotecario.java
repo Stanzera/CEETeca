@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package Telas;
 
 import DAO.NewHibernateUtil;
 import javax.swing.ImageIcon;
@@ -611,7 +611,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         //Valores Endereço
         Endereco endereco = new Endereco();
         endereco.setCep(cep);
-        endereco.setLougradouroEndereco(avRua);
+        //endereco.setLougradouroEndereco(avRua);
         endereco.setBairroEndereco(bairro);
         endereco.setCidadeEndereco(cidade);
         endereco.setComplementoEndereco(complemento);

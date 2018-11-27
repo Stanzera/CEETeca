@@ -3,23 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package Telas;
 
-import DAO.Banco;
+import DAO.NewHibernateUtil;
+import com.mysql.cj.core.util.StringUtils;
+import com.sun.glass.events.MouseEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import getSet.professorGetSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import models.Contato;
 import models.Curso;
 import models.Endereco;
+import models.Modulo;
 import models.Pessoa;
+import models.Professor;
+import models.ProfessorHasCurso;
 import models.Turno;
-import testeControle.controleProfessor;
+import org.hibernate.Session;
 
 /**
  *
@@ -62,9 +66,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cTxtCPFCadProfessor = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         cTxtAreaSelecionadosCadProfessor = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        cTxtAreaAllCursosCadProfessor = new javax.swing.JTextArea();
+        butTransferirCurso = new javax.swing.JButton();
+        cComboBoxCursosCadProfessor = new javax.swing.JComboBox<>();
         painelEnderecoCadProfessor = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cTxtCEPCadProfessor = new javax.swing.JFormattedTextField();
@@ -153,11 +156,14 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cTxtAreaSelecionadosCadProfessor.setRows(5);
         jScrollPane1.setViewportView(cTxtAreaSelecionadosCadProfessor);
 
-        jButton1.setText(">>>");
+        butTransferirCurso.setText(">>>");
+        butTransferirCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butTransferirCursoActionPerformed(evt);
+            }
+        });
 
-        cTxtAreaAllCursosCadProfessor.setColumns(20);
-        cTxtAreaAllCursosCadProfessor.setRows(5);
-        jScrollPane2.setViewportView(cTxtAreaAllCursosCadProfessor);
+        cComboBoxCursosCadProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout painelDadosCadProfessorLayout = new javax.swing.GroupLayout(painelDadosCadProfessor);
         painelDadosCadProfessor.setLayout(painelDadosCadProfessorLayout);
@@ -190,9 +196,10 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                                     .addComponent(cComboBoxTurnoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cTxtDtNascimentoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosCadProfessorLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58)
-                                .addComponent(jButton1)
+                                .addGap(34, 34, 34)
+                                .addComponent(cComboBoxCursosCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(butTransferirCurso)
                                 .addGap(64, 64, 64)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(94, Short.MAX_VALUE))
@@ -219,12 +226,12 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(jButton1)))
+                        .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(butTransferirCurso)
+                            .addComponent(cComboBoxCursosCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -576,65 +583,106 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         String cpf = cTxtCPFCadProfessor.getText();
         Date dtNascimento = null;
         try {
-            SimpleDateFormat in = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-            dtNascimento = out.parse(cTxtDtNascimentoCadProfessor.getText());
+            dtNascimento = in.parse(cTxtDtNascimentoCadProfessor.getText());
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         String cep = cTxtCEPCadProfessor.getText();
         String email = cTxtEmailCadProfessor.getText();
         String celular = cTxtCelularCadProfessor.getText();
         String telefone = cTxtTelefoneCadProfessor.getText();
-        String todosCurso = cTxtAreaAllCursosCadProfessor.getText();
+        String todosCurso = String.valueOf(cComboBoxCursosCadProfessor.getSelectedIndex());
         String cursoSelecionado = cTxtAreaSelecionadosCadProfessor.getText();
         String turno = String.valueOf(cComboBoxTurnoCadProfessor.getSelectedIndex());
-        char turno = cComboBoxTurnoCadProfessor.getSelectedObjects().charAt(0);
         String estado = String.valueOf(cComboBoxUFCadProfessor.getSelectedIndex());
-        String rua = cTxtRuaCadProfessor.getText();
+        String logradouro = cTxtRuaCadProfessor.getText();
         int numero = Integer.parseInt(cTxtNumeroCadProfessor.getText());
         String bairro = cTxtBairroCadProfessor.getText();
         String cidade = cTxtCidadeCadProfessor.getText();
         String complemento = cTxtComplementoCadProfessor.getText();
 
-        
         Pessoa pss = new Pessoa();
         pss.setNomePessoa(nome);
         pss.setMatriculaPessoa(numFuncional);
         pss.setCpfPessoa(cpf);
         pss.setDtnascimento(dtNascimento);
-        
+
         Contato ctt = new Contato();
         ctt.setEmailContato(email);
         ctt.setCelularContato(celular);
         ctt.setTelefoneContato(telefone);
         ctt.setPessoa(pss);
-        
-        Curso crs = new Curso();
-        crs.setDescricaoCurso(cursoSelecionado);
-        crs.setTurnos(turnos);
-        
-        Turno trn = new Turno();
-        trn.setDescricaoTurno(turno);
-        trn.setCurso(crs);
-        
+
         Endereco end = new Endereco();
-        end.setEstadoEndereco(estado);
-        end.setLougradouroEndereco(rua);
-        end.setNumeroEndereco(numero);
         end.setBairroEndereco(bairro);
+        end.setCep(cep);
         end.setCidadeEndereco(cidade);
         end.setComplementoEndereco(complemento);
-        end.setCep(cep);
+        end.setEstadoEndereco(estado);
+        end.setLogradouroEndereco(logradouro);
+        end.setNumeroEndereco(numero);
+        end.setPessoa(pss);
 
+        Professor prf = new Professor();
+        prf.setPessoa(pss);
 
-        controleProfessor controlador = new controleProfessor();
-        if (controlador.TestaConferirProfessor(infos)) {
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+        Turno trn = new Turno();
+        trn.setDescricaoTurno(turno);
+
+        Curso crs = new Curso();
+        crs.setDescricaoCurso(cursoSelecionado);
+        crs.setTurno(trn);
+
+        ProfessorHasCurso phc = new ProfessorHasCurso();
+        phc.setCurso(crs);
+        phc.setProfessor(prf);
+
+        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAreaSelecionadosCadProfessor.getText()) || cTxtAreaSelecionadosCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtBairroCadProfessor.getText()) || cTxtBairroCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCEPCadProfessor.getText()) || cTxtCEPCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadProfessor.getText()) || cTxtCPFCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCelularCadProfessor.getText()) || cTxtCelularCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCidadeCadProfessor.getText()) || cTxtCidadeCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtComplementoCadProfessor.getText()) || cTxtComplementoCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtNascimentoCadProfessor.getText()) || cTxtDtNascimentoCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEmailCadProfessor.getText()) || cTxtEmailCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadProfessor.getText()) || cTxtNomeCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumFuncionalCadProfessor.getText()) || cTxtNumFuncionalCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumeroCadProfessor.getText()) || cTxtNumeroCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtRuaCadProfessor.getText()) || cTxtRuaCadProfessor.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtTelefoneCadProfessor.getText()) || cTxtTelefoneCadProfessor.getText().length() == 0
+                && cComboBoxCursosCadProfessor.getSelectedIndex() != 0
+                && cComboBoxUFCadProfessor.getSelectedIndex() != 0
+                && cComboBoxTurnoCadProfessor.getSelectedIndex() != 0) {
+            JOptionPane.showMessageDialog(null, "Está faltando dados!");
+
         } else {
-            JOptionPane.showMessageDialog(null, "Está faltando dados, termine de preencher os campos");
+            int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+            if (sim == 0) {
+                try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                    actualSession.beginTransaction();
+                    actualSession.saveOrUpdate(pss);
+                    actualSession.saveOrUpdate(ctt);
+                    actualSession.saveOrUpdate(end);
+                    actualSession.saveOrUpdate(prf);
+                    actualSession.saveOrUpdate(crs);
+                    actualSession.saveOrUpdate(trn);
+                    actualSession.saveOrUpdate(phc);
+                    actualSession.getTransaction().commit();
+                    actualSession.close();
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                    NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+            }
         }
+
 
     }//GEN-LAST:event_btConfirmarCadProfessorActionPerformed
 
@@ -680,6 +728,14 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cComboBoxTurnoCadProfessorActionPerformed
 
+    private void butTransferirCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butTransferirCursoActionPerformed
+        cComboBoxCursosCadProfessor.getSelectedItem();
+
+        if (evt == MouseEvent.CLICK) {
+            
+        }
+    }//GEN-LAST:event_butTransferirCursoActionPerformed
+
     public void Limpar() {
 
         //Dados Pessoais
@@ -687,7 +743,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cTxtNomeCadProfessor.setText("");
         cTxtCPFCadProfessor.setText("");
         cTxtDtNascimentoCadProfessor.setText("");
-        cTxtAreaAllCursosCadProfessor.setText("");
+        cComboBoxCursosCadProfessor.setSelectedIndex(0);
         cTxtAreaSelecionadosCadProfessor.setText("");
         //Contato
         cTxtEmailCadProfessor.setText("");
@@ -746,9 +802,10 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JButton btConfirmarCadProfessor;
     private javax.swing.JButton btLimparCadProfessor;
     private javax.swing.JButton btVoltarCadProfessor;
+    private javax.swing.JButton butTransferirCurso;
+    private javax.swing.JComboBox<String> cComboBoxCursosCadProfessor;
     private javax.swing.JComboBox<String> cComboBoxTurnoCadProfessor;
     private javax.swing.JComboBox<String> cComboBoxUFCadProfessor;
-    private javax.swing.JTextArea cTxtAreaAllCursosCadProfessor;
     private javax.swing.JTextArea cTxtAreaSelecionadosCadProfessor;
     private javax.swing.JTextField cTxtBairroCadProfessor;
     private javax.swing.JFormattedTextField cTxtCEPCadProfessor;
@@ -763,7 +820,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JTextField cTxtNumeroCadProfessor;
     private javax.swing.JTextField cTxtRuaCadProfessor;
     private javax.swing.JFormattedTextField cTxtTelefoneCadProfessor;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -784,7 +840,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

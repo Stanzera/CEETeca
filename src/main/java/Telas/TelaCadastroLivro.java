@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package Telas;
 
 import DAO.NewHibernateUtil;
+import com.mysql.cj.core.util.StringUtils;
 import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import models.Exemplar;
 import models.Livro;
 import org.hibernate.Session;
-import testeControle.controleProfessor;
 
 /**
  *
@@ -392,20 +392,20 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         exemplar.setLivro(livro);
 
         
-        if (cTxtAnoPublicacaoCadLivro.getText().equals(" ")
-                && cTxtAssuntoCadLivro.getText().equals(" ")
-                && cTxtAutorCadLivro.getText().equals(" ")
-                && cTxtCDDCadLivro.getText().equals(" ")
-                && cTxtEdicaoCadLivro.getText().equals(" ")
-                && cTxtEditoraCadLivro.getText().equals(" ")
-                && cTxtISBNCadLivro.getText().equals(" ")
-                && cTxtNumPgCadLivro.getText().equals(" ")
-                && cTxtSerieCadLivro.getText().equals(" ")
-                && cTxtSubtituloCadLivro.getText().equals(" ")
-                && cTxtTituloCadLivro.getText().equals(" ")
-                && cComboBoxIdiomaCadLivro.equals(0)
+        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAnoPublicacaoCadLivro.getText()) || cTxtAnoPublicacaoCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtAssuntoCadLivro.getText()) || cTxtAssuntoCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtAutorCadLivro.getText()) || cTxtAutorCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCDDCadLivro.getText()) || cTxtCDDCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEdicaoCadLivro.getText()) || cTxtEdicaoCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEditoraCadLivro.getText()) || cTxtEditoraCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtISBNCadLivro.getText()) || cTxtISBNCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumPgCadLivro.getText()) || cTxtNumPgCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtSerieCadLivro.getText()) || cTxtSerieCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtSubtituloCadLivro.getText()) || cTxtSubtituloCadLivro.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtTituloCadLivro.getText()) || cTxtTituloCadLivro.getText().length() == 0
+                && cComboBoxIdiomaCadLivro.getSelectedIndex()!=0 
                 && cGiraExemplarCadLivro.getValue().equals(0)) {
-            JOptionPane.showMessageDialog(null, "Está");
+            JOptionPane.showMessageDialog(null, "Está faltando dados!");
             
             
         }else{
@@ -413,8 +413,8 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
             if(sim == 0){
             try(Session actualSession = NewHibernateUtil.getSessionFactory().openSession()){
                 actualSession.beginTransaction();
-                actualSession.save(livro);
-                actualSession.save(exemplar);
+                actualSession.saveOrUpdate(livro);
+                actualSession.saveOrUpdate(exemplar);
                 actualSession.getTransaction().commit();
                 actualSession.close();
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");

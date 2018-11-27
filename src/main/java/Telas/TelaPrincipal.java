@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package Telas;
 
-import DAO.Banco;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
@@ -14,8 +13,6 @@ import getSet.alunoGetSet;
 import getSet.emprestimoGetSet;
 import getSet.livroGetSet;
 import getSet.professorGetSet;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;

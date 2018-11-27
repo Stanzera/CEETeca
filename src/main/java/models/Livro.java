@@ -1,5 +1,5 @@
 package models;
-// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
+// Generated 27/11/2018 14:35:48 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -25,8 +25,6 @@ public class Livro  implements java.io.Serializable {
      private String isbn;
      private String idioma;
      private Set exemplars = new HashSet(0);
-     
-     
 
     public Livro() {
     }

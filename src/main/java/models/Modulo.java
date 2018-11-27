@@ -1,5 +1,5 @@
 package models;
-// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
+// Generated 27/11/2018 14:35:48 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,24 +12,21 @@ public class Modulo  implements java.io.Serializable {
 
 
      private int idModulo;
-     private Turno turno;
      private String descricaoModulo;
-     private Set alunos = new HashSet(0);
+     private Set cursos = new HashSet(0);
 
     public Modulo() {
     }
 
 	
-    public Modulo(int idModulo, Turno turno, String descricaoModulo) {
+    public Modulo(int idModulo, String descricaoModulo) {
         this.idModulo = idModulo;
-        this.turno = turno;
         this.descricaoModulo = descricaoModulo;
     }
-    public Modulo(int idModulo, Turno turno, String descricaoModulo, Set alunos) {
+    public Modulo(int idModulo, String descricaoModulo, Set cursos) {
        this.idModulo = idModulo;
-       this.turno = turno;
        this.descricaoModulo = descricaoModulo;
-       this.alunos = alunos;
+       this.cursos = cursos;
     }
    
     public int getIdModulo() {
@@ -39,13 +36,6 @@ public class Modulo  implements java.io.Serializable {
     public void setIdModulo(int idModulo) {
         this.idModulo = idModulo;
     }
-    public Turno getTurno() {
-        return this.turno;
-    }
-    
-    public void setTurno(Turno turno) {
-        this.turno = turno;
-    }
     public String getDescricaoModulo() {
         return this.descricaoModulo;
     }
@@ -53,12 +43,12 @@ public class Modulo  implements java.io.Serializable {
     public void setDescricaoModulo(String descricaoModulo) {
         this.descricaoModulo = descricaoModulo;
     }
-    public Set getAlunos() {
-        return this.alunos;
+    public Set getCursos() {
+        return this.cursos;
     }
     
-    public void setAlunos(Set alunos) {
-        this.alunos = alunos;
+    public void setCursos(Set cursos) {
+        this.cursos = cursos;
     }
 
 

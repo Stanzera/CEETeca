@@ -19,7 +19,7 @@ public class controleLivro {
 
         boolean result = false;
 
-        if (l != null
+        /*if (l != null
                 && e !=null
                 && l.getTituloLivro().length() > 0
                 && l.getSubTituloLivro().length() > 0
@@ -38,7 +38,7 @@ public class controleLivro {
             result = true;
         }else{
             JOptionPane.showMessageDialog(null, "Impossibilitado de concluir o cadastro!!");
-        }
+        }*/
 
         return result;
     }

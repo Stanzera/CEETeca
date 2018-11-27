@@ -16,7 +16,7 @@ import org.hibernate.Session;
  *
  * @author Aluno
  */
-public class HibernateTest {
+public class HibernatePopulate {
 
     /**
      * @param args the command line arguments
@@ -39,8 +39,9 @@ public class HibernateTest {
         //Pega os resultados da query em uma lista
         List<Pessoa> pessoas = q.getResultList();
         
+        
+        
         //Cria uma nova pessoa
-        Pessoa pessoa = new Pessoa();
         Date data = new Date();
         data.setDate(10);
         data.setMonth(8);
@@ -49,42 +50,54 @@ public class HibernateTest {
         data.setMinutes(0);
         data.setSeconds(0);*/
         
+        Pessoa pessoa = new Pessoa();
         pessoa.setNomePessoa("Waldiskleyson");
+        pessoa.setCpfPessoa("123.456.789-10");
         pessoa.setMatriculaPessoa("1234567890");
-        pessoa.setCpfPessoa("12345678910");
-        pessoa.setTipo('a');
         pessoa.setDtnascimento(data);
         
-        //Busca a lista de pessoa para pegar um usuário
-        for (int i = 0; i < pessoas.size(); i++) {
-            pessoa = pessoas.get(i);
-            if(pessoa.getIdPessoa()== 0){
-                break;
-            }
-        }
+        Contato contao = new Contato();
+        contao.setCelularContato("9999-8888");
+        contao.setEmailContato("waldin@milk.shake");
+        contao.setTelefoneContato("3333-1010");
+        contao.setPessoa(pessoa);
         
-        //Criação de um curso
-        Curso curso = new Curso(0,"Necromancia");
+        Endereco endereco = new Endereco();
+        endereco.setBairroEndereco("Bairro Celona");
+        endereco.setCep("12340-580");
+        endereco.setCidadeEndereco("Morro");
+        endereco.setComplementoEndereco("Atras dá boate Drags Albergs");
+        endereco.setLogradouroEndereco("Rua das Manas");
+        endereco.setNumeroEndereco(1124);
+        endereco.setPessoa(pessoa);
         
-        //Criação de um turno
-        Turno turno = new Turno(12, curso, 'V');
-        
-        //Criação de um módulo
-        Modulo modulo = new Modulo();
-        modulo.setDescricaoModulo("XI");
-        modulo.setTurno(turno);
-        //Cria um novo aluno
         Aluno aluno = new Aluno();
-        aluno.setIdAluno(0);
         aluno.setPessoa(pessoa);
-        aluno.setModulo(modulo);
         
+        Modulo modes = new Modulo();
+        modes.setDescricaoModulo("IV");
+        
+        Turno turno = new Turno();
+        turno.setDescricaoTurno("Matutino");
+        
+        Curso curso = new Curso();
+        curso.setDescricaoCurso("Necromancia");
+        curso.setModulo(modes);
+        curso.setTurno(turno);
+        
+        AlunoHasCurso ahc = new AlunoHasCurso();
+        ahc.setAluno(aluno);
+        ahc.setCurso(curso);
+                
         //Salva o objeto na sessão
-        actualSession.save(pessoa);
-        actualSession.save(curso);
-        actualSession.save(turno);
-        actualSession.save(modulo);
-        actualSession.save(aluno);
+        actualSession.saveOrUpdate(pessoa);
+        actualSession.saveOrUpdate(contao);
+        actualSession.saveOrUpdate(endereco);
+        actualSession.saveOrUpdate(aluno);
+        actualSession.saveOrUpdate(turno);
+        actualSession.saveOrUpdate(modes);
+        actualSession.saveOrUpdate(curso);
+        actualSession.saveOrUpdate(ahc);
         actualSession.getTransaction().commit();
         
         //Fecha a conexão com o banco
@@ -111,8 +124,8 @@ public class HibernateTest {
         Pessoa pessoa = new Pessoa();
         
         pessoa.setNomePessoa("Waldiskleyson");
-        pessoa.setCpfPessoa("12345678910");
-        pessoa.setTipo('a');
+        pessoa.setCpfPessoa("123.456.789-10");
+        pessoa.setMatriculaPessoa("1234567890");
         pessoa.setDtnascimento(data);
         
         //Salva o objeto na sessão

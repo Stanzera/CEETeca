@@ -11,6 +11,7 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="models/AlunoHasCurso.hbm.xml"/>
     <mapping resource="models/Aluno.hbm.xml"/>
     <mapping resource="models/Advertencia.hbm.xml"/>
     <mapping resource="models/Contato.hbm.xml"/>
@@ -21,8 +22,8 @@
     <mapping resource="models/Emprestimo.hbm.xml"/>
     <mapping resource="models/Pessoa.hbm.xml"/>
     <mapping resource="models/Exemplar.hbm.xml"/>
-    <mapping resource="models/Endereco.hbm.xml"/>
     <mapping resource="models/Curso.hbm.xml"/>
+    <mapping resource="models/Endereco.hbm.xml"/>
     <mapping resource="models/Professor.hbm.xml"/>
     <mapping resource="models/Modulo.hbm.xml"/>
     <mapping resource="models/Livro.hbm.xml"/>

@@ -1,24 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<!-- Generated 27/11/2018 14:35:48 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="models.Turno" table="turno" catalog="ceeteca" optimistic-lock="version">
         <id name="idTurno" type="int">
             <column name="idTurno" />
             <generator class="increment" />
         </id>
-        <many-to-one name="curso" class="models.Curso" fetch="select">
-            <column name="curso_idCurso" not-null="true" />
-        </many-to-one>
-        <property name="descricaoTurno" type="char">
+        <property name="descricaoTurno" type="string">
             <column name="descricaoTurno" length="1" not-null="true" />
         </property>
-        <set name="modulos" table="modulo" inverse="true" lazy="true" fetch="select">
+        <set name="cursos" table="curso" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="turno_idTurno" not-null="true" />
             </key>
-            <one-to-many class="models.Modulo" />
+            <one-to-many class="models.Curso" />
         </set>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 package models;
-// Generated 23/11/2018 17:35:30 by Hibernate Tools 4.3.1
+// Generated 27/11/2018 14:35:48 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,7 +17,6 @@ public class Pessoa  implements java.io.Serializable {
      private String nomePessoa;
      private Date dtnascimento;
      private String cpfPessoa;
-     private char tipo;
      private Set contatos = new HashSet(0);
      private Set emprestimos = new HashSet(0);
      private Set bibliotecarias = new HashSet(0);
@@ -29,21 +28,19 @@ public class Pessoa  implements java.io.Serializable {
     }
 
 	
-    public Pessoa(int idPessoa, String matriculaPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa, char tipo) {
+    public Pessoa(int idPessoa, String matriculaPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa) {
         this.idPessoa = idPessoa;
         this.matriculaPessoa = matriculaPessoa;
         this.nomePessoa = nomePessoa;
         this.dtnascimento = dtnascimento;
         this.cpfPessoa = cpfPessoa;
-        this.tipo = tipo;
     }
-    public Pessoa(int idPessoa, String matriculaPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa, char tipo, Set contatos, Set emprestimos, Set bibliotecarias, Set professors, Set alunos, Set enderecos) {
+    public Pessoa(int idPessoa, String matriculaPessoa, String nomePessoa, Date dtnascimento, String cpfPessoa, Set contatos, Set emprestimos, Set bibliotecarias, Set professors, Set alunos, Set enderecos) {
        this.idPessoa = idPessoa;
        this.matriculaPessoa = matriculaPessoa;
        this.nomePessoa = nomePessoa;
        this.dtnascimento = dtnascimento;
        this.cpfPessoa = cpfPessoa;
-       this.tipo = tipo;
        this.contatos = contatos;
        this.emprestimos = emprestimos;
        this.bibliotecarias = bibliotecarias;
@@ -86,13 +83,6 @@ public class Pessoa  implements java.io.Serializable {
     
     public void setCpfPessoa(String cpfPessoa) {
         this.cpfPessoa = cpfPessoa;
-    }
-    public char getTipo() {
-        return this.tipo;
-    }
-    
-    public void setTipo(char tipo) {
-        this.tipo = tipo;
     }
     public Set getContatos() {
         return this.contatos;

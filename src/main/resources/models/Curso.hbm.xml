@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23/11/2018 17:35:31 by Hibernate Tools 4.3.1 -->
+<!-- Generated 27/11/2018 14:35:48 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="models.Curso" table="curso" catalog="ceeteca" optimistic-lock="version">
         <id name="idCurso" type="int">
             <column name="idCurso" />
             <generator class="increment" />
         </id>
+        <many-to-one name="modulo" class="models.Modulo" fetch="select">
+            <column name="modulo_idModulo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="turno" class="models.Turno" fetch="select">
+            <column name="turno_idTurno" not-null="true" />
+        </many-to-one>
         <property name="descricaoCurso" type="string">
             <column name="descricaoCurso" length="45" not-null="true" />
         </property>
@@ -17,11 +23,11 @@
             </key>
             <one-to-many class="models.ProfessorHasCurso" />
         </set>
-        <set name="turnos" table="turno" inverse="true" lazy="true" fetch="select">
+        <set name="alunoHasCursos" table="aluno_has_curso" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="curso_idCurso" not-null="true" />
             </key>
-            <one-to-many class="models.Turno" />
+            <one-to-many class="models.AlunoHasCurso" />
         </set>
     </class>
 </hibernate-mapping>
