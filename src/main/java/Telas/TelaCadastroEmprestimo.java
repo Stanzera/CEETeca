@@ -18,14 +18,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPopupMenu;
 import models.Aluno;
 import models.Emprestimo;
 import models.Livro;
 import models.Pessoa;
 import models.Professor;
 import org.hibernate.Session;
-import testeControle.controleEmprestimo;
 
 /**
  *
@@ -75,15 +73,13 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         lblTituloCadEmprestimo = new javax.swing.JLabel();
         lblAutorCadEmprestimo = new javax.swing.JLabel();
         lblAssuntoCadEmprestimo = new javax.swing.JLabel();
-        lblLiberadoCadEmprestimo = new javax.swing.JLabel();
         lblSituacaoCadEmprestimo = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         painelDetalhamentoCadEmprestimo = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         cTxtDtDevolucaoCadEmprestimo = new javax.swing.JFormattedTextField();
         jLabel17 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        cTxtAreaObservacoesCadEmprestimo = new javax.swing.JTextArea();
+        cComboBoxSituacaoObs = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -138,7 +134,7 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cTxtNomeCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadoUsuarioCadEmprestimoLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -196,9 +192,6 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         lblAssuntoCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblAssuntoCadEmprestimo.setText("Assunto: ..........");
 
-        lblLiberadoCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblLiberadoCadEmprestimo.setText("Liberado para: ..........");
-
         lblSituacaoCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblSituacaoCadEmprestimo.setText("Situação: ..........");
 
@@ -207,26 +200,23 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         painelDadosExCadEmprestimoLayout.setHorizontalGroup(
             painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btBuscarCadEmprestimo)
-                                    .addComponent(cTxtNumChamadaCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(lblNumChamadaCadEmprestimo)))
+                            .addComponent(btBuscarCadEmprestimo)
+                            .addComponent(cTxtNumChamadaCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblNumChamadaCadEmprestimo)
                     .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(30, 30, 30)
                         .addGroup(painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAutorCadEmprestimo)
                             .addComponent(lblTituloCadEmprestimo)
                             .addComponent(lblAssuntoCadEmprestimo)
-                            .addComponent(lblLiberadoCadEmprestimo)
                             .addComponent(lblSituacaoCadEmprestimo))))
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelDadosExCadEmprestimoLayout.setVerticalGroup(
             painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,11 +235,9 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                 .addComponent(lblAutorCadEmprestimo)
                 .addGap(18, 18, 18)
                 .addComponent(lblAssuntoCadEmprestimo)
-                .addGap(18, 18, 18)
-                .addComponent(lblLiberadoCadEmprestimo)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(lblSituacaoCadEmprestimo)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -267,14 +255,7 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel17.setText("Observações:");
 
-        cTxtAreaObservacoesCadEmprestimo.setColumns(20);
-        cTxtAreaObservacoesCadEmprestimo.setRows(5);
-        cTxtAreaObservacoesCadEmprestimo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cTxtAreaObservacoesCadEmprestimoKeyReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(cTxtAreaObservacoesCadEmprestimo);
+        cComboBoxSituacaoObs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Em aberto", "Finalizado", " " }));
 
         javax.swing.GroupLayout painelDetalhamentoCadEmprestimoLayout = new javax.swing.GroupLayout(painelDetalhamentoCadEmprestimo);
         painelDetalhamentoCadEmprestimo.setLayout(painelDetalhamentoCadEmprestimoLayout);
@@ -290,8 +271,8 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                     .addGroup(painelDetalhamentoCadEmprestimoLayout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(cComboBoxSituacaoObs, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
         painelDetalhamentoCadEmprestimoLayout.setVerticalGroup(
             painelDetalhamentoCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,10 +282,10 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(cTxtDtDevolucaoCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(painelDetalhamentoCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelDetalhamentoCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cComboBoxSituacaoObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jLabel15.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -342,28 +323,6 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(painelDadoUsuarioCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(painelDadosExCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15)
-                                    .addComponent(painelDetalhamentoCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addComponent(jLabel18)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btRegistrarCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
@@ -371,6 +330,29 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(btVoltarCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(painelDadosExCadEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel15)
+                                    .addComponent(painelDetalhamentoCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(painelDadoUsuarioCadEmprestimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator3)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(jLabel18)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,9 +385,10 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void limpar() {
-        cTxtAreaObservacoesCadEmprestimo.setText("");
+        cComboBoxSituacaoObs.setSelectedIndex(0);
         cTxtCPFCadEmprestimo.setText("");
         cTxtDtDevolucaoCadEmprestimo.setText("");
         cTxtNomeCadEmprestimo.setText("");
@@ -422,7 +405,7 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarCadEmprestimoActionPerformed
 
     private void btRegistrarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarCadEmprestimoActionPerformed
-        String areaObs = cTxtAreaObservacoesCadEmprestimo.getText();
+        String areaObs = String.valueOf(cComboBoxSituacaoObs.getSelectedIndex());
         String cpf = cTxtCPFCadEmprestimo.getText();
         Date dtDevolucao = null;
         try {
@@ -447,12 +430,12 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
             Aluno aln = new Aluno();
             aln.setPessoa(pss);
 
-            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAreaObservacoesCadEmprestimo.getText()) || cTxtAreaObservacoesCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
+            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
                     && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtDevolucaoCadEmprestimo.getText()) || cTxtDtDevolucaoCadEmprestimo.getText().length() == 0
                     && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadEmprestimo.getText()) || cTxtNomeCadEmprestimo.getText().length() == 0
                     && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText()) || cTxtNumChamadaCadEmprestimo.getText().length() == 0
-                    && cComboBoxTipoCadEmprestimo.getSelectedIndex() != 0) {
+                    && cComboBoxTipoCadEmprestimo.getSelectedIndex() == 0
+                    && cComboBoxSituacaoObs.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Está faltando dados!");
 
             } else {
@@ -486,11 +469,11 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
             emp.setObservacaoEmprestimo(areaObs);
             Professor prf = new Professor();
             prf.setPessoa(pss);
-            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAreaObservacoesCadEmprestimo.getText()) || cTxtAreaObservacoesCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
+            if ( StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
                     && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtDevolucaoCadEmprestimo.getText()) || cTxtDtDevolucaoCadEmprestimo.getText().length() == 0
                     && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadEmprestimo.getText()) || cTxtNomeCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText()) || cTxtNumChamadaCadEmprestimo.getText().length() == 0) {
+                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText()) || cTxtNumChamadaCadEmprestimo.getText().length() == 0
+                    && cComboBoxSituacaoObs.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Está faltando dados!");
 
             } else {
@@ -523,7 +506,7 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
 
     private void btBuscarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarCadEmprestimoActionPerformed
         //String nchamada = cTxtNumChamadaCadEmprestimo.getText();
-        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText())) {
+       /* if (StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText())) {
             for (int i = 0; i < Emprestimo; i++) {
                 livroGetSet livro = Banco.livros.get(i);
                 emprestimoGetSet emprestimo = Banco.emprestimos.get(i);
@@ -538,13 +521,13 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Não tem esse numero de chamada");
-        }
+        }*/
     }//GEN-LAST:event_btBuscarCadEmprestimoActionPerformed
 
     private void btPesquisarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarCadEmprestimoActionPerformed
 //
 
-        if (!cTxtNomeCadEmprestimo.getText().equals("")
+        /*if (!cTxtNomeCadEmprestimo.getText().equals("")
                 && !cTxtCPFCadEmprestimo.getText().equals("")
                 && !cComboBoxTipoCadEmprestimo.equals(0)) {
             for (int i = 0; i < Banco.alunos.size(); i++) {
@@ -576,7 +559,7 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                 new TelaCadastroAluno().setVisible(true);
             }
 
-        }
+        }*/
 
 
     }//GEN-LAST:event_btPesquisarCadEmprestimoActionPerformed
@@ -586,11 +569,6 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
 
         cTxtNomeCadEmprestimo.setText(cTxtNomeCadEmprestimo.getText().toUpperCase());
     }//GEN-LAST:event_cTxtNomeCadEmprestimoKeyReleased
-
-    private void cTxtAreaObservacoesCadEmprestimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtAreaObservacoesCadEmprestimoKeyReleased
-        // TODO add your handling code here:
-        cTxtAreaObservacoesCadEmprestimo.setText(cTxtAreaObservacoesCadEmprestimo.getText().toUpperCase());
-    }//GEN-LAST:event_cTxtAreaObservacoesCadEmprestimoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -634,8 +612,8 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
     private javax.swing.JButton btPesquisarCadEmprestimo;
     private javax.swing.JButton btRegistrarCadEmprestimo;
     private javax.swing.JButton btVoltarCadEmprestimo;
+    private javax.swing.JComboBox<String> cComboBoxSituacaoObs;
     private javax.swing.JComboBox<String> cComboBoxTipoCadEmprestimo;
-    private javax.swing.JTextArea cTxtAreaObservacoesCadEmprestimo;
     private javax.swing.JFormattedTextField cTxtCPFCadEmprestimo;
     private javax.swing.JFormattedTextField cTxtDtDevolucaoCadEmprestimo;
     private javax.swing.JTextField cTxtNomeCadEmprestimo;
@@ -650,13 +628,11 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblAssuntoCadEmprestimo;
     private javax.swing.JLabel lblAutorCadEmprestimo;
-    private javax.swing.JLabel lblLiberadoCadEmprestimo;
     private javax.swing.JLabel lblNumChamadaCadEmprestimo;
     private javax.swing.JLabel lblSituacaoCadEmprestimo;
     private javax.swing.JLabel lblTituloCadEmprestimo;

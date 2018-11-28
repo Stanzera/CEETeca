@@ -7,22 +7,21 @@ package Telas;
 
 import DAO.NewHibernateUtil;
 import com.mysql.cj.core.util.StringUtils;
-import com.sun.glass.events.MouseEvent;
 import javax.swing.ImageIcon;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import models.Contato;
 import models.Curso;
 import models.Endereco;
-import models.Modulo;
 import models.Pessoa;
 import models.Professor;
 import models.ProfessorHasCurso;
-import models.Turno;
 import org.hibernate.Session;
 
 /**
@@ -60,14 +59,14 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cTxtNumFuncionalCadProfessor = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         cTxtDtNascimentoCadProfessor = new javax.swing.JFormattedTextField();
-        jLabel6 = new javax.swing.JLabel();
-        cComboBoxTurnoCadProfessor = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         cTxtCPFCadProfessor = new javax.swing.JFormattedTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        cTxtAreaSelecionadosCadProfessor = new javax.swing.JTextArea();
-        butTransferirCurso = new javax.swing.JButton();
-        cComboBoxCursosCadProfessor = new javax.swing.JComboBox<>();
+        butAdicionarCurso = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        cxListSelecionados = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        cxListModelo = new javax.swing.JList<>();
+        butRemoverCurso = new javax.swing.JButton();
         painelEnderecoCadProfessor = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cTxtCEPCadProfessor = new javax.swing.JFormattedTextField();
@@ -133,17 +132,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel6.setText("Turno:");
-
-        cComboBoxTurnoCadProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        cComboBoxTurnoCadProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----------", "Matutino", "Vespertino", "Noturno" }));
-        cComboBoxTurnoCadProfessor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cComboBoxTurnoCadProfessorActionPerformed(evt);
-            }
-        });
-
         jLabel8.setText("CPF:");
 
         try {
@@ -152,18 +140,38 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        cTxtAreaSelecionadosCadProfessor.setColumns(20);
-        cTxtAreaSelecionadosCadProfessor.setRows(5);
-        jScrollPane1.setViewportView(cTxtAreaSelecionadosCadProfessor);
-
-        butTransferirCurso.setText(">>>");
-        butTransferirCurso.addActionListener(new java.awt.event.ActionListener() {
+        butAdicionarCurso.setText(">>>");
+        butAdicionarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butTransferirCursoActionPerformed(evt);
+                butAdicionarCursoActionPerformed(evt);
+            }
+        });
+        butAdicionarCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                butAdicionarCursoKeyReleased(evt);
             }
         });
 
-        cComboBoxCursosCadProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jScrollPane3.setViewportView(cxListSelecionados);
+
+        cxListModelo.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "ADMINISTRAÇÃO", "COMÉRCIO EXTERIOR", "EVENTOS", "GASTRONOMIA", "INFORMÁTICA", "MODELAGEM DO VESTUÁRIO", "MULTIMÍDIA", "PRODUÇÃO DE MODA", "PROGRAMAÇÃO DE JOGOS DIGITAIS", "RADIO E TV", "REDES DE COMPUTADORES" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(cxListModelo);
+
+        butRemoverCurso.setText("<<<");
+        butRemoverCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butRemoverCursoActionPerformed(evt);
+            }
+        });
+        butRemoverCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                butRemoverCursoKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelDadosCadProfessorLayout = new javax.swing.GroupLayout(painelDadosCadProfessor);
         painelDadosCadProfessor.setLayout(painelDadosCadProfessorLayout);
@@ -178,8 +186,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                         .addComponent(cTxtNomeCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosCadProfessorLayout.createSequentialGroup()
+                        .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
                                 .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel4))
@@ -188,21 +196,19 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                                     .addComponent(cTxtCPFCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cTxtNumFuncionalCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cComboBoxTurnoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cTxtDtNascimentoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadosCadProfessorLayout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(cComboBoxCursosCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(butTransferirCurso)
-                                .addGap(64, 64, 64)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(94, Short.MAX_VALUE))
+                                .addComponent(cTxtDtNascimentoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(butAdicionarCurso)
+                                    .addComponent(butRemoverCurso))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(38, 38, 38))
         );
         painelDadosCadProfessorLayout.setVerticalGroup(
             painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,28 +224,33 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(cTxtDtNascimentoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cComboBoxTurnoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(cTxtCPFCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
                         .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(butTransferirCurso)
-                            .addComponent(cComboBoxCursosCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8)
+                            .addComponent(cTxtCPFCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(butAdicionarCurso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(butRemoverCurso)
+                                .addGap(33, 33, 33))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosCadProfessorLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosCadProfessorLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))))
         );
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("CEP:");
 
         try {
-            cTxtCEPCadProfessor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-##")));
+            cTxtCEPCadProfessor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -342,7 +353,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                                                 .addGap(6, 6, 6)
                                                 .addComponent(cComboBoxUFCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(cTxtComplementoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelEnderecoCadProfessorLayout.setVerticalGroup(
             painelEnderecoCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,7 +438,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                     .addGroup(PainelContatoCadProfessorLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel17)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PainelContatoCadProfessorLayout.setVerticalGroup(
             PainelContatoCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,7 +455,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 .addGroup(PainelContatoCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(cTxtEmailCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btConfirmarCadProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -483,12 +494,9 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
                 .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
-                        .addComponent(PainelContatoCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btConfirmarCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -497,7 +505,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addComponent(btVoltarCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PainelContatoCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(painelGeralCadProfessorLayout.createSequentialGroup()
                 .addContainerGap()
@@ -505,7 +514,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                     .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelGeralCadProfessorLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 577, Short.MAX_VALUE))))
         );
         painelGeralCadProfessorLayout.setVerticalGroup(
             painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,17 +524,17 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PainelContatoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btLimparCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -556,12 +565,13 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelGeralCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cComboBoxUFCadProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cComboBoxUFCadProfessorActionPerformed
@@ -594,9 +604,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         String email = cTxtEmailCadProfessor.getText();
         String celular = cTxtCelularCadProfessor.getText();
         String telefone = cTxtTelefoneCadProfessor.getText();
-        String todosCurso = String.valueOf(cComboBoxCursosCadProfessor.getSelectedIndex());
-        String cursoSelecionado = cTxtAreaSelecionadosCadProfessor.getText();
-        String turno = String.valueOf(cComboBoxTurnoCadProfessor.getSelectedIndex());
+        String cursoSelecionado = String.valueOf(cxListSelecionados.getSelectedIndex());
         String estado = String.valueOf(cComboBoxUFCadProfessor.getSelectedIndex());
         String logradouro = cTxtRuaCadProfessor.getText();
         int numero = Integer.parseInt(cTxtNumeroCadProfessor.getText());
@@ -628,20 +636,15 @@ public class TelaCadProfessor extends javax.swing.JFrame {
 
         Professor prf = new Professor();
         prf.setPessoa(pss);
-
-        Turno trn = new Turno();
-        trn.setDescricaoTurno(turno);
-
+        
         Curso crs = new Curso();
         crs.setDescricaoCurso(cursoSelecionado);
-        crs.setTurno(trn);
 
         ProfessorHasCurso phc = new ProfessorHasCurso();
         phc.setCurso(crs);
         phc.setProfessor(prf);
 
-        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAreaSelecionadosCadProfessor.getText()) || cTxtAreaSelecionadosCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtBairroCadProfessor.getText()) || cTxtBairroCadProfessor.getText().length() == 0
+        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtBairroCadProfessor.getText()) || cTxtBairroCadProfessor.getText().length() == 0
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtCEPCadProfessor.getText()) || cTxtCEPCadProfessor.getText().length() == 0
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadProfessor.getText()) || cTxtCPFCadProfessor.getText().length() == 0
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtCelularCadProfessor.getText()) || cTxtCelularCadProfessor.getText().length() == 0
@@ -654,9 +657,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumeroCadProfessor.getText()) || cTxtNumeroCadProfessor.getText().length() == 0
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtRuaCadProfessor.getText()) || cTxtRuaCadProfessor.getText().length() == 0
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtTelefoneCadProfessor.getText()) || cTxtTelefoneCadProfessor.getText().length() == 0
-                && cComboBoxCursosCadProfessor.getSelectedIndex() != 0
-                && cComboBoxUFCadProfessor.getSelectedIndex() != 0
-                && cComboBoxTurnoCadProfessor.getSelectedIndex() != 0) {
+                && cxListSelecionados.getModel().getSize() > 0
+                && cComboBoxUFCadProfessor.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Está faltando dados!");
 
         } else {
@@ -669,7 +671,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                     actualSession.saveOrUpdate(end);
                     actualSession.saveOrUpdate(prf);
                     actualSession.saveOrUpdate(crs);
-                    actualSession.saveOrUpdate(trn);
                     actualSession.saveOrUpdate(phc);
                     actualSession.getTransaction().commit();
                     actualSession.close();
@@ -724,17 +725,60 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cTxtEmailCadProfessor.setText(cTxtEmailCadProfessor.getText().toUpperCase());
     }//GEN-LAST:event_cTxtEmailCadProfessorKeyReleased
 
-    private void cComboBoxTurnoCadProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cComboBoxTurnoCadProfessorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cComboBoxTurnoCadProfessorActionPerformed
+    private void butAdicionarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAdicionarCursoActionPerformed
+        String curso = cxListModelo.getSelectedValue();
 
-    private void butTransferirCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butTransferirCursoActionPerformed
-        cComboBoxCursosCadProfessor.getSelectedItem();
-
-        if (evt == MouseEvent.CLICK) {
-            
+        ListModel lm = cxListSelecionados.getModel();
+        DefaultListModel cursosPegos = new DefaultListModel();
+        for (int i = 0; i < lm.getSize(); i++) {
+            cursosPegos.addElement(lm.getElementAt(i));
         }
-    }//GEN-LAST:event_butTransferirCursoActionPerformed
+        cursosPegos.addElement(curso);
+        cxListSelecionados.setModel(cursosPegos);
+        cxListSelecionados.setVisible(true);
+
+        ListModel modeloDisponiveis = cxListModelo.getModel();
+        DefaultListModel cursosDisponiveis = new DefaultListModel();
+        for (int i = 0; i < modeloDisponiveis.getSize(); i++) {
+            cursosDisponiveis.addElement(modeloDisponiveis.getElementAt(i));
+        }
+        cursosDisponiveis.removeElement(curso);
+        cxListModelo.setModel(cursosDisponiveis);
+        cxListModelo.setVisible(true);
+
+    }//GEN-LAST:event_butAdicionarCursoActionPerformed
+
+    private void butAdicionarCursoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_butAdicionarCursoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butAdicionarCursoKeyReleased
+
+    private void butRemoverCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRemoverCursoActionPerformed
+        String curso = cxListSelecionados.getSelectedValue();
+
+        ListModel lm = cxListModelo.getModel();
+        DefaultListModel cursosPegos = new DefaultListModel();
+        for (int i = 0; i < lm.getSize(); i++) {
+            cursosPegos.addElement(lm.getElementAt(i));
+        }
+        cursosPegos.addElement(curso);
+        cxListModelo.setModel(cursosPegos);
+        cxListModelo.setVisible(true);
+
+        ListModel modeloDisponiveis = cxListSelecionados.getModel();
+        DefaultListModel cursosDisponiveis = new DefaultListModel();
+        for (int i = 0; i < modeloDisponiveis.getSize(); i++) {
+            cursosDisponiveis.addElement(modeloDisponiveis.getElementAt(i));
+        }
+        cursosDisponiveis.removeElement(curso);
+        cxListSelecionados.setModel(cursosDisponiveis);
+        cxListSelecionados.setVisible(true);
+
+
+    }//GEN-LAST:event_butRemoverCursoActionPerformed
+
+    private void butRemoverCursoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_butRemoverCursoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butRemoverCursoKeyReleased
 
     public void Limpar() {
 
@@ -743,15 +787,13 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cTxtNomeCadProfessor.setText("");
         cTxtCPFCadProfessor.setText("");
         cTxtDtNascimentoCadProfessor.setText("");
-        cComboBoxCursosCadProfessor.setSelectedIndex(0);
-        cTxtAreaSelecionadosCadProfessor.setText("");
+
         //Contato
         cTxtEmailCadProfessor.setText("");
         cTxtTelefoneCadProfessor.setText("");
         cTxtCelularCadProfessor.setText("");
 
         //endereço
-        cComboBoxTurnoCadProfessor.setSelectedIndex(0);
         cComboBoxUFCadProfessor.setSelectedIndex(0);
         cTxtRuaCadProfessor.setText("");
         cTxtNumeroCadProfessor.setText("");
@@ -802,11 +844,9 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JButton btConfirmarCadProfessor;
     private javax.swing.JButton btLimparCadProfessor;
     private javax.swing.JButton btVoltarCadProfessor;
-    private javax.swing.JButton butTransferirCurso;
-    private javax.swing.JComboBox<String> cComboBoxCursosCadProfessor;
-    private javax.swing.JComboBox<String> cComboBoxTurnoCadProfessor;
+    private javax.swing.JButton butAdicionarCurso;
+    private javax.swing.JButton butRemoverCurso;
     private javax.swing.JComboBox<String> cComboBoxUFCadProfessor;
-    private javax.swing.JTextArea cTxtAreaSelecionadosCadProfessor;
     private javax.swing.JTextField cTxtBairroCadProfessor;
     private javax.swing.JFormattedTextField cTxtCEPCadProfessor;
     private javax.swing.JFormattedTextField cTxtCPFCadProfessor;
@@ -820,6 +860,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JTextField cTxtNumeroCadProfessor;
     private javax.swing.JTextField cTxtRuaCadProfessor;
     private javax.swing.JFormattedTextField cTxtTelefoneCadProfessor;
+    private javax.swing.JList<String> cxListModelo;
+    private javax.swing.JList<String> cxListSelecionados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -836,10 +878,10 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

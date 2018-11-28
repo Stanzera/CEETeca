@@ -8,11 +8,6 @@ package Telas;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
-import javax.swing.table.DefaultTableModel;
-import getSet.alunoGetSet;
-import getSet.emprestimoGetSet;
-import getSet.livroGetSet;
-import getSet.professorGetSet;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -51,7 +46,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     }
 
-    public void ListarCadastros() {
+   /* public void ListarCadastros() {
         //Pegamos o modelo da tabela, as colunas.
         DefaultTableModel tableModel = (DefaultTableModel) tabelaTelaPrincipal.getModel();
         //Itera sobre os elementos no banco
@@ -94,7 +89,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         //Definimos o modelo com as linhas adicionadas novamente para a tabela
         tabelaTelaPrincipal.setModel(tableModel);
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -281,6 +276,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void gerLivroTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerLivroTelaPrincipalActionPerformed
@@ -302,7 +298,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void gerAlunoPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerAlunoPrincipalActionPerformed
         // TODO add your handling code here:
 
-        this.setVisible(true);
+        this.setVisible(false);
         new TelaGerenciarAluno().setVisible(true);
     }//GEN-LAST:event_gerAlunoPrincipalActionPerformed
 

@@ -8,7 +8,6 @@ package Telas;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import getSet.livroGetSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,11 +25,11 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
             
-        ListarCadastros();
+        //ListarCadastros();
         
     }
     
-        public void ListarCadastros(){
+        /*public void ListarCadastros(){
         //Pegamos o modelo da tabela, as colunas.
         DefaultTableModel tableModel = (DefaultTableModel) tabelaGerLivro.getModel();
         //Itera sobre os elementos no banco
@@ -52,7 +51,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
         }
         //Definimos o modelo com as linhas adicionadas novamente para a tabela
         tabelaGerLivro.setModel(tableModel);
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,13 +128,13 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
 
         tabelaGerLivro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "N° Chamada", "Título", "Autor", "Assunto", "Editora", "Liberado", "Quantidade"
+                "N° Chamada", "Título", "Autor", "Assunto", "Editora", "Quantidade"
             }
         ));
         jScrollPane1.setViewportView(tabelaGerLivro);
@@ -222,6 +221,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerLivroActionPerformed

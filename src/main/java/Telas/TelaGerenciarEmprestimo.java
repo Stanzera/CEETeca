@@ -8,7 +8,6 @@ package Telas;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import getSet.emprestimoGetSet;
 
 /**
  *
@@ -25,9 +24,9 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
         
-        ListarCadastros();
+        //ListarCadastros();
     }
-    public void ListarCadastros(){
+    /*public void ListarCadastros(){
         //Pegamos o modelo da tabela, as colunas.
         DefaultTableModel tableModel = (DefaultTableModel) tabelaGerEmprestimo.getModel();
         //Itera sobre os elementos no banco
@@ -49,7 +48,7 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
         }
         //Definimos o modelo com as linhas adicionadas novamente para a tabela
         tabelaGerEmprestimo.setModel(tableModel);
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -247,6 +246,7 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarGerEmprestimosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerEmprestimosActionPerformed

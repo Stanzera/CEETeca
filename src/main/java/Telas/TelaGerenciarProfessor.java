@@ -7,7 +7,6 @@ package Telas;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import getSet.professorGetSet;
 
 /**
  *
@@ -27,10 +26,10 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
         
-        ListarCadastros();
+        //ListarCadastros();
     }
     
-        public void ListarCadastros(){
+        /*public void ListarCadastros(){
         //Pegamos o modelo da tabela, as colunas.
         DefaultTableModel tableModel = (DefaultTableModel) tabelaGerProfessor.getModel();
         //Itera sobre os elementos no banco
@@ -50,7 +49,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
         }
         //Definimos o modelo com as linhas adicionadas novamente para a tabela
         tabelaGerProfessor.setModel(tableModel);
-    }
+    }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,6 +222,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerProfessorActionPerformed

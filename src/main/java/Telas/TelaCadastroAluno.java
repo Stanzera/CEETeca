@@ -7,27 +7,30 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
+import com.mysql.cj.core.util.StringUtils;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import getSet.alunoGetSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.Query;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Aluno;
+import models.AlunoHasCurso;
+import models.Contato;
 import models.Curso;
+import models.Endereco;
 import models.Modulo;
 import models.Pessoa;
 import models.Turno;
 import org.hibernate.Session;
-import testeControle.controleAluno;
 
 /**
  *
  * @author Felipe Severo
  */
 public class TelaCadastroAluno extends javax.swing.JFrame {
-    
-    
+
     /**
      * Creates new form TelaUsuario
      */
@@ -36,9 +39,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
 
-        
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -240,7 +241,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                 .addGroup(painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCelular)
                     .addComponent(cTxtCelularCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -312,6 +313,12 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         });
 
         jLabel11.setText("CEP:");
+
+        try {
+            cTxtCEPCadAluno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout painelComplementarCadEmprestimoLayout = new javax.swing.GroupLayout(painelComplementarCadEmprestimo);
         painelComplementarCadEmprestimo.setLayout(painelComplementarCadEmprestimoLayout);
@@ -502,6 +509,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cComboBoxCursoCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cComboBoxCursoCadAlunoActionPerformed
@@ -513,14 +521,21 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
         Limpar();
     }//GEN-LAST:event_btLimparCadAlunoActionPerformed
-    
+
     private void btConfirmarCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarCadAlunoActionPerformed
         // 
-        
+
         String nome = cTxtNomeCadAluno.getText();
         String matricula = cTxtMatriculaCadAluno.getText();
         String cpf = cTxtCPFCadAluno.getText();
-        String dtNascimento = cTxtDtNascimentoCadAluno.getText();
+        Date dtNascimento = null;
+        try {
+            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+            dtNascimento = in.parse(cTxtDtNascimentoCadAluno.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String email = cTxtEmailCadAluno.getText();
         String celular = cTxtCelularCadAluno.getText();
         String telefone = cTxtTelefoneCadAluno.getText();
@@ -529,39 +544,98 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         String turno = String.valueOf(cComboBoxTurnoCadAluno.getSelectedIndex());
         String estado = String.valueOf(cComboBoxEstadoCadAluno.getSelectedIndex());
         String rua = cTxtRuaCadAluno.getText();
-        String numero = cTxtNumeroCadAluno.getText();
+        int numero = Integer.parseInt(cTxtNumeroCadAluno.getText());
         String bairro = cTxtBairroCadAluno.getText();
         String cidade = cTxtCidadeCadAluno.getText();
         String cep = cTxtCEPCadAluno.getText();
         String complemento = cTxtComplementoCadAluno.getText();
+
+        Pessoa pss = new Pessoa();
+
+        pss.setNomePessoa(nome);
+        pss.setMatriculaPessoa(matricula);
+        pss.setCpfPessoa(cpf);
+        pss.setDtnascimento(dtNascimento);
+
+        Endereco end = new Endereco();
+        end.setEstadoEndereco(estado);
+        end.setLogradouroEndereco(rua);
+        end.setNumeroEndereco(numero);
+        end.setBairroEndereco(bairro);
+        end.setCidadeEndereco(cidade);
+        end.setComplementoEndereco(complemento);
+        end.setCep(cep);
+        end.setPessoa(pss);
+
+        Contato ctt = new Contato();
+        ctt.setEmailContato(email);
+        ctt.setCelularContato(celular);
+        ctt.setTelefoneContato(telefone);
+        ctt.setPessoa(pss);
+
+        Aluno aln = new Aluno();
+        aln.setPessoa(pss);
+
+        Modulo mdl = new Modulo();
+        mdl.setDescricaoModulo(modulo);
+
+        Turno trn = new Turno();
+        trn.setDescricaoTurno(turno);
+
+        Curso crs = new Curso();
+        crs.setDescricaoCurso(curso);
+        crs.setModulo(mdl);
+        crs.setTurno(trn);
+
+        AlunoHasCurso ahc = new AlunoHasCurso();
+        ahc.setAluno(aln);
+        ahc.setCurso(crs);
         
-        alunoGetSet infos = new alunoGetSet();
-        
-        infos.setNome(nome);
-        infos.setNumMatricula(matricula);
-        infos.setCpf(cpf);
-        infos.setDtNascimento(dtNascimento);
-        infos.setEmail(email);
-        infos.setCelular(celular);
-        infos.setTelefone(telefone);
-        infos.setCurso(curso);
-        infos.setModulo(modulo);
-        infos.setTurno(turno);
-        infos.setEstado(estado);
-        infos.setLogradouro(rua);
-        infos.setNumResidencia(numero);
-        infos.setBairro(bairro);
-        infos.setCidade(cidade);
-        infos.setComplemento(complemento);
-        infos.setCep(cep);
-        
-        controleAluno controlador = new controleAluno();
-        if (controlador.TestaConferirAluno(infos)) {
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtBairroCadAluno.getText()) || cTxtBairroCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCEPCadAluno.getText()) || cTxtCEPCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadAluno.getText()) || cTxtCPFCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCelularCadAluno.getText()) || cTxtCelularCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCidadeCadAluno.getText()) || cTxtCidadeCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtComplementoCadAluno.getText()) || cTxtComplementoCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtNascimentoCadAluno.getText()) || cTxtDtNascimentoCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEmailCadAluno.getText()) || cTxtEmailCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadAluno.getText()) || cTxtNomeCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtMatriculaCadAluno.getText()) || cTxtMatriculaCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumeroCadAluno.getText()) || cTxtNumeroCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtRuaCadAluno.getText()) || cTxtRuaCadAluno.getText().length() == 0
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtTelefoneCadAluno.getText()) || cTxtTelefoneCadAluno.getText().length() == 0
+                && cComboBoxModuloCadAluno.getSelectedIndex() == 0
+                && cComboBoxEstadoCadAluno.getSelectedIndex() == 0
+                && cComboBoxCursoCadAluno.getSelectedIndex() ==0
+                && cComboBoxTurnoCadAluno.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(null, "Está faltando dados!");
+
         } else {
-            JOptionPane.showMessageDialog(null, "Está faltando dados, termine de preencher os campos");
+            int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+            if (sim == 0) {
+                try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                    actualSession.beginTransaction();
+                    actualSession.saveOrUpdate(pss);
+                    actualSession.saveOrUpdate(ctt);
+                    actualSession.saveOrUpdate(end);
+                    actualSession.saveOrUpdate(aln);
+                    actualSession.saveOrUpdate(crs);
+                    actualSession.saveOrUpdate(ahc);
+                    actualSession.saveOrUpdate(mdl);
+                    actualSession.saveOrUpdate(trn);
+                    actualSession.getTransaction().commit();
+                    actualSession.close();
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                    NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+            }
         }
-        
+
+
     }//GEN-LAST:event_btConfirmarCadAlunoActionPerformed
 
     private void btVoltarCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadAlunoActionPerformed
@@ -572,8 +646,8 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
     private void cTxtNomeCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtNomeCadAlunoKeyReleased
         // TODO add your handling code here:
-        
-         cTxtNomeCadAluno.setText(cTxtNomeCadAluno.getText().toUpperCase());
+
+        cTxtNomeCadAluno.setText(cTxtNomeCadAluno.getText().toUpperCase());
     }//GEN-LAST:event_cTxtNomeCadAlunoKeyReleased
 
     private void cTxtEmailCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEmailCadAlunoKeyReleased
@@ -583,25 +657,25 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
     private void cTxtRuaCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtRuaCadAlunoKeyReleased
         // TODO add your handling code here:
-        
+
         cTxtRuaCadAluno.setText(cTxtRuaCadAluno.getText().toUpperCase());
     }//GEN-LAST:event_cTxtRuaCadAlunoKeyReleased
 
     private void cTxtBairroCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBairroCadAlunoKeyReleased
         // TODO add your handling code here:
-        
+
         cTxtBairroCadAluno.setText(cTxtBairroCadAluno.getText().toUpperCase());
     }//GEN-LAST:event_cTxtBairroCadAlunoKeyReleased
 
     private void cTxtComplementoCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtComplementoCadAlunoKeyReleased
         // TODO add your handling code here:
-        
+
         cTxtComplementoCadAluno.setText(cTxtComplementoCadAluno.getText().toUpperCase());
     }//GEN-LAST:event_cTxtComplementoCadAlunoKeyReleased
 
     private void cTxtCidadeCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtCidadeCadAlunoKeyReleased
         // TODO add your handling code here:
-        
+
         cTxtCidadeCadAluno.setText(cTxtCidadeCadAluno.getText().toUpperCase());
     }//GEN-LAST:event_cTxtCidadeCadAlunoKeyReleased
 
@@ -611,7 +685,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         cTxtNomeCadAluno.setText("");
         cTxtCPFCadAluno.setText("");
         cTxtDtNascimentoCadAluno.setText("");
-
         //Contato
         cTxtEmailCadAluno.setText("");
         cTxtTelefoneCadAluno.setText("");
@@ -622,6 +695,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         cComboBoxModuloCadAluno.setSelectedIndex(0);
         cComboBoxTurnoCadAluno.setSelectedIndex(0);
         cComboBoxEstadoCadAluno.setSelectedIndex(0);
+        cTxtCEPCadAluno.setText("");
         cTxtRuaCadAluno.setText("");
         cTxtNumeroCadAluno.setText("");
         cTxtBairroCadAluno.setText("");

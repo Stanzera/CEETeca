@@ -5,6 +5,7 @@
  */
 package Telas;
 
+import com.mysql.jdbc.StringUtils;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -160,6 +161,7 @@ public class telaLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cTxtUsuarioTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cTxtUsuarioTelaLoginActionPerformed
@@ -204,9 +206,9 @@ public class telaLogin extends javax.swing.JFrame {
 
     private void btEntrarTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btEntrarTelaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (cTxtUsuarioTelaLogin.getText().equals("")) {
+            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
+            } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
@@ -229,9 +231,9 @@ public class telaLogin extends javax.swing.JFrame {
 
     private void cTxtSenhaTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtSenhaTelaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (cTxtUsuarioTelaLogin.getText().equals("")) {
+            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
+            } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
@@ -250,9 +252,9 @@ public class telaLogin extends javax.swing.JFrame {
 
     private void cTxtUsuarioTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtUsuarioTelaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (cTxtUsuarioTelaLogin.getText().equals("")) {
+            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
-            } else if (cTxtSenhaTelaLogin.getText().equals("")) {
+            } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha!");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
                 JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
