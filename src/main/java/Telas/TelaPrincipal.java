@@ -145,17 +145,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setResizable(false);
 
         tabelaTelaPrincipal.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
-        tabelaTelaPrincipal.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nome", "Matrícula / N° Funcional", "Título Livro", "Número Chamada", "Limite data", "Situação"
-            }
-        ));
         jScrollPane1.setViewportView(tabelaTelaPrincipal);
 
         javax.swing.GroupLayout painelTelaPrincipalLayout = new javax.swing.GroupLayout(painelTelaPrincipal);
