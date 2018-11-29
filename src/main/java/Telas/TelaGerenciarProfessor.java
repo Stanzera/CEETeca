@@ -6,6 +6,7 @@
 package Telas;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -151,9 +152,19 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         btExcluirGerProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btExcluirGerProfessor.setText("Excluir");
+        btExcluirGerProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirGerProfessorActionPerformed(evt);
+            }
+        });
 
         btEditarGerProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btEditarGerProfessor.setText("Editar");
+        btEditarGerProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarGerProfessorActionPerformed(evt);
+            }
+        });
 
         btCadastrarGerProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btCadastrarGerProfessor.setText("Cadastrar");
@@ -246,8 +257,28 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_cTxtBuscaGerProfessorKeyReleased
 
     private void cTxtBuscaGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cTxtBuscaGerProfessorActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
     }//GEN-LAST:event_cTxtBuscaGerProfessorActionPerformed
+
+    private void btExcluirGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerProfessorActionPerformed
+        
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir este professor?");
+        if (sim == 0) {
+            
+            //metodo excluir. 
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+        }
+    }//GEN-LAST:event_btExcluirGerProfessorActionPerformed
+
+    private void btEditarGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerProfessorActionPerformed
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?");
+        
+        if (sim == 0) {
+            // metodo editar
+        }
+    }//GEN-LAST:event_btEditarGerProfessorActionPerformed
 
     /**
      * @param args the command line arguments

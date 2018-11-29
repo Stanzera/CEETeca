@@ -186,15 +186,15 @@ public class telaLogin extends javax.swing.JFrame {
     private void btEntrarTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarTelaLoginActionPerformed
        
             if (cTxtUsuarioTelaLogin.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
+                JOptionPane.showMessageDialog(null, "Está faltando o usuario");
             } else if (cTxtSenhaTelaLogin.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Está faltando a senha!");
+                JOptionPane.showMessageDialog(null, "Está faltando a senha");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-                JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
+                JOptionPane.showMessageDialog(null, "O usuario está incorreto");
             } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "A senha está incorreta!");
+                JOptionPane.showMessageDialog(null, "A senha está incorreta");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "Acesso Permitido!");
+                JOptionPane.showMessageDialog(null, "Funções Liberadas");
                 TelaPrincipal tela = new TelaPrincipal();
                 //Deixa uma janela visível(true), ou invisível(false)        
                 tela.setVisible(true);
@@ -207,15 +207,15 @@ public class telaLogin extends javax.swing.JFrame {
     private void btEntrarTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btEntrarTelaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
-                JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
+                JOptionPane.showMessageDialog(null, "Está faltando o usuario");
             } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
-                JOptionPane.showMessageDialog(null, "Está faltando a senha!");
+                JOptionPane.showMessageDialog(null, "Está faltando a senha");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-                JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
+                JOptionPane.showMessageDialog(null, "O usuario está incorreto");
             } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "A senha está incorreta!");
+                JOptionPane.showMessageDialog(null, "A senha está incorreta");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "Acesso Permitido!");
+                JOptionPane.showMessageDialog(null, "Funções Liberadas");
                 TelaPrincipal tela = new TelaPrincipal();
                 //Deixa uma janela visível(true), ou invisível(false)        
                 tela.setVisible(true);
@@ -232,15 +232,15 @@ public class telaLogin extends javax.swing.JFrame {
     private void cTxtSenhaTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtSenhaTelaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
-                JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
+                JOptionPane.showMessageDialog(null, "Está faltando o usuario");
             } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
-                JOptionPane.showMessageDialog(null, "Está faltando a senha!");
+                JOptionPane.showMessageDialog(null, "Está faltando a senha");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-                JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
+                JOptionPane.showMessageDialog(null, "O usuario está incorreto");
             } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "A senha está incorreta!");
+                JOptionPane.showMessageDialog(null, "A senha está incorreta");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "Acesso Permitido!");
+                JOptionPane.showMessageDialog(null, "Funções Liberadas");
                 TelaPrincipal tela = new TelaPrincipal();
                 //Deixa uma janela visível(true), ou invisível(false)        
                 tela.setVisible(true);
@@ -253,15 +253,15 @@ public class telaLogin extends javax.swing.JFrame {
     private void cTxtUsuarioTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtUsuarioTelaLoginKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
-                JOptionPane.showMessageDialog(null, "Está faltando o usuario!");
+                JOptionPane.showMessageDialog(null, "Está faltando o usuario");
             } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
-                JOptionPane.showMessageDialog(null, "Está faltando a senha!");
+                JOptionPane.showMessageDialog(null, "Está faltando a senha");
             } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-                JOptionPane.showMessageDialog(null, "O usuario está incorreto!");
+                JOptionPane.showMessageDialog(null, "O usuario está incorreto");
             } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "A senha está incorreta!");
+                JOptionPane.showMessageDialog(null, "A senha está incorreta");
             } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "Acesso Permitido!");
+                JOptionPane.showMessageDialog(null, "Funções Liberadas");
                 TelaPrincipal tela = new TelaPrincipal();
                 //Deixa uma janela visível(true), ou invisível(false)        
                 tela.setVisible(true);

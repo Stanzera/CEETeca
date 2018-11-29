@@ -557,6 +557,12 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         pss.setCpfPessoa(cpf);
         pss.setDtnascimento(dtNascimento);
 
+        Contato ctt = new Contato();
+        ctt.setEmailContato(email);
+        ctt.setCelularContato(celular);
+        ctt.setTelefoneContato(telefone);
+        ctt.setPessoa(pss);
+
         Endereco end = new Endereco();
         end.setEstadoEndereco(estado);
         end.setLogradouroEndereco(rua);
@@ -566,12 +572,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         end.setComplementoEndereco(complemento);
         end.setCep(cep);
         end.setPessoa(pss);
-
-        Contato ctt = new Contato();
-        ctt.setEmailContato(email);
-        ctt.setCelularContato(celular);
-        ctt.setTelefoneContato(telefone);
-        ctt.setPessoa(pss);
 
         Aluno aln = new Aluno();
         aln.setPessoa(pss);
@@ -590,7 +590,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         AlunoHasCurso ahc = new AlunoHasCurso();
         ahc.setAluno(aln);
         ahc.setCurso(crs);
-        
+
         if (StringUtils.isEmptyOrWhitespaceOnly(cTxtBairroCadAluno.getText()) || cTxtBairroCadAluno.getText().length() == 0
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtCEPCadAluno.getText()) || cTxtCEPCadAluno.getText().length() == 0
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadAluno.getText()) || cTxtCPFCadAluno.getText().length() == 0
@@ -606,32 +606,36 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                 && StringUtils.isEmptyOrWhitespaceOnly(cTxtTelefoneCadAluno.getText()) || cTxtTelefoneCadAluno.getText().length() == 0
                 && cComboBoxModuloCadAluno.getSelectedIndex() == 0
                 && cComboBoxEstadoCadAluno.getSelectedIndex() == 0
-                && cComboBoxCursoCadAluno.getSelectedIndex() ==0
-                && cComboBoxTurnoCadAluno.getSelectedIndex()==0) {
+                && cComboBoxCursoCadAluno.getSelectedIndex() == 0
+                && cComboBoxTurnoCadAluno.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Está faltando dados!");
 
         } else {
-            int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
-            if (sim == 0) {
-                try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
-                    actualSession.beginTransaction();
-                    actualSession.saveOrUpdate(pss);
-                    actualSession.saveOrUpdate(ctt);
-                    actualSession.saveOrUpdate(end);
-                    actualSession.saveOrUpdate(aln);
-                    actualSession.saveOrUpdate(crs);
-                    actualSession.saveOrUpdate(ahc);
-                    actualSession.saveOrUpdate(mdl);
-                    actualSession.saveOrUpdate(trn);
-                    actualSession.getTransaction().commit();
-                    actualSession.close();
-                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
-                    NewHibernateUtil.getSessionFactory().getCurrentSession().close();
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro do aluno?","",JOptionPane.YES_NO_OPTION);
+            switch (resposta) {
+                case JOptionPane.YES_OPTION:
+                    try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                        actualSession.beginTransaction();
+                        actualSession.saveOrUpdate(pss);
+                        actualSession.saveOrUpdate(ctt);
+                        actualSession.saveOrUpdate(end);
+                        actualSession.saveOrUpdate(aln);
+                        actualSession.saveOrUpdate(crs);
+                        actualSession.saveOrUpdate(ahc);
+                        actualSession.saveOrUpdate(mdl);
+                        actualSession.saveOrUpdate(trn);
+                        actualSession.getTransaction().commit();
+                        actualSession.close();
+                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                        NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                    }   break;
+                case JOptionPane.NO_OPTION:
+                    JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
+                    break;
+                default:
+                    break;
             }
         }
 

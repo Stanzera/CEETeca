@@ -593,7 +593,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         String cpf = cTxtCPFCadProfessor.getText();
         Date dtNascimento = null;
         try {
-            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat in = new SimpleDateFormat("yyyy/MM/dd");
             SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
             dtNascimento = in.parse(cTxtDtNascimentoCadProfessor.getText());
         } catch (ParseException ex) {
@@ -660,10 +660,10 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 && cxListSelecionados.getModel().getSize() > 0
                 && cComboBoxUFCadProfessor.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Está faltando dados!");
-
         } else {
-            int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
-            if (sim == 0) {
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro\n"
+                    + "do professor?","",JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
                 try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
                     actualSession.beginTransaction();
                     actualSession.saveOrUpdate(pss);
@@ -674,14 +674,14 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                     actualSession.saveOrUpdate(phc);
                     actualSession.getTransaction().commit();
                     actualSession.close();
-                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
                     NewHibernateUtil.getSessionFactory().getCurrentSession().close();
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
-            }
+            } else if(resposta == JOptionPane.NO_OPTION){
+                JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
+            } 
         }
 
 

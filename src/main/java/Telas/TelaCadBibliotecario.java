@@ -629,9 +629,9 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         //Adicionando as informações a um array dentro da classe Banco.
         
         if (!senha.equals(confirmarSenha)) {
-            JOptionPane.showMessageDialog(null, "O campo SENHA está diferente do campo CONFIRMAR SENHA!!");
+            JOptionPane.showMessageDialog(null, "O campo SENHA está diferente do campo CONFIRMAR SENHA");
         }else{
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro?");
             if(sim == 0){
             try(Session actualSession = NewHibernateUtil.getSessionFactory().openSession()){
                 actualSession.beginTransaction();

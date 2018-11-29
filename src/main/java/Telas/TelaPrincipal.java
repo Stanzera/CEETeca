@@ -113,6 +113,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbData = new javax.swing.JLabel();
         lbHora = new javax.swing.JLabel();
         lbCumprimento = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         gerenciarTelaPrincipal = new javax.swing.JMenu();
         usuarioTelaPrincipal = new javax.swing.JMenu();
@@ -176,6 +177,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbData.setText("                         Data");
 
         lbHora.setText("     Hora");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Ceeteca_png_volume_2.png"))); // NOI18N
 
         gerenciarTelaPrincipal.setText("Gerenciar");
 
@@ -249,10 +252,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lbCumprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,13 +260,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(lbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(painelTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(486, 486, 486)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addGap(58, 58, 58)
+                .addComponent(jLabel1)
+                .addGap(69, 69, 69)
                 .addComponent(painelTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbData)
                     .addComponent(lbHora)
@@ -317,6 +327,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_gerEmprestimoTelaPrincipalActionPerformed
 
     ActionListener ativar = (new ActionListener() {
+        @Override
         public void actionPerformed(ActionEvent e) {
             preencherHoras();
         }
@@ -450,6 +461,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem gerLivroTelaPrincipal;
     private javax.swing.JMenuItem gerProfessorPrincipal;
     private javax.swing.JMenu gerenciarTelaPrincipal;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;

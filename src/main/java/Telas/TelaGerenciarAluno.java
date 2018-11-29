@@ -6,6 +6,7 @@
 package Telas;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,19 +15,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaGerenciarAluno extends javax.swing.JFrame {
 
-
     /**
      * Creates new form TelaGerenciarAluno
      */
     public TelaGerenciarAluno() {
         initComponents();
-        
+
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-        
-       // ListarCadastros();
+
+        // ListarCadastros();
     }
-    
+
     /*public void ListarCadastros(){
         //Pegamos o modelo da tabela, as colunas.
         DefaultTableModel tableModel = (DefaultTableModel) tabelaGerAluno.getModel();
@@ -48,8 +48,6 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
         //Definimos o modelo com as linhas adicionadas novamente para a tabela
         tabelaGerAluno.setModel(tableModel);
     }*/
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,8 +230,12 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
 
     private void btExcluirGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerAlunoActionPerformed
         // TODO add your handling code here:
-        
-        
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir este aluno?");
+        if (sim == 0) {
+
+            //metodo excluir. 
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+        }
     }//GEN-LAST:event_btExcluirGerAlunoActionPerformed
 
     private void btCadastrarGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerAlunoActionPerformed
@@ -241,7 +243,7 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
 
         setVisible(false);
         new TelaCadastroAluno().setVisible(true);
-        
+
     }//GEN-LAST:event_btCadastrarGerAlunoActionPerformed
 
     private void btVoltarGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarGerAlunoActionPerformed
@@ -249,19 +251,22 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
         setVisible(false);
         new TelaPrincipal().setVisible(true);
 
-        
+
     }//GEN-LAST:event_btVoltarGerAlunoActionPerformed
 
     private void btEditarGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerAlunoActionPerformed
-        // TODO add your handling code here:
-        
-        
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?");
+
+        if (sim == 0) {
+            // metodo editar
+            JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        }
     }//GEN-LAST:event_btEditarGerAlunoActionPerformed
 
     private void cTxtBuscaGerAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerAlunoKeyReleased
         // TODO add your handling code here:
-        
-         cTxtBuscaGerAluno.setText(cTxtBuscaGerAluno.getText().toUpperCase());
+
+        cTxtBuscaGerAluno.setText(cTxtBuscaGerAluno.getText().toUpperCase());
     }//GEN-LAST:event_cTxtBuscaGerAlunoKeyReleased
 
     /**
