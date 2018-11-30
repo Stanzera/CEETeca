@@ -7,30 +7,27 @@ package Telas;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author PC
+ * @author Aluno
  */
 public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaGerenciarProfessor
      */
-    
-    
-    
-     public TelaGerenciarProfessor() {
+    public TelaGerenciarProfessor() {
         initComponents();
         
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
         
         //ListarCadastros();
+        
     }
     
-        /*public void ListarCadastros(){
+    /*public void ListarCadastros(){
         //Pegamos o modelo da tabela, as colunas.
         DefaultTableModel tableModel = (DefaultTableModel) tabelaGerProfessor.getModel();
         //Itera sobre os elementos no banco
@@ -51,6 +48,8 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
         //Definimos o modelo com as linhas adicionadas novamente para a tabela
         tabelaGerProfessor.setModel(tableModel);
     }*/
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,14 +59,14 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         painelGerProfessor = new javax.swing.JPanel();
+        cTxtBuscaGerProfessor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cTxtBuscaGerProfessor = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaGerProfessor = new javax.swing.JTable();
         btVoltarGerProfessor = new javax.swing.JButton();
@@ -77,24 +76,15 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CEETECA");
-        setResizable(false);
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel1.setText("GERENCIAMENTO DE PROFESSOR");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel2.setText("Termo para busca:");
+        jLabel2.setText("Termo para busca: ");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel3.setText("(Digite o nome ou CPF do professor!)");
-
-        cTxtBuscaGerProfessor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cTxtBuscaGerProfessorActionPerformed(evt);
-            }
-        });
-        cTxtBuscaGerProfessor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cTxtBuscaGerProfessorKeyReleased(evt);
-            }
-        });
+        jLabel3.setText(" (Digite o nome ou CPF do professor!)");
 
         javax.swing.GroupLayout painelGerProfessorLayout = new javax.swing.GroupLayout(painelGerProfessor);
         painelGerProfessor.setLayout(painelGerProfessorLayout);
@@ -108,26 +98,23 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
-                        .addGap(0, 421, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelGerProfessorLayout.setVerticalGroup(
             painelGerProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelGerProfessorLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGerProfessorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelGerProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(cTxtBuscaGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel1.setText("Busca");
-
-        jLabel4.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        jLabel4.setText("GERENCIAMENTO DE PROFESSOR");
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel4.setText("Busca");
 
         tabelaGerProfessor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -144,6 +131,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         btVoltarGerProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btVoltarGerProfessor.setText("Voltar");
+        btVoltarGerProfessor.setPreferredSize(new java.awt.Dimension(110, 25));
         btVoltarGerProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVoltarGerProfessorActionPerformed(evt);
@@ -152,14 +140,11 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         btExcluirGerProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btExcluirGerProfessor.setText("Excluir");
-        btExcluirGerProfessor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirGerProfessorActionPerformed(evt);
-            }
-        });
+        btExcluirGerProfessor.setPreferredSize(new java.awt.Dimension(110, 25));
 
         btEditarGerProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btEditarGerProfessor.setText("Editar");
+        btEditarGerProfessor.setPreferredSize(new java.awt.Dimension(110, 25));
         btEditarGerProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEditarGerProfessorActionPerformed(evt);
@@ -168,6 +153,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         btCadastrarGerProfessor.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btCadastrarGerProfessor.setText("Cadastrar");
+        btCadastrarGerProfessor.setPreferredSize(new java.awt.Dimension(110, 25));
         btCadastrarGerProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCadastrarGerProfessorActionPerformed(evt);
@@ -181,55 +167,57 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(282, 282, 282)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(painelGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(painelGerProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2)
-                            .addComponent(jScrollPane1)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 210, Short.MAX_VALUE)
                         .addComponent(btCadastrarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
+                        .addGap(42, 42, 42)
                         .addComponent(btEditarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addGap(39, 39, 39)
                         .addComponent(btExcluirGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(btVoltarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47)
+                        .addComponent(btVoltarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addGap(5, 5, 5)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(3, 3, 3)
+                .addComponent(painelGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btVoltarGerProfessor)
-                    .addComponent(btExcluirGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btEditarGerProfessor)
-                    .addComponent(btCadastrarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(btVoltarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btExcluirGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btEditarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btCadastrarGerProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 60, Short.MAX_VALUE))
         );
 
         pack();
@@ -237,40 +225,16 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerProfessorActionPerformed
-        // TODO add your handling code here:
-
+        // 
         setVisible(false);
         new TelaCadProfessor().setVisible(true);
     }//GEN-LAST:event_btCadastrarGerProfessorActionPerformed
 
     private void btVoltarGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarGerProfessorActionPerformed
         // 
-
         setVisible(false);
         new TelaPrincipal().setVisible(true);
     }//GEN-LAST:event_btVoltarGerProfessorActionPerformed
-
-    private void cTxtBuscaGerProfessorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerProfessorKeyReleased
-        // TODO add your handling code here:
-        
-        cTxtBuscaGerProfessor.setText(cTxtBuscaGerProfessor.getText().toUpperCase());
-    }//GEN-LAST:event_cTxtBuscaGerProfessorKeyReleased
-
-    private void cTxtBuscaGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cTxtBuscaGerProfessorActionPerformed
-        
-        
-        
-    }//GEN-LAST:event_cTxtBuscaGerProfessorActionPerformed
-
-    private void btExcluirGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerProfessorActionPerformed
-        
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir este professor?");
-        if (sim == 0) {
-            
-            //metodo excluir. 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
-        }
-    }//GEN-LAST:event_btExcluirGerProfessorActionPerformed
 
     private void btEditarGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerProfessorActionPerformed
         int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?");

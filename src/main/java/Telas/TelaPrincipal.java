@@ -5,27 +5,33 @@
  */
 package Telas;
 
-import java.text.DecimalFormat;
-import java.util.Calendar;
-import javax.swing.ImageIcon;
+import DAO.NewHibernateUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.List;
+import javax.persistence.Query;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 /**
  *
- * @author PC
+ * @author Aluno
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    
     DecimalFormat formatador = new DecimalFormat("00");
-
+    
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
-
+        
         /* this.setExtendedState(this.MAXIMIZED_BOTH);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         //this.setMinimumSize(d);
@@ -43,10 +49,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-
+        
+        Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        //Chama a view
+        Query q = sessao.createQuery("from viewTabelaTelaPrincipal");
+        //pega o resultado da query e retorna uma lista
+        List<viewmodel.viewTabelaTelaPrincipal> registrosTelaPrincipal = q.getResultList();
+        sessao.getTransaction().commit();
+        sessao.close();
+        
+        //pega o modelo da tabela
+        DefaultTableModel model = (DefaultTableModel) tabelaTelaPrincipal.getModel();
+        
+        for (int i = 0; i < registrosTelaPrincipal.size(); i++) {
+            //Pega o dado do registro usando i
+            viewmodel.viewTabelaTelaPrincipal registro = registrosTelaPrincipal.get(i);
+            //adiciona os valores na linha
+            Object[] row = {
+                registro.getNome(),
+                registro.getMatricula(),
+                registro.getTituloLivro(),
+                registro.getnChamada(),
+                registro.getDataLimite(),
+                registro.getSituacao()
+            };
+            //adiciona a linha no modelo da tabela
+            model.addRow(row);
+        }
+        //adiciona o modelo novamente na tabela
+        tabelaTelaPrincipal.setModel(model);
+        
+        //Atualiza a parte grafica da tabela mostrando os novos valores
+        tabelaTelaPrincipal.setVisible(true);
+        
     }
 
-   /* public void ListarCadastros() {
+     /*public void ListarCadastros() {
         //Pegamos o modelo da tabela, as colunas.
         DefaultTableModel tableModel = (DefaultTableModel) tabelaTelaPrincipal.getModel();
         //Itera sobre os elementos no banco
@@ -89,8 +128,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         //Definimos o modelo com as linhas adicionadas novamente para a tabela
         tabelaTelaPrincipal.setModel(tableModel);
-    }*/
-
+    }
+  */
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,14 +140,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        painelTelaPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaTelaPrincipal = new javax.swing.JTable();
         lbData = new javax.swing.JLabel();
@@ -117,89 +149,57 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         gerenciarTelaPrincipal = new javax.swing.JMenu();
         usuarioTelaPrincipal = new javax.swing.JMenu();
-        gerAlunoPrincipal = new javax.swing.JMenuItem();
-        gerBibliotecarioPrincipal = new javax.swing.JMenuItem();
-        gerProfessorPrincipal = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         gerEmprestimoTelaPrincipal = new javax.swing.JMenuItem();
         gerLivroTelaPrincipal = new javax.swing.JMenuItem();
         ajudaTelaPrincipal = new javax.swing.JMenu();
         manualTelaPrincipal = new javax.swing.JMenuItem();
         sobreTelaPrincipal = new javax.swing.JMenuItem();
 
-        jMenuItem6.setText("jMenuItem6");
-
-        jMenu3.setText("File");
-        jMenuBar2.add(jMenu3);
-
-        jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
-
-        jMenu5.setText("jMenu5");
-
-        jMenuItem13.setText("jMenuItem13");
-
-        jMenuItem1.setText("jMenuItem1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CEETECA");
-        setResizable(false);
 
-        tabelaTelaPrincipal.setFont(new java.awt.Font("Calibri", 1, 13)); // NOI18N
+        tabelaTelaPrincipal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nome", "Matrícula/N° Funcional", "Título Livro", "Número Chamada", "Limite data", "Situação"
+            }
+        ));
         jScrollPane1.setViewportView(tabelaTelaPrincipal);
 
-        javax.swing.GroupLayout painelTelaPrincipalLayout = new javax.swing.GroupLayout(painelTelaPrincipal);
-        painelTelaPrincipal.setLayout(painelTelaPrincipalLayout);
-        painelTelaPrincipalLayout.setHorizontalGroup(
-            painelTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelTelaPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1035, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        painelTelaPrincipalLayout.setVerticalGroup(
-            painelTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelTelaPrincipalLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
-        );
+        lbData.setText("                                  Data");
 
-        lbData.setText("                         Data");
+        lbHora.setText("        Hora");
 
-        lbHora.setText("     Hora");
+        lbCumprimento.setText("                  Cumprimento");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Ceeteca_png_volume_2.png"))); // NOI18N
+
+        jMenuBar1.setToolTipText("");
 
         gerenciarTelaPrincipal.setText("Gerenciar");
 
         usuarioTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario16x16.png"))); // NOI18N
         usuarioTelaPrincipal.setText("Pessoa");
 
-        gerAlunoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/AlunoPB16x16.png"))); // NOI18N
-        gerAlunoPrincipal.setText("Aluno");
-        gerAlunoPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gerAlunoPrincipalActionPerformed(evt);
-            }
-        });
-        usuarioTelaPrincipal.add(gerAlunoPrincipal);
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/AlunoPB16x16.png"))); // NOI18N
+        jMenuItem5.setText("Aluno");
+        usuarioTelaPrincipal.add(jMenuItem5);
 
-        gerBibliotecarioPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GerenciarBibliotecarioPB16x16.png"))); // NOI18N
-        gerBibliotecarioPrincipal.setText("Bibliotecário");
-        gerBibliotecarioPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gerBibliotecarioPrincipalActionPerformed(evt);
-            }
-        });
-        usuarioTelaPrincipal.add(gerBibliotecarioPrincipal);
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GerenciarBibliotecarioPB16x16.png"))); // NOI18N
+        jMenuItem6.setText("Bibliotecário");
+        usuarioTelaPrincipal.add(jMenuItem6);
 
-        gerProfessorPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gerenciarProfessorPB16x16.png"))); // NOI18N
-        gerProfessorPrincipal.setText("Professor");
-        gerProfessorPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gerProfessorPrincipalActionPerformed(evt);
-            }
-        });
-        usuarioTelaPrincipal.add(gerProfessorPrincipal);
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gerenciarProfessorPB16x16.png"))); // NOI18N
+        jMenuItem7.setText("Professor");
+        usuarioTelaPrincipal.add(jMenuItem7);
 
         gerenciarTelaPrincipal.add(usuarioTelaPrincipal);
 
@@ -214,11 +214,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         gerLivroTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LivroPB16x16.png"))); // NOI18N
         gerLivroTelaPrincipal.setText("Livro");
-        gerLivroTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gerLivroTelaPrincipalActionPerformed(evt);
-            }
-        });
         gerenciarTelaPrincipal.add(gerLivroTelaPrincipal);
 
         jMenuBar1.add(gerenciarTelaPrincipal);
@@ -231,6 +226,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         sobreTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sobrePB16.x16.png"))); // NOI18N
         sobreTelaPrincipal.setText("Sobre");
+        sobreTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sobreTelaPrincipalActionPerformed(evt);
+            }
+        });
         ajudaTelaPrincipal.add(sobreTelaPrincipal);
 
         jMenuBar1.add(ajudaTelaPrincipal);
@@ -241,79 +241,84 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbCumprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
-                .addComponent(lbData, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(lbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(painelTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(486, 486, 486)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbCumprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(228, 228, 228)
+                        .addComponent(lbData, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(96, 96, 96)
+                        .addComponent(lbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(132, 132, 132))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(454, 454, 454)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(69, 69, 69)
-                .addComponent(painelTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbData)
                     .addComponent(lbHora)
-                    .addComponent(lbCumprimento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+                    .addComponent(lbCumprimento))
+                .addGap(43, 43, 43))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void gerLivroTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerLivroTelaPrincipalActionPerformed
+    private void gerEmprestimoTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerEmprestimoTelaPrincipalActionPerformed
+        
+        this.setVisible(false);
+        new TelaGerenciarEmprestimo().setVisible(true);
+        
+    }//GEN-LAST:event_gerEmprestimoTelaPrincipalActionPerformed
+
+    private void gerLivroTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         // TODO add your handling code here:
 
         this.setVisible(false);
         new TelaGerenciarLivro().setVisible(true);
 
-    }//GEN-LAST:event_gerLivroTelaPrincipalActionPerformed
+    }                                                     
 
-    private void gerProfessorPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerProfessorPrincipalActionPerformed
+    private void gerProfessorPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         // TODO add your handling code here:
 
         this.setVisible(false);
         new TelaGerenciarProfessor().setVisible(true);
 
-    }//GEN-LAST:event_gerProfessorPrincipalActionPerformed
+    }                                                     
 
-    private void gerAlunoPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerAlunoPrincipalActionPerformed
+    private void gerAlunoPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
 
         this.setVisible(false);
         new TelaGerenciarAluno().setVisible(true);
-    }//GEN-LAST:event_gerAlunoPrincipalActionPerformed
+    }                                                 
 
-    private void gerBibliotecarioPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerBibliotecarioPrincipalActionPerformed
+    private void gerBibliotecarioPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                          
         // TODO add your handling code here:
 
         this.setVisible(false);
         new TelaGerenciarBibliotecario().setVisible(true);
-    }//GEN-LAST:event_gerBibliotecarioPrincipalActionPerformed
-
-    private void gerEmprestimoTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerEmprestimoTelaPrincipalActionPerformed
+    }          
+    
+    private void sobreTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sobreTelaPrincipalActionPerformed
         // TODO add your handling code here:
-
-        this.setVisible(false);
-        new TelaGerenciarEmprestimo().setVisible(true);
-    }//GEN-LAST:event_gerEmprestimoTelaPrincipalActionPerformed
+        
+    }//GEN-LAST:event_sobreTelaPrincipalActionPerformed
 
     ActionListener ativar = (new ActionListener() {
         @Override
@@ -405,7 +410,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lbData.setText(diaSemana + horarioAtual.get(Calendar.DAY_OF_MONTH) + mes + horarioAtual.get(Calendar.YEAR));
     }
-
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -432,7 +438,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -444,27 +449,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ajudaTelaPrincipal;
-    private javax.swing.JMenuItem gerAlunoPrincipal;
-    private javax.swing.JMenuItem gerBibliotecarioPrincipal;
     private javax.swing.JMenuItem gerEmprestimoTelaPrincipal;
     private javax.swing.JMenuItem gerLivroTelaPrincipal;
-    private javax.swing.JMenuItem gerProfessorPrincipal;
     private javax.swing.JMenu gerenciarTelaPrincipal;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCumprimento;
     private javax.swing.JLabel lbData;
     private javax.swing.JLabel lbHora;
     private javax.swing.JMenuItem manualTelaPrincipal;
-    private javax.swing.JPanel painelTelaPrincipal;
     private javax.swing.JMenuItem sobreTelaPrincipal;
     private javax.swing.JTable tabelaTelaPrincipal;
     private javax.swing.JMenu usuarioTelaPrincipal;

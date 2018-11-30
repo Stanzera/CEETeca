@@ -27,5 +27,6 @@
     <mapping resource="models/Professor.hbm.xml"/>
     <mapping resource="models/Modulo.hbm.xml"/>
     <mapping resource="models/Livro.hbm.xml"/>
+    <mapping class="viewmodel.viewTabelaTelaPrincipal"/>
   </session-factory>
 </hibernate-configuration>

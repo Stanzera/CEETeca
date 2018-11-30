@@ -152,6 +152,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             }
         });
 
+        cxListSelecionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(cxListSelecionados);
 
         cxListModelo.setModel(new javax.swing.AbstractListModel<String>() {
@@ -159,6 +160,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        cxListModelo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(cxListModelo);
 
         butRemoverCurso.setText("<<<");
@@ -206,9 +208,9 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                                 .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(butAdicionarCurso)
                                     .addComponent(butRemoverCurso))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(38, 38, 38))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         painelDadosCadProfessorLayout.setVerticalGroup(
             painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,26 +226,21 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(cTxtDtNascimentoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cTxtCPFCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
-                        .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(cTxtCPFCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addComponent(butAdicionarCurso)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(butRemoverCurso))
+                    .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(butAdicionarCurso)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(butRemoverCurso)
-                                .addGap(33, 33, 33))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosCadProfessorLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosCadProfessorLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11))))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -494,7 +491,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 625, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
                 .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
@@ -523,8 +520,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -754,25 +751,27 @@ public class TelaCadProfessor extends javax.swing.JFrame {
 
     private void butRemoverCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRemoverCursoActionPerformed
         String curso = cxListSelecionados.getSelectedValue();
+        if(!StringUtils.isEmptyOrWhitespaceOnly(curso)){
+            ListModel lm = cxListModelo.getModel();
+            DefaultListModel cursosPegos = new DefaultListModel();
+            for (int i = 0; i < lm.getSize(); i++) {
+                cursosPegos.addElement(lm.getElementAt(i));
+            }
+            cursosPegos.addElement(curso);
+            cxListModelo.setModel(cursosPegos);
+            cxListModelo.setVisible(true);
 
-        ListModel lm = cxListModelo.getModel();
-        DefaultListModel cursosPegos = new DefaultListModel();
-        for (int i = 0; i < lm.getSize(); i++) {
-            cursosPegos.addElement(lm.getElementAt(i));
+            ListModel modeloDisponiveis = cxListSelecionados.getModel();
+            DefaultListModel cursosDisponiveis = new DefaultListModel();
+            for (int i = 0; i < modeloDisponiveis.getSize(); i++) {
+                cursosDisponiveis.addElement(modeloDisponiveis.getElementAt(i));
+            }
+            cursosDisponiveis.removeElement(curso);
+            cxListSelecionados.setModel(cursosDisponiveis);
+            cxListSelecionados.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Nulo!");
         }
-        cursosPegos.addElement(curso);
-        cxListModelo.setModel(cursosPegos);
-        cxListModelo.setVisible(true);
-
-        ListModel modeloDisponiveis = cxListSelecionados.getModel();
-        DefaultListModel cursosDisponiveis = new DefaultListModel();
-        for (int i = 0; i < modeloDisponiveis.getSize(); i++) {
-            cursosDisponiveis.addElement(modeloDisponiveis.getElementAt(i));
-        }
-        cursosDisponiveis.removeElement(curso);
-        cxListSelecionados.setModel(cursosDisponiveis);
-        cxListSelecionados.setVisible(true);
-
 
     }//GEN-LAST:event_butRemoverCursoActionPerformed
 
