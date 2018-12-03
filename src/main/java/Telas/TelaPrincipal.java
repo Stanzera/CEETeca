@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Query;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
@@ -84,53 +85,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tabelaTelaPrincipal.setVisible(true);
         
     }
-
-     /*public void ListarCadastros() {
-        //Pegamos o modelo da tabela, as colunas.
-        DefaultTableModel tableModel = (DefaultTableModel) tabelaTelaPrincipal.getModel();
-        //Itera sobre os elementos no banco
-        for (int i = 0; i < Banco.alunos.size(); i++) {
-            //Pega o biliotecario
-            alunoGetSet alunos = Banco.alunos.get(i);
-            professorGetSet professor = Banco.professores.get(i);
-            emprestimoGetSet emprestimo = Banco.emprestimos.get(i);
-            livroGetSet livro = Banco.livros.get(i);
-
-            if (alunos.getNome().equals(Banco.alunos)
-                    && alunos.getCpf().equals(Banco.alunos)) {
-                //Passa os dados do bibliotecario para um objeto
-                Object[] linha = new Object[]{
-                    alunos.getNome(),
-                    alunos.getCpf(),
-                    livro.getTitulo(),
-                    emprestimo.getNumChamada(),
-                    emprestimo.getDtDevolucao(),
-                    emprestimo.getObservacoes()
-
-                };
-                //Adiciona o objeto na linha da coluna
-                tableModel.addRow(linha);
-
-            } else if (professor.getNome().equals(Banco.professores)
-                    && professor.getCpf().equals(Banco.professores)) {
-                Object[] linha = new Object[]{
-                    professor.getNome(),
-                    professor.getCpf(),
-                    livro.getTitulo(),
-                    emprestimo.getNumChamada(),
-                    emprestimo.getDtDevolucao(),
-                    emprestimo.getObservacoes()
-                };
-
-                tableModel.addRow(linha);
-            }
-
-        }
-        //Definimos o modelo com as linhas adicionadas novamente para a tabela
-        tabelaTelaPrincipal.setModel(tableModel);
-    }
-  */
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,6 +100,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbHora = new javax.swing.JLabel();
         lbCumprimento = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         gerenciarTelaPrincipal = new javax.swing.JMenu();
         usuarioTelaPrincipal = new javax.swing.JMenu();
@@ -181,6 +136,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbCumprimento.setText("                  Cumprimento");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Ceeteca_png_volume_2.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel2.setText("Relatório Geral de Empréstimos");
 
         jMenuBar1.setToolTipText("");
 
@@ -255,15 +213,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(lbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(132, 132, 132))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(454, 454, 454)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(452, 452, 452)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(420, 420, 420)
+                        .addComponent(jLabel2)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
@@ -317,9 +281,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private void sobreTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sobreTelaPrincipalActionPerformed
         // TODO add your handling code here:
-        
+        ImageIcon icon = new ImageIcon(getToolkit().createImage(getClass().getResource("/images/sobrechaoticcode.png")));
+        JOptionPane.showMessageDialog(this,"", "CEETECA", JOptionPane.PLAIN_MESSAGE, icon );
     }//GEN-LAST:event_sobreTelaPrincipalActionPerformed
 
+    private void iconeSobre(){
+        
+        
+    }
     ActionListener ativar = (new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -453,6 +422,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem gerLivroTelaPrincipal;
     private javax.swing.JMenu gerenciarTelaPrincipal;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

@@ -6,6 +6,7 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
+import com.mysql.cj.core.util.StringUtils;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.text.ParseException;
@@ -558,32 +559,30 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         dateCadBiblio();
     }//GEN-LAST:event_btConfirmCadBibliotecarioActionPerformed
 
-    private void dateCadBiblio(){
-    
-        // Setando as informações dos textField
+    private void dateCadBiblio() {
 
+        // Setando as informações dos textField
         //try {
         //ArrayList para guardar informações.
         //Pegando informações de dados pessoais.
         String nome = cTxtNomeCadBibliotecario.getText();
         String cpf = cTxtCPFCadBibliotecario.getText();
-        
-        
-            Date dtNascimento = null;
-            try {
-                SimpleDateFormat in = new SimpleDateFormat("dd-MM-yyyy");
-                SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-                dtNascimento = out.parse(cTxtDtNascimentoCadBibliotecario.getText());
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        Date dtNascimento = null;
+        try {
+            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+            dtNascimento = in.parse(cTxtDtNascimentoCadBibliotecario.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String numFuncional = cTxtNumFuncionalCadBibliotecario.getText();
         String usuario = cTxtUsuarioCadBibliotecario.getText();
         String senha = String.valueOf(cTxtSenhaCadBibliotecario.getText());
         String confirmarSenha = String.valueOf(cTxtConfirmSenhaCadBibliotecario.getText());
 
         //Pegando informações de Endereço.
-        String cep =cTxtCEPCadBibliotecario.getText();
+        String cep = cTxtCEPCadBibliotecario.getText();
         String avRua = cTxtRuaCadBibliotecario.getText();
         String bairro = cTxtBairroCadBibliotecario.getText();
         String cidade = cTxtCidadeCadBibliotecario.getText();
@@ -597,18 +596,18 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         //Atribuindo valores a classe usuario.
         //Valores Dados Pessoais
         //bibliotecarioGetSet infos = new bibliotecarioGetSet();
-        
+
         Pessoa pessoa = new Pessoa();
         pessoa.setNomePessoa(nome);
         pessoa.setCpfPessoa(cpf);
         pessoa.setDtnascimento(dtNascimento);//
         pessoa.setMatriculaPessoa(numFuncional);
-        
+
         Bibliotecaria bibliotecaria = new Bibliotecaria();
         bibliotecaria.setSenhaBibliotecaria(senha);
         bibliotecaria.setUsuarioBibliotecaria(usuario);
         bibliotecaria.setPessoa(pessoa);
-        
+
         //Valores Endereço
         Endereco endereco = new Endereco();
         endereco.setCep(cep);
@@ -619,7 +618,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         endereco.setNumeroEndereco(numero);
         endereco.setEstadoEndereco(uf);
         endereco.setPessoa(pessoa);
-        
+
         //Valores contato
         Contato ctt = new Contato();
         ctt.setCelularContato(celular);
@@ -627,31 +626,33 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         ctt.setEmailContato(email);
         ctt.setPessoa(pessoa);
         //Adicionando as informações a um array dentro da classe Banco.
-        
+
         if (!senha.equals(confirmarSenha)) {
             JOptionPane.showMessageDialog(null, "O campo SENHA está diferente do campo CONFIRMAR SENHA");
-        }else{
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro?");
-            if(sim == 0){
-            try(Session actualSession = NewHibernateUtil.getSessionFactory().openSession()){
-                actualSession.beginTransaction();
-                actualSession.save(pessoa);
-                actualSession.save(endereco);
-                actualSession.save(ctt);
-                actualSession.save(bibliotecaria);
-                actualSession.getTransaction().commit();
-                actualSession.close();
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro "+e.getMessage());
-                NewHibernateUtil.getSessionFactory().getCurrentSession().close();
-            }
-            }else{
-                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro?", "", JOptionPane.YES_NO_OPTION);
+            switch (resposta) {
+                case JOptionPane.YES_OPTION:
+                    try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                        actualSession.beginTransaction();
+                        actualSession.save(pessoa);
+                        actualSession.save(endereco);
+                        actualSession.save(ctt);
+                        actualSession.save(bibliotecaria);
+                        actualSession.getTransaction().commit();
+                        actualSession.close();
+                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                        NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                    }break;
+                case JOptionPane.NO_OPTION:
+                    JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
+                    break;
             }
         }
     }
-    
+
     private void btVoltarCadBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadBibliotecarioActionPerformed
         // Volta para a tela anterior aqui.
 
@@ -686,7 +687,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
 
     private void cTxtEmailCadBibliotecarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEmailCadBibliotecarioKeyReleased
         // TODO add your handling code here:
-        cTxtEmailCadBibliotecario.setText(cTxtEmailCadBibliotecario.getText().toUpperCase());
+
     }//GEN-LAST:event_cTxtEmailCadBibliotecarioKeyReleased
 
     /**
@@ -703,16 +704,24 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadBibliotecario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

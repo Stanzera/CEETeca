@@ -590,27 +590,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         AlunoHasCurso ahc = new AlunoHasCurso();
         ahc.setAluno(aln);
         ahc.setCurso(crs);
-
-        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtBairroCadAluno.getText()) || cTxtBairroCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCEPCadAluno.getText()) || cTxtCEPCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadAluno.getText()) || cTxtCPFCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCelularCadAluno.getText()) || cTxtCelularCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCidadeCadAluno.getText()) || cTxtCidadeCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtComplementoCadAluno.getText()) || cTxtComplementoCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtNascimentoCadAluno.getText()) || cTxtDtNascimentoCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEmailCadAluno.getText()) || cTxtEmailCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadAluno.getText()) || cTxtNomeCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtMatriculaCadAluno.getText()) || cTxtMatriculaCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumeroCadAluno.getText()) || cTxtNumeroCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtRuaCadAluno.getText()) || cTxtRuaCadAluno.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtTelefoneCadAluno.getText()) || cTxtTelefoneCadAluno.getText().length() == 0
-                && cComboBoxModuloCadAluno.getSelectedIndex() == 0
-                && cComboBoxEstadoCadAluno.getSelectedIndex() == 0
-                && cComboBoxCursoCadAluno.getSelectedIndex() == 0
-                && cComboBoxTurnoCadAluno.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Está faltando dados!");
-
-        } else {
             int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro do aluno?","",JOptionPane.YES_NO_OPTION);
             switch (resposta) {
                 case JOptionPane.YES_OPTION:
@@ -634,9 +613,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                 case JOptionPane.NO_OPTION:
                     JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
                     break;
-                default:
-                    break;
-            }
         }
 
 

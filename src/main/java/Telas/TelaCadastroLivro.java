@@ -6,7 +6,6 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
-import com.mysql.cj.core.util.StringUtils;
 import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,18 +19,16 @@ import org.hibernate.Session;
  */
 public class TelaCadastroLivro extends javax.swing.JFrame {
 
-
-
     /**
      * Creates new form TelaLivro
      */
     public TelaCadastroLivro() {
         initComponents();
-        
+
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-        
-            }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -350,7 +347,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
     private void btConfirmarCadLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarCadLivroActionPerformed
         // 
-        
+
         String anoPublicado = cTxtAnoPublicacaoCadLivro.getText();
         String assunto = cTxtAssuntoCadLivro.getText();
         String Autor = cTxtAutorCadLivro.getText();
@@ -363,18 +360,18 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         String subTitulo = cTxtSubtituloCadLivro.getText();
         String titulo = cTxtTituloCadLivro.getText();
         String Idioma = String.valueOf(cComboBoxIdiomaCadLivro.getSelectedIndex());
-        
+
         try {
             cGiraExemplarCadLivro.commitEdit();
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
         }
-        int qtdExemplar = (Integer)cGiraExemplarCadLivro.getValue();
+        int qtdExemplar = (Integer) cGiraExemplarCadLivro.getValue();
         //Integer.parseInt(qtdExemplar);
-        
+
         Livro livro = new Livro();
         Exemplar exemplar = new Exemplar();
-        
+
         livro.setAnoLivro(anoPublicado);
         livro.setAssunto(assunto);
         livro.setAutorLivro(Autor);
@@ -387,45 +384,29 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         livro.setSerieLivro(serie);
         livro.setSubTituloLivro(subTitulo);
         livro.setTituloLivro(titulo);
-        
+
         exemplar.setQuantidadeExemplar(qtdExemplar);
-        
+
         exemplar.setLivro(livro);
 
-        
-        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtAnoPublicacaoCadLivro.getText()) || cTxtAnoPublicacaoCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtAssuntoCadLivro.getText()) || cTxtAssuntoCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtAutorCadLivro.getText()) || cTxtAutorCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCDDCadLivro.getText()) || cTxtCDDCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEdicaoCadLivro.getText()) || cTxtEdicaoCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEditoraCadLivro.getText()) || cTxtEditoraCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtISBNCadLivro.getText()) || cTxtISBNCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumPgCadLivro.getText()) || cTxtNumPgCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtSerieCadLivro.getText()) || cTxtSerieCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtSubtituloCadLivro.getText()) || cTxtSubtituloCadLivro.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtTituloCadLivro.getText()) || cTxtTituloCadLivro.getText().length() == 0
-                && cComboBoxIdiomaCadLivro.getSelectedIndex()!=0 
-                && cGiraExemplarCadLivro.getValue().equals(0)) {
-            JOptionPane.showMessageDialog(null, "Está faltando dados!");
-            
-            
-        }else{
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
-            if(sim == 0){
-            try(Session actualSession = NewHibernateUtil.getSessionFactory().openSession()){
-                actualSession.beginTransaction();
-                actualSession.saveOrUpdate(livro);
-                actualSession.saveOrUpdate(exemplar);
-                actualSession.getTransaction().commit();
-                actualSession.close();
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro "+e.getMessage());
-                NewHibernateUtil.getSessionFactory().getCurrentSession().close();
-            }
-            }else{
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+        switch (resposta) {
+            case JOptionPane.YES_OPTION:
+                try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                    actualSession.beginTransaction();
+                    actualSession.saveOrUpdate(livro);
+                    actualSession.saveOrUpdate(exemplar);
+                    actualSession.getTransaction().commit();
+                    actualSession.close();
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                    NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                }
+                break;
+            case JOptionPane.NO_OPTION:
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
-            }
+                break;
         }
     }//GEN-LAST:event_btConfirmarCadLivroActionPerformed
 
@@ -438,34 +419,34 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
     private void btVoltarCadLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadLivroActionPerformed
         // 
-        
+
         setVisible(false);
         new TelaGerenciarLivro().setVisible(true);
-        
+
     }//GEN-LAST:event_btVoltarCadLivroActionPerformed
 
     private void cTxtTituloCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtTituloCadLivroKeyReleased
         // TODO add your handling code here:
-         cTxtTituloCadLivro.setText(cTxtTituloCadLivro.getText().toUpperCase());
-        
+        cTxtTituloCadLivro.setText(cTxtTituloCadLivro.getText().toUpperCase());
+
     }//GEN-LAST:event_cTxtTituloCadLivroKeyReleased
 
     private void cTxtSubtituloCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtSubtituloCadLivroKeyReleased
         // TODO add your handling code here:
-        
+
         cTxtSubtituloCadLivro.setText(cTxtSubtituloCadLivro.getText().toUpperCase());
     }//GEN-LAST:event_cTxtSubtituloCadLivroKeyReleased
 
     private void cTxtAutorCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtAutorCadLivroKeyReleased
         // TODO add your handling code here:
-        
-         cTxtAutorCadLivro.setText(cTxtAutorCadLivro.getText().toUpperCase());
+
+        cTxtAutorCadLivro.setText(cTxtAutorCadLivro.getText().toUpperCase());
     }//GEN-LAST:event_cTxtAutorCadLivroKeyReleased
 
     private void cTxtAssuntoCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtAssuntoCadLivroKeyReleased
         // TODO add your handling code here:
-        
-         cTxtAssuntoCadLivro.setText(cTxtAssuntoCadLivro.getText().toUpperCase());
+
+        cTxtAssuntoCadLivro.setText(cTxtAssuntoCadLivro.getText().toUpperCase());
     }//GEN-LAST:event_cTxtAssuntoCadLivroKeyReleased
 
     private void cTxtEditoraCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEditoraCadLivroKeyReleased
@@ -487,7 +468,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         cTxtTituloCadLivro.setText("");
         cComboBoxIdiomaCadLivro.setSelectedIndex(0);
         cGiraExemplarCadLivro.setValue(0);
-        
+
     }
 
     /**

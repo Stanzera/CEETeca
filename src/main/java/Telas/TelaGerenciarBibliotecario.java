@@ -157,6 +157,11 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
 
         btEditarGerBibliotecario.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btEditarGerBibliotecario.setText("Editar");
+        btEditarGerBibliotecario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarGerBibliotecarioActionPerformed(evt);
+            }
+        });
 
         btCadastrarGerBibliotecario.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btCadastrarGerBibliotecario.setText("Cadastrar");
@@ -250,9 +255,37 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
     private void btExcluirGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerBibliotecarioActionPerformed
         // TODO add your handling code here:
         
-        int sim  = JOptionPane.showConfirmDialog(null, "Deseja excluir o usuário?");
+        int sim  = JOptionPane.showConfirmDialog(null, "Deseja excluir?","",JOptionPane.YES_NO_OPTION);
+        
+        switch(sim){
+        
+            case 0:
+                JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
+                break;
+                
+            default:
+                System.out.println("ERRO");
+                break;
+        }
         
     }//GEN-LAST:event_btExcluirGerBibliotecarioActionPerformed
+
+    private void btEditarGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerBibliotecarioActionPerformed
+         int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?","",JOptionPane.YES_NO_OPTION);
+
+        if (sim == 0) {
+            // metodo editar         
+            this.setVisible(false);
+            new TelaCadBibliotecario().setVisible(true);
+            
+            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        }else{
+            JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
+        }
+    }//GEN-LAST:event_btEditarGerBibliotecarioActionPerformed
 
     /**
      * @param args the command line arguments

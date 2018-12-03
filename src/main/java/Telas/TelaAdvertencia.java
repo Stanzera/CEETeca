@@ -5,6 +5,9 @@
  */
 package Telas;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Felipe/Wendel
@@ -16,8 +19,11 @@ public class TelaAdvertencia extends javax.swing.JFrame {
      */
     public TelaAdvertencia() {
         initComponents();
-        //Olámundo
-    }
+        
+        ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
+        this.setIconImage(icone.getImage());
+        
+            }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +52,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CEETECA");
         setResizable(false);
 
         lblDescricaoTelaAdvertencia.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -231,6 +238,14 @@ public class TelaAdvertencia extends javax.swing.JFrame {
     private void btRegistrarTelaAdvertenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarTelaAdvertenciaActionPerformed
         // TODO add your handling code here:
         
+         int sim = JOptionPane.showConfirmDialog(null, "Deseja aplicar advertência?","",JOptionPane.YES_NO_OPTION);
+        if (sim == 0) {
+
+            //metodo excluir. 
+            JOptionPane.showMessageDialog(null, "Advertência aplicada");
+        }else{
+            JOptionPane.showMessageDialog(null, "Advertência NÃO aplicada");
+        }
         
     }//GEN-LAST:event_btRegistrarTelaAdvertenciaActionPerformed
 

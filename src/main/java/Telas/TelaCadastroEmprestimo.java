@@ -401,12 +401,18 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarCadEmprestimoActionPerformed
 
     private void btRegistrarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarCadEmprestimoActionPerformed
+      
+        
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja registrar empréstimo?","",JOptionPane.YES_NO_OPTION);
+        if (sim == 0) {
+       
         String areaObs = String.valueOf(cComboBoxSituacaoObs.getSelectedIndex());
         String cpf = cTxtCPFCadEmprestimo.getText();
         Date dtDevolucao = null;
         try {
-            SimpleDateFormat out = new SimpleDateFormat("yyyy/MM/dd");
-            dtDevolucao = out.parse(cTxtDtDevolucaoCadEmprestimo.getText());
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+            dtDevolucao = in.parse(cTxtDtDevolucaoCadEmprestimo.getText());
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -414,95 +420,92 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         int numChamadaLivro = Integer.parseInt(cTxtNumChamadaCadEmprestimo.getText());
         String tipo = String.valueOf(cComboBoxTipoCadEmprestimo.getSelectedIndex());
 
-        if (tipo.equals("1")) {
-            Pessoa pss = new Pessoa();
-            pss.setNomePessoa(nome);
-            pss.setCpfPessoa(cpf);
-            Livro lvr = new Livro();
-            lvr.setCddLivro(numChamadaLivro);//REAVALIAR.
-            Emprestimo emp = new Emprestimo();
-            emp.setDtDevolucaoEmprestimo(dtDevolucao);
-            emp.setObservacaoEmprestimo(areaObs);
-            Aluno aln = new Aluno();
-            aln.setPessoa(pss);
+        switch (tipo) {
+            case "1": {
+                Pessoa pss = new Pessoa();
+                pss.setNomePessoa(nome);
+                pss.setCpfPessoa(cpf);
+                Livro lvr = new Livro();
+                lvr.setCddLivro(numChamadaLivro);//REAVALIAR.
+                Emprestimo emp = new Emprestimo();
+                emp.setDtDevolucaoEmprestimo(dtDevolucao);
+                emp.setObservacaoEmprestimo(areaObs);
+                Aluno aln = new Aluno();
+                aln.setPessoa(pss);
 
-            if (StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtDevolucaoCadEmprestimo.getText()) || cTxtDtDevolucaoCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadEmprestimo.getText()) || cTxtNomeCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText()) || cTxtNumChamadaCadEmprestimo.getText().length() == 0
-                    && cComboBoxTipoCadEmprestimo.getSelectedIndex() == 0
-                    && cComboBoxSituacaoObs.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(null, "Está faltando dados!");
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+                switch (resposta) {
+                    case JOptionPane.YES_OPTION:
+                        try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                            actualSession.beginTransaction();
+                            actualSession.saveOrUpdate(pss);
+                            actualSession.saveOrUpdate(lvr);
+                            actualSession.saveOrUpdate(emp);
+                            actualSession.saveOrUpdate(aln);
+                            actualSession.getTransaction().commit();
+                            actualSession.close();
+                            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                            NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                        }
+                        break;
+                    case JOptionPane.NO_OPTION:
+                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+                        break;
 
-            } else {
-                int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
-                if (sim == 0) {
-                    try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
-                        actualSession.beginTransaction();
-                        actualSession.saveOrUpdate(pss);
-                        actualSession.saveOrUpdate(lvr);
-                        actualSession.saveOrUpdate(emp);
-                        actualSession.saveOrUpdate(aln);
-                        actualSession.getTransaction().commit();
-                        actualSession.close();
-                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
-                        NewHibernateUtil.getSessionFactory().getCurrentSession().close();
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+                }
+                break;
+            }
+            case "2": {
+                Pessoa pss = new Pessoa();
+                pss.setNomePessoa(nome);
+                pss.setCpfPessoa(cpf);
+                Livro lvr = new Livro();
+                lvr.setCddLivro(numChamadaLivro);//REAVALIAR.
+                Emprestimo emp = new Emprestimo();
+                emp.setDtDevolucaoEmprestimo(dtDevolucao);
+                emp.setObservacaoEmprestimo(areaObs);
+                Professor prf = new Professor();
+                prf.setPessoa(pss);
+
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+                switch (resposta) {
+                    case JOptionPane.YES_OPTION:
+                        try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                            actualSession.beginTransaction();
+                            actualSession.saveOrUpdate(pss);
+                            actualSession.saveOrUpdate(lvr);
+                            actualSession.saveOrUpdate(emp);
+                            actualSession.saveOrUpdate(prf);
+                            actualSession.getTransaction().commit();
+                            actualSession.close();
+                            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                            NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                        }
+                    case JOptionPane.NO_OPTION:
+                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+                        break;
                 }
             }
-        } else if (tipo.equals("2")) {
-            Pessoa pss = new Pessoa();
-            pss.setNomePessoa(nome);
-            pss.setCpfPessoa(cpf);
-            Livro lvr = new Livro();
-            lvr.setCddLivro(numChamadaLivro);//REAVALIAR.
-            Emprestimo emp = new Emprestimo();
-            emp.setDtDevolucaoEmprestimo(dtDevolucao);
-            emp.setObservacaoEmprestimo(areaObs);
-            Professor prf = new Professor();
-            prf.setPessoa(pss);
-            if ( StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadEmprestimo.getText()) || cTxtCPFCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtDevolucaoCadEmprestimo.getText()) || cTxtDtDevolucaoCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadEmprestimo.getText()) || cTxtNomeCadEmprestimo.getText().length() == 0
-                    && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText()) || cTxtNumChamadaCadEmprestimo.getText().length() == 0
-                    && cComboBoxSituacaoObs.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(null, "Está faltando dados!");
+            break;
 
-            } else {
-                int sim = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
-                if (sim == 0) {
-                    try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
-                        actualSession.beginTransaction();
-                        actualSession.saveOrUpdate(pss);
-                        actualSession.saveOrUpdate(lvr);
-                        actualSession.saveOrUpdate(emp);
-                        actualSession.saveOrUpdate(prf);
-                        actualSession.getTransaction().commit();
-                        actualSession.close();
-                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
-                        NewHibernateUtil.getSessionFactory().getCurrentSession().close();
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Opção Inválida");
+            default:
+                JOptionPane.showMessageDialog(null, "Selecione uma opção:"
+                        + "1 - Aluno"
+                        + "2 - Professor");
+                break;
         }
-
+        }
 
     }//GEN-LAST:event_btRegistrarCadEmprestimoActionPerformed
 
 
     private void btBuscarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarCadEmprestimoActionPerformed
         //String nchamada = cTxtNumChamadaCadEmprestimo.getText();
-       /* if (StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText())) {
+        /* if (StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText())) {
             for (int i = 0; i < Emprestimo; i++) {
                 livroGetSet livro = Banco.livros.get(i);
                 emprestimoGetSet emprestimo = Banco.emprestimos.get(i);
@@ -556,7 +559,6 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
             }
 
         }*/
-
 
     }//GEN-LAST:event_btPesquisarCadEmprestimoActionPerformed
 

@@ -590,7 +590,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         String cpf = cTxtCPFCadProfessor.getText();
         Date dtNascimento = null;
         try {
-            SimpleDateFormat in = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
             dtNascimento = in.parse(cTxtDtNascimentoCadProfessor.getText());
         } catch (ParseException ex) {
@@ -633,7 +633,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
 
         Professor prf = new Professor();
         prf.setPessoa(pss);
-        
+
         Curso crs = new Curso();
         crs.setDescricaoCurso(cursoSelecionado);
 
@@ -641,47 +641,27 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         phc.setCurso(crs);
         phc.setProfessor(prf);
 
-        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtBairroCadProfessor.getText()) || cTxtBairroCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCEPCadProfessor.getText()) || cTxtCEPCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCPFCadProfessor.getText()) || cTxtCPFCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCelularCadProfessor.getText()) || cTxtCelularCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtCidadeCadProfessor.getText()) || cTxtCidadeCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtComplementoCadProfessor.getText()) || cTxtComplementoCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtDtNascimentoCadProfessor.getText()) || cTxtDtNascimentoCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtEmailCadProfessor.getText()) || cTxtEmailCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNomeCadProfessor.getText()) || cTxtNomeCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumFuncionalCadProfessor.getText()) || cTxtNumFuncionalCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtNumeroCadProfessor.getText()) || cTxtNumeroCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtRuaCadProfessor.getText()) || cTxtRuaCadProfessor.getText().length() == 0
-                && StringUtils.isEmptyOrWhitespaceOnly(cTxtTelefoneCadProfessor.getText()) || cTxtTelefoneCadProfessor.getText().length() == 0
-                && cxListSelecionados.getModel().getSize() > 0
-                && cComboBoxUFCadProfessor.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Está faltando dados!");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro\n"
-                    + "do professor?","",JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
-                    actualSession.beginTransaction();
-                    actualSession.saveOrUpdate(pss);
-                    actualSession.saveOrUpdate(ctt);
-                    actualSession.saveOrUpdate(end);
-                    actualSession.saveOrUpdate(prf);
-                    actualSession.saveOrUpdate(crs);
-                    actualSession.saveOrUpdate(phc);
-                    actualSession.getTransaction().commit();
-                    actualSession.close();
-                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
-                    NewHibernateUtil.getSessionFactory().getCurrentSession().close();
-                }
-            } else if(resposta == JOptionPane.NO_OPTION){
-                JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
-            } 
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro\n"
+                + "do professor?", "", JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                actualSession.beginTransaction();
+                actualSession.saveOrUpdate(pss);
+                actualSession.saveOrUpdate(ctt);
+                actualSession.saveOrUpdate(end);
+                actualSession.saveOrUpdate(prf);
+                actualSession.saveOrUpdate(crs);
+                actualSession.saveOrUpdate(phc);
+                actualSession.getTransaction().commit();
+                actualSession.close();
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+            }
+        } else if (resposta == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
         }
-
-
     }//GEN-LAST:event_btConfirmarCadProfessorActionPerformed
 
     private void btVoltarCadProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadProfessorActionPerformed
@@ -742,7 +722,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cursosDisponiveis.removeElement(curso);
         cxListModelo.setModel(cursosDisponiveis);
         cxListModelo.setVisible(true);
-
     }//GEN-LAST:event_butAdicionarCursoActionPerformed
 
     private void butAdicionarCursoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_butAdicionarCursoKeyReleased
@@ -751,7 +730,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
 
     private void butRemoverCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRemoverCursoActionPerformed
         String curso = cxListSelecionados.getSelectedValue();
-        if(!StringUtils.isEmptyOrWhitespaceOnly(curso)){
+        if (!StringUtils.isEmptyOrWhitespaceOnly(curso)) {
             ListModel lm = cxListModelo.getModel();
             DefaultListModel cursosPegos = new DefaultListModel();
             for (int i = 0; i < lm.getSize(); i++) {
@@ -769,7 +748,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             cursosDisponiveis.removeElement(curso);
             cxListSelecionados.setModel(cursosDisponiveis);
             cxListSelecionados.setVisible(true);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Nulo!");
         }
 
