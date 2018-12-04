@@ -11,6 +11,7 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <mapping resource="models/AlunoHasCurso.hbm.xml"/>
     <mapping resource="models/Aluno.hbm.xml"/>
     <mapping resource="models/Advertencia.hbm.xml"/>
@@ -28,5 +29,6 @@
     <mapping resource="models/Modulo.hbm.xml"/>
     <mapping resource="models/Livro.hbm.xml"/>
     <mapping class="viewmodel.viewTabelaTelaPrincipal"/>
+    <mapping class="viewmodel.viewGerProfessor"/>
   </session-factory>
 </hibernate-configuration>

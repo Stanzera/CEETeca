@@ -24,15 +24,14 @@ import org.hibernate.Session;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    
     DecimalFormat formatador = new DecimalFormat("00");
-    
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
-        
+
         /* this.setExtendedState(this.MAXIMIZED_BOTH);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         //this.setMinimumSize(d);
@@ -50,19 +49,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-        
+
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
         //Chama a view
-        Query q = sessao.createQuery("from viewTabelaTelaPrincipal");
+        String select = "select distinct pessoa.nomePessoa as Nome, pessoa.matriculaPessoa as Matricula_N_Funcional, livro.tituloLivro as Titulo_Livro,\n"
+                + "emprestimo.idEmprestimo as N_Chamada, emprestimo.dtDevolucaoEmprestimo as Limite_Data,\n"
+                + "emprestimo.observacaoEmprestimo as Situacao\n"
+                + "from pessoa\n"
+                + "inner join emprestimo on pessoa.idPessoa = emprestimo.idEmprestimo\n"
+                + "inner join livro_has_emprestimo on emprestimo_idEmprestimo = emprestimo.idEmprestimo\n"
+                + "inner join exemplar ON livro_has_emprestimo.exemplar_idExemplar = exemplar.idExemplar\n"
+                + "inner join livro ON exemplar.livro_idLivro = livro.idLivro";
+
+        Query q = sessao.createSQLQuery(select).addEntity(viewmodel.viewTabelaTelaPrincipal.class);
         //pega o resultado da query e retorna uma lista
         List<viewmodel.viewTabelaTelaPrincipal> registrosTelaPrincipal = q.getResultList();
         sessao.getTransaction().commit();
         sessao.close();
-        
+
         //pega o modelo da tabela
         DefaultTableModel model = (DefaultTableModel) tabelaTelaPrincipal.getModel();
-        
+
         for (int i = 0; i < registrosTelaPrincipal.size(); i++) {
             //Pega o dado do registro usando i
             viewmodel.viewTabelaTelaPrincipal registro = registrosTelaPrincipal.get(i);
@@ -80,11 +88,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         //adiciona o modelo novamente na tabela
         tabelaTelaPrincipal.setModel(model);
-        
+
         //Atualiza a parte grafica da tabela mostrando os novos valores
         tabelaTelaPrincipal.setVisible(true);
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,9 +113,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         gerenciarTelaPrincipal = new javax.swing.JMenu();
         usuarioTelaPrincipal = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        gerAlunoTelaPrincipal = new javax.swing.JMenuItem();
+        gerBibliotecarioTelaPrincipal = new javax.swing.JMenuItem();
+        gerProfessorTelaPrincipal = new javax.swing.JMenuItem();
         gerEmprestimoTelaPrincipal = new javax.swing.JMenuItem();
         gerLivroTelaPrincipal = new javax.swing.JMenuItem();
         ajudaTelaPrincipal = new javax.swing.JMenu();
@@ -147,17 +156,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
         usuarioTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario16x16.png"))); // NOI18N
         usuarioTelaPrincipal.setText("Pessoa");
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/AlunoPB16x16.png"))); // NOI18N
-        jMenuItem5.setText("Aluno");
-        usuarioTelaPrincipal.add(jMenuItem5);
+        gerAlunoTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/AlunoPB16x16.png"))); // NOI18N
+        gerAlunoTelaPrincipal.setText("Aluno");
+        gerAlunoTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerAlunoTelaPrincipalActionPerformed(evt);
+            }
+        });
+        usuarioTelaPrincipal.add(gerAlunoTelaPrincipal);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GerenciarBibliotecarioPB16x16.png"))); // NOI18N
-        jMenuItem6.setText("Bibliotecário");
-        usuarioTelaPrincipal.add(jMenuItem6);
+        gerBibliotecarioTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GerenciarBibliotecarioPB16x16.png"))); // NOI18N
+        gerBibliotecarioTelaPrincipal.setText("Bibliotecário");
+        gerBibliotecarioTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerBibliotecarioTelaPrincipalActionPerformed(evt);
+            }
+        });
+        usuarioTelaPrincipal.add(gerBibliotecarioTelaPrincipal);
 
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gerenciarProfessorPB16x16.png"))); // NOI18N
-        jMenuItem7.setText("Professor");
-        usuarioTelaPrincipal.add(jMenuItem7);
+        gerProfessorTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gerenciarProfessorPB16x16.png"))); // NOI18N
+        gerProfessorTelaPrincipal.setText("Professor");
+        gerProfessorTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerProfessorTelaPrincipalActionPerformed(evt);
+            }
+        });
+        usuarioTelaPrincipal.add(gerProfessorTelaPrincipal);
 
         gerenciarTelaPrincipal.add(usuarioTelaPrincipal);
 
@@ -172,6 +196,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         gerLivroTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LivroPB16x16.png"))); // NOI18N
         gerLivroTelaPrincipal.setText("Livro");
+        gerLivroTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerLivroTelaPrincipalActionPerformed(evt);
+            }
+        });
         gerenciarTelaPrincipal.add(gerLivroTelaPrincipal);
 
         jMenuBar1.add(gerenciarTelaPrincipal);
@@ -243,51 +272,38 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gerEmprestimoTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerEmprestimoTelaPrincipalActionPerformed
-        
         this.setVisible(false);
         new TelaGerenciarEmprestimo().setVisible(true);
-        
     }//GEN-LAST:event_gerEmprestimoTelaPrincipalActionPerformed
 
-    private void gerLivroTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
-
-        this.setVisible(false);
-        new TelaGerenciarLivro().setVisible(true);
-
-    }                                                     
-
-    private void gerProfessorPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
-
-        this.setVisible(false);
-        new TelaGerenciarProfessor().setVisible(true);
-
-    }                                                     
-
-    private void gerAlunoPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
-
-        this.setVisible(false);
-        new TelaGerenciarAluno().setVisible(true);
-    }                                                 
-
-    private void gerBibliotecarioPrincipalActionPerformed(java.awt.event.ActionEvent evt) {                                                          
-        // TODO add your handling code here:
-
-        this.setVisible(false);
-        new TelaGerenciarBibliotecario().setVisible(true);
-    }          
-    
     private void sobreTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sobreTelaPrincipalActionPerformed
         // TODO add your handling code here:
         ImageIcon icon = new ImageIcon(getToolkit().createImage(getClass().getResource("/images/sobrechaoticcode.png")));
-        JOptionPane.showMessageDialog(this,"", "CEETECA", JOptionPane.PLAIN_MESSAGE, icon );
+        JOptionPane.showMessageDialog(this, "", "CEETECA", JOptionPane.PLAIN_MESSAGE, icon);
     }//GEN-LAST:event_sobreTelaPrincipalActionPerformed
 
-    private void iconeSobre(){
-        
-        
+    private void gerLivroTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerLivroTelaPrincipalActionPerformed
+        this.setVisible(false);
+        new TelaGerenciarLivro().setVisible(true);
+    }//GEN-LAST:event_gerLivroTelaPrincipalActionPerformed
+
+    private void gerAlunoTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerAlunoTelaPrincipalActionPerformed
+        this.setVisible(false);
+        new TelaGerenciarAluno().setVisible(true);
+    }//GEN-LAST:event_gerAlunoTelaPrincipalActionPerformed
+
+    private void gerBibliotecarioTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerBibliotecarioTelaPrincipalActionPerformed
+        this.setVisible(false);
+        new TelaGerenciarBibliotecario().setVisible(true);
+    }//GEN-LAST:event_gerBibliotecarioTelaPrincipalActionPerformed
+
+    private void gerProfessorTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerProfessorTelaPrincipalActionPerformed
+        this.setVisible(false);
+        new TelaGerenciarProfessor().setVisible(true);
+    }//GEN-LAST:event_gerProfessorTelaPrincipalActionPerformed
+
+    private void iconeSobre() {
+
     }
     ActionListener ativar = (new ActionListener() {
         @Override
@@ -379,8 +395,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         lbData.setText(diaSemana + horarioAtual.get(Calendar.DAY_OF_MONTH) + mes + horarioAtual.get(Calendar.YEAR));
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -418,15 +433,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ajudaTelaPrincipal;
+    private javax.swing.JMenuItem gerAlunoTelaPrincipal;
+    private javax.swing.JMenuItem gerBibliotecarioTelaPrincipal;
     private javax.swing.JMenuItem gerEmprestimoTelaPrincipal;
     private javax.swing.JMenuItem gerLivroTelaPrincipal;
+    private javax.swing.JMenuItem gerProfessorTelaPrincipal;
     private javax.swing.JMenu gerenciarTelaPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCumprimento;
     private javax.swing.JLabel lbData;

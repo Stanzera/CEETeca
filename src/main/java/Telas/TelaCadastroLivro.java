@@ -389,7 +389,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
 
         exemplar.setLivro(livro);
 
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o usuário cadastrado?");
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o livro cadastrado?", "", JOptionPane.YES_NO_OPTION);
         switch (resposta) {
             case JOptionPane.YES_OPTION:
                 try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
@@ -411,18 +411,12 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_btConfirmarCadLivroActionPerformed
 
     private void btLimparCadLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparCadLivroActionPerformed
-        // 
         limpar();
-
-
     }//GEN-LAST:event_btLimparCadLivroActionPerformed
 
     private void btVoltarCadLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadLivroActionPerformed
-        // 
-
         setVisible(false);
         new TelaGerenciarLivro().setVisible(true);
-
     }//GEN-LAST:event_btVoltarCadLivroActionPerformed
 
     private void cTxtTituloCadLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtTituloCadLivroKeyReleased
@@ -468,7 +462,6 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         cTxtTituloCadLivro.setText("");
         cComboBoxIdiomaCadLivro.setSelectedIndex(0);
         cGiraExemplarCadLivro.setValue(0);
-
     }
 
     /**

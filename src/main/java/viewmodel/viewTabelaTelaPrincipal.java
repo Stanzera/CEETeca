@@ -18,8 +18,8 @@ import org.hibernate.annotations.Immutable;
 @Immutable
 public class viewTabelaTelaPrincipal {
     /* create view telaPrincipal as
-select distinct pessoa.nomePessoa as Nome, pessoa.matriculaPessoa as Matricula_Nº_Funcional, livro.tituloLivro as Titulo_Livro,
-emprestimo.idEmprestimo as Nº_Chamada, emprestimo.dtDevolucaoEmprestimo as Limite_Data,
+select distinct pessoa.nomePessoa as Nome, pessoa.matriculaPessoa as Matricula_N_Funcional, livro.tituloLivro as Titulo_Livro,
+emprestimo.idEmprestimo as N_Chamada, emprestimo.dtDevolucaoEmprestimo as Limite_Data,
 emprestimo.observacaoEmprestimo as Situacao
 from pessoa
 inner join emprestimo on pessoa.idPessoa = emprestimo.idEmprestimo
@@ -27,7 +27,7 @@ inner join livro_has_emprestimo on emprestimo_idEmprestimo = emprestimo.idEmpres
 inner join exemplar ON livro_has_emprestimo.exemplar_idExemplar = exemplar.idExemplar
 inner join livro ON exemplar.livro_idLivro = livro.idLivro*/
     @Id
-    @Column(name = "Matricula_Nº_Funcional")
+    @Column(name = "Matricula_N_Funcional")
     private String Matricula;
     
     @Column(name = "Nome")
@@ -36,7 +36,7 @@ inner join livro ON exemplar.livro_idLivro = livro.idLivro*/
     @Column(name="Titulo_Livro")
     private String tituloLivro;
 
-    @Column(name="Nº_Chamada")
+    @Column(name="N_Chamada")
     private int nChamada;
 
     @Column(name="Limite_Data")
@@ -93,5 +93,7 @@ inner join livro ON exemplar.livro_idLivro = livro.idLivro*/
     public void setDataLimite(Date dataLimite) {
         this.dataLimite = dataLimite;
     }
+    
+    
     
 }

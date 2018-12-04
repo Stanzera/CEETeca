@@ -5,10 +5,16 @@
  */
 package Telas;
 
+import DAO.NewHibernateUtil;
 import com.mysql.jdbc.StringUtils;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import models.Bibliotecaria;
+import org.hibernate.Session;
 
 /**
  *
@@ -24,7 +30,6 @@ public class telaLogin extends javax.swing.JFrame {
 
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-
 
     }
 
@@ -175,44 +180,91 @@ public class telaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_cTxtSenhaTelaLoginActionPerformed
 
     private void btEntrarTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarTelaLoginActionPerformed
-
-        if (cTxtUsuarioTelaLogin.getText().equals("")) {
+        boolean achou = false;
+        if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
             JOptionPane.showMessageDialog(null, "Está faltando o usuario");
-        } else if (cTxtSenhaTelaLogin.getText().equals("")) {
+        } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
             JOptionPane.showMessageDialog(null, "Está faltando a senha");
-        } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-            JOptionPane.showMessageDialog(null, "O usuario está incorreto");
-        } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-            JOptionPane.showMessageDialog(null, "A senha está incorreta");
-        } else if (cTxtUsuarioTelaLogin.getText().equals("root")
-                && cTxtSenhaTelaLogin.getText().equals("1234")) {
-            JOptionPane.showMessageDialog(null, "Funções Liberadas");
-            TelaPrincipal tela = new TelaPrincipal();
-            //Deixa uma janela visível(true), ou invisível(false)        
-            tela.setVisible(true);
-            //Fecha a janela para poder exibir a próxima
-            dispose();
+        } else {
+            List<Bibliotecaria> bibliotecarias = new ArrayList<Bibliotecaria>();
+
+            try (Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession()) {
+                sessaoAtual.beginTransaction();
+                Query q = sessaoAtual.createQuery("FROM Bibliotecaria");
+                bibliotecarias = q.getResultList();
+                sessaoAtual.getTransaction().commit();
+                sessaoAtual.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+            }
+
+            String nomeUsuario = cTxtUsuarioTelaLogin.getText();
+            String senhaUsuario = cTxtSenhaTelaLogin.getText();
+
+            for (int i = 0; i < bibliotecarias.size(); i++) {
+                Bibliotecaria usuarioBib = bibliotecarias.get(i);
+
+                if (usuarioBib.getUsuarioBibliotecaria().equalsIgnoreCase(nomeUsuario)
+                        && usuarioBib.getSenhaBibliotecaria().equalsIgnoreCase(senhaUsuario)) {
+                    achou = true;
+                    break;
+                }
+            }
+            if (achou == true) {
+                TelaPrincipal tela = new TelaPrincipal();
+                //Deixa uma janela visível(true), ou invisível(false)        
+                tela.setVisible(true);
+                //Fecha a janela para poder exibir a próxima
+                this.setVisible(false);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha errados.");
+            }
         }
-        
     }//GEN-LAST:event_btEntrarTelaLoginActionPerformed
 
     private void btEntrarTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btEntrarTelaLoginKeyPressed
+        boolean achou = false;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario");
             } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha");
-            } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-                JOptionPane.showMessageDialog(null, "O usuario está incorreto");
-            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "A senha está incorreta");
-            } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "Funções Liberadas");
-                TelaPrincipal tela = new TelaPrincipal();
-                //Deixa uma janela visível(true), ou invisível(false)        
-                tela.setVisible(true);
-                //Fecha a janela para poder exibir a próxima
-                dispose();
+            } else {
+                List<Bibliotecaria> bibliotecarias = new ArrayList<Bibliotecaria>();
+
+                try (Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession()) {
+                    sessaoAtual.beginTransaction();
+                    Query q = sessaoAtual.createQuery("FROM Bibliotecaria");
+                    bibliotecarias = q.getResultList();
+                    sessaoAtual.getTransaction().commit();
+                    sessaoAtual.close();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+                }
+
+                String nomeUsuario = cTxtUsuarioTelaLogin.getText();
+                String senhaUsuario = cTxtSenhaTelaLogin.getText();
+
+                for (int i = 0; i < bibliotecarias.size(); i++) {
+                    Bibliotecaria usuarioBib = bibliotecarias.get(i);
+
+                    if (usuarioBib.getUsuarioBibliotecaria().equalsIgnoreCase(nomeUsuario)
+                            && usuarioBib.getSenhaBibliotecaria().equalsIgnoreCase(senhaUsuario)) {
+                        achou = true;
+                        break;
+                    }
+                }
+                if (achou == true) {
+                    TelaPrincipal tela = new TelaPrincipal();
+                    //Deixa uma janela visível(true), ou invisível(false)        
+                    tela.setVisible(true);
+                    //Fecha a janela para poder exibir a próxima
+                    this.setVisible(false);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha errados.");
+                }
             }
         }
     }//GEN-LAST:event_btEntrarTelaLoginKeyPressed
@@ -222,43 +274,93 @@ public class telaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_painelTelaLoginKeyPressed
 
     private void cTxtSenhaTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtSenhaTelaLoginKeyPressed
+        boolean achou = false;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario");
             } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha");
-            } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-                JOptionPane.showMessageDialog(null, "O usuario está incorreto");
-            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "A senha está incorreta");
-            } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "Funções Liberadas");
-                TelaPrincipal tela = new TelaPrincipal();
-                //Deixa uma janela visível(true), ou invisível(false)        
-                tela.setVisible(true);
-                //Fecha a janela para poder exibir a próxima
-                dispose();
+            } else {
+                List<Bibliotecaria> bibliotecarias = new ArrayList<Bibliotecaria>();
+
+                try (Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession()) {
+                    sessaoAtual.beginTransaction();
+                    Query q = sessaoAtual.createQuery("FROM Bibliotecaria");
+                    bibliotecarias = q.getResultList();
+                    sessaoAtual.getTransaction().commit();
+                    sessaoAtual.close();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+                }
+
+                String nomeUsuario = cTxtUsuarioTelaLogin.getText();
+                String senhaUsuario = cTxtSenhaTelaLogin.getText();
+
+                for (int i = 0; i < bibliotecarias.size(); i++) {
+                    Bibliotecaria usuarioBib = bibliotecarias.get(i);
+
+                    if (usuarioBib.getUsuarioBibliotecaria().equalsIgnoreCase(nomeUsuario)
+                            && usuarioBib.getSenhaBibliotecaria().equalsIgnoreCase(senhaUsuario)) {
+                        achou = true;
+                        break;
+                    }
+                }
+                if (achou == true) {
+                    TelaPrincipal tela = new TelaPrincipal();
+                    //Deixa uma janela visível(true), ou invisível(false)        
+                    tela.setVisible(true);
+                    //Fecha a janela para poder exibir a próxima
+                    this.setVisible(false);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha errados.");
+                }
             }
         }
     }//GEN-LAST:event_cTxtSenhaTelaLoginKeyPressed
 
     private void cTxtUsuarioTelaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtUsuarioTelaLoginKeyPressed
+        boolean achou = false;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (StringUtils.isEmptyOrWhitespaceOnly(cTxtUsuarioTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando o usuario");
             } else if (StringUtils.isEmptyOrWhitespaceOnly(cTxtSenhaTelaLogin.getText())) {
                 JOptionPane.showMessageDialog(null, "Está faltando a senha");
-            } else if (!cTxtUsuarioTelaLogin.getText().equals("root")) {
-                JOptionPane.showMessageDialog(null, "O usuario está incorreto");
-            } else if (!cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "A senha está incorreta");
-            } else if (cTxtUsuarioTelaLogin.getText().equals("root") && cTxtSenhaTelaLogin.getText().equals("1234")) {
-                JOptionPane.showMessageDialog(null, "Funções Liberadas");
-                TelaPrincipal tela = new TelaPrincipal();
-                //Deixa uma janela visível(true), ou invisível(false)        
-                tela.setVisible(true);
-                //Fecha a janela para poder exibir a próxima
-                dispose();
+            } else {
+                List<Bibliotecaria> bibliotecarias = new ArrayList<Bibliotecaria>();
+
+                try (Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession()) {
+                    sessaoAtual.beginTransaction();
+                    Query q = sessaoAtual.createQuery("FROM Bibliotecaria");
+                    bibliotecarias = q.getResultList();
+                    sessaoAtual.getTransaction().commit();
+                    sessaoAtual.close();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+                }
+
+                String nomeUsuario = cTxtUsuarioTelaLogin.getText();
+                String senhaUsuario = cTxtSenhaTelaLogin.getText();
+
+                for (int i = 0; i < bibliotecarias.size(); i++) {
+                    Bibliotecaria usuarioBib = bibliotecarias.get(i);
+
+                    if (usuarioBib.getUsuarioBibliotecaria().equalsIgnoreCase(nomeUsuario)
+                            && usuarioBib.getSenhaBibliotecaria().equalsIgnoreCase(senhaUsuario)) {
+                        achou = true;
+                        break;
+                    }
+                }
+                if (achou == true) {
+                    TelaPrincipal tela = new TelaPrincipal();
+                    //Deixa uma janela visível(true), ou invisível(false)        
+                    tela.setVisible(true);
+                    //Fecha a janela para poder exibir a próxima
+                    this.setVisible(false);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha errados.");
+                }
             }
         }
     }//GEN-LAST:event_cTxtUsuarioTelaLoginKeyPressed

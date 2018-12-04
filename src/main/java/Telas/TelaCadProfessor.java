@@ -10,10 +10,15 @@ import com.mysql.cj.core.util.StringUtils;
 import javax.swing.ImageIcon;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Query;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import models.Contato;
@@ -34,12 +39,31 @@ public class TelaCadProfessor extends javax.swing.JFrame {
      *
      * Creates new form TelaCadProfessor
      */
+    
+    /*ADMINISTRAÇÃO, COMÉRCIO EXTERIOR, EVENTOS, GASTRONOMIA, INFORMÁTICA, MODELAGEM DO VESTUÁRIO, MULTIMÍDIA, PRODUÇÃO DE MODA, PROGRAMAÇÃO DE JOGOS DIGITAIS, RADIO E TV, REDES DE COMPUTADORES*/
     public TelaCadProfessor() {
         initComponents();
 
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-
+        
+        try(Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession()){
+            sessaoAtual.beginTransaction();
+            Query q = sessaoAtual.createQuery("FROM Curso");
+            List<Curso> cursos = q.getResultList();
+            DefaultListModel listModel = new DefaultListModel<Curso>();
+            for (Curso c : cursos) {
+                listModel.addElement(c);
+            }
+            cxListModelo.setModel(listModel);
+            cxListModelo.setVisible(true);
+            sessaoAtual.getTransaction().commit();
+            sessaoAtual.close();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro:"+e.getMessage());
+        }
+        
     }
 
     /**
@@ -51,6 +75,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("CEETECA?createDatabaseIfNotExist=TRUE&useTimezone=true&serverTimezone=UTC&unicode=true&characterEncoding=UTF-8PU").createEntityManager();
         painelGeralCadProfessor = new javax.swing.JPanel();
         painelDadosCadProfessor = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,11 +87,11 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cTxtCPFCadProfessor = new javax.swing.JFormattedTextField();
         butAdicionarCurso = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        cxListSelecionados = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         cxListModelo = new javax.swing.JList<>();
         butRemoverCurso = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        cxListSelecionados = new javax.swing.JList<>();
         painelEnderecoCadProfessor = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cTxtCEPCadProfessor = new javax.swing.JFormattedTextField();
@@ -152,14 +177,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             }
         });
 
-        cxListSelecionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(cxListSelecionados);
-
-        cxListModelo.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "ADMINISTRAÇÃO", "COMÉRCIO EXTERIOR", "EVENTOS", "GASTRONOMIA", "INFORMÁTICA", "MODELAGEM DO VESTUÁRIO", "MULTIMÍDIA", "PRODUÇÃO DE MODA", "PROGRAMAÇÃO DE JOGOS DIGITAIS", "RADIO E TV", "REDES DE COMPUTADORES" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         cxListModelo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(cxListModelo);
 
@@ -175,17 +192,15 @@ public class TelaCadProfessor extends javax.swing.JFrame {
             }
         });
 
+        cxListSelecionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(cxListSelecionados);
+
         javax.swing.GroupLayout painelDadosCadProfessorLayout = new javax.swing.GroupLayout(painelDadosCadProfessor);
         painelDadosCadProfessor.setLayout(painelDadosCadProfessorLayout);
         painelDadosCadProfessorLayout.setHorizontalGroup(
             painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
                 .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cTxtNomeCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,8 +224,13 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                                     .addComponent(butAdicionarCurso)
                                     .addComponent(butRemoverCurso))
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cTxtNomeCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         painelDadosCadProfessorLayout.setVerticalGroup(
             painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,16 +251,17 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(butAdicionarCurso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(butRemoverCurso))
+                        .addGap(18, 18, 18)
+                        .addComponent(butRemoverCurso)
+                        .addGap(24, 24, 24))
                     .addGroup(painelDadosCadProfessorLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(18, 18, 18)
                         .addGroup(painelDadosCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4))))
+                .addContainerGap())
         );
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -490,7 +511,10 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         painelGeralCadProfessorLayout.setHorizontalGroup(
             painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
+                .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2))
             .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 625, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
                 .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,11 +531,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(painelGeralCadProfessorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelGeralCadProfessorLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 577, Short.MAX_VALUE))))
+                .addComponent(jLabel1)
+                .addGap(0, 577, Short.MAX_VALUE))
         );
         painelGeralCadProfessorLayout.setVerticalGroup(
             painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,10 +540,10 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
@@ -584,19 +605,22 @@ public class TelaCadProfessor extends javax.swing.JFrame {
 
     private void btConfirmarCadProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarCadProfessorActionPerformed
         // TODO add your handling code here:
-
+       
         String nome = cTxtNomeCadProfessor.getText();
         String numFuncional = cTxtNumFuncionalCadProfessor.getText();
         String cpf = cTxtCPFCadProfessor.getText();
+        
         Date dtNascimento = null;
         try {
             SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-            dtNascimento = in.parse(cTxtDtNascimentoCadProfessor.getText());
+            dtNascimento = out.parse(cTxtDtNascimentoCadProfessor.getText());
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        int numero = Integer.parseInt(cTxtNumeroCadProfessor.getText());
+        
         String cep = cTxtCEPCadProfessor.getText();
         String email = cTxtEmailCadProfessor.getText();
         String celular = cTxtCelularCadProfessor.getText();
@@ -604,7 +628,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         String cursoSelecionado = String.valueOf(cxListSelecionados.getSelectedIndex());
         String estado = String.valueOf(cComboBoxUFCadProfessor.getSelectedIndex());
         String logradouro = cTxtRuaCadProfessor.getText();
-        int numero = Integer.parseInt(cTxtNumeroCadProfessor.getText());
         String bairro = cTxtBairroCadProfessor.getText();
         String cidade = cTxtCidadeCadProfessor.getText();
         String complemento = cTxtComplementoCadProfessor.getText();
@@ -631,29 +654,38 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         end.setNumeroEndereco(numero);
         end.setPessoa(pss);
 
+        ArrayList<Curso> cursosSelecionados = new ArrayList<Curso>();
+        
+        DefaultListModel<Curso> cursinhos = (DefaultListModel<Curso>) cxListSelecionados.getModel();
+        
+        for (int i = 0; i < cursinhos.size(); i++) {
+            cursosSelecionados.add(cursinhos.get(i));
+        }
+        
         Professor prf = new Professor();
         prf.setPessoa(pss);
 
-        Curso crs = new Curso();
-        crs.setDescricaoCurso(cursoSelecionado);
-
-        ProfessorHasCurso phc = new ProfessorHasCurso();
-        phc.setCurso(crs);
-        phc.setProfessor(prf);
-
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro\n"
                 + "do professor?", "", JOptionPane.YES_NO_OPTION);
+        
         if (resposta == JOptionPane.YES_OPTION) {
             try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
                 actualSession.beginTransaction();
+                
                 actualSession.saveOrUpdate(pss);
                 actualSession.saveOrUpdate(ctt);
                 actualSession.saveOrUpdate(end);
                 actualSession.saveOrUpdate(prf);
-                actualSession.saveOrUpdate(crs);
-                actualSession.saveOrUpdate(phc);
+                ProfessorHasCurso phc = null;
+                for (int i = 0; i < cursosSelecionados.size(); i++) {
+                    phc = new ProfessorHasCurso();
+                    phc.setCurso(cursosSelecionados.get(i));
+                    phc.setProfessor(prf);
+                    actualSession.saveOrUpdate(phc);
+                }
                 actualSession.getTransaction().commit();
                 actualSession.close();
+                
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
@@ -703,7 +735,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_cTxtEmailCadProfessorKeyReleased
 
     private void butAdicionarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAdicionarCursoActionPerformed
-        String curso = cxListModelo.getSelectedValue();
+        Curso curso = cxListModelo.getSelectedValue();
 
         ListModel lm = cxListSelecionados.getModel();
         DefaultListModel cursosPegos = new DefaultListModel();
@@ -729,8 +761,8 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_butAdicionarCursoKeyReleased
 
     private void butRemoverCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRemoverCursoActionPerformed
-        String curso = cxListSelecionados.getSelectedValue();
-        if (!StringUtils.isEmptyOrWhitespaceOnly(curso)) {
+        Curso curso = cxListSelecionados.getSelectedValue();
+        if (curso != null) {
             ListModel lm = cxListModelo.getModel();
             DefaultListModel cursosPegos = new DefaultListModel();
             for (int i = 0; i < lm.getSize(); i++) {
@@ -838,8 +870,9 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JTextField cTxtNumeroCadProfessor;
     private javax.swing.JTextField cTxtRuaCadProfessor;
     private javax.swing.JFormattedTextField cTxtTelefoneCadProfessor;
-    private javax.swing.JList<String> cxListModelo;
-    private javax.swing.JList<String> cxListSelecionados;
+    private javax.swing.JList<Curso> cxListModelo;
+    private javax.swing.JList<Curso> cxListSelecionados;
+    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -858,7 +891,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
