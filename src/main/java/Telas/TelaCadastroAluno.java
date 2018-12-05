@@ -590,29 +590,30 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         AlunoHasCurso ahc = new AlunoHasCurso();
         ahc.setAluno(aln);
         ahc.setCurso(crs);
-            int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro do aluno?","",JOptionPane.YES_NO_OPTION);
-            switch (resposta) {
-                case JOptionPane.YES_OPTION:
-                    try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
-                        actualSession.beginTransaction();
-                        actualSession.saveOrUpdate(pss);
-                        actualSession.saveOrUpdate(ctt);
-                        actualSession.saveOrUpdate(end);
-                        actualSession.saveOrUpdate(aln);
-                        actualSession.saveOrUpdate(crs);
-                        actualSession.saveOrUpdate(ahc);
-                        actualSession.saveOrUpdate(mdl);
-                        actualSession.saveOrUpdate(trn);
-                        actualSession.getTransaction().commit();
-                        actualSession.close();
-                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
-                        NewHibernateUtil.getSessionFactory().getCurrentSession().close();
-                    }   break;
-                case JOptionPane.NO_OPTION:
-                    JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
-                    break;
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro do aluno?", "", JOptionPane.YES_NO_OPTION);
+        switch (resposta) {
+            case JOptionPane.YES_OPTION:
+                try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                    actualSession.beginTransaction();
+                    actualSession.saveOrUpdate(pss);
+                    actualSession.saveOrUpdate(ctt);
+                    actualSession.saveOrUpdate(end);
+                    actualSession.saveOrUpdate(aln);
+                    actualSession.saveOrUpdate(crs);
+                    actualSession.saveOrUpdate(ahc);
+                    actualSession.saveOrUpdate(mdl);
+                    actualSession.saveOrUpdate(trn);
+                    actualSession.getTransaction().commit();
+                    actualSession.close();
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado. Devido ao erro " + e.getMessage());
+                    NewHibernateUtil.getSessionFactory().getCurrentSession().close();
+                }
+                break;
+            case JOptionPane.NO_OPTION:
+                JOptionPane.showMessageDialog(null, "Cadastro não efetuado");
+                break;
         }
 
 
@@ -632,7 +633,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
     private void cTxtEmailCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEmailCadAlunoKeyReleased
         // TODO add your handling code here:
-        cTxtEmailCadAluno.setText(cTxtEmailCadAluno.getText().toUpperCase());
+        cTxtEmailCadAluno.setText(cTxtEmailCadAluno.getText().toLowerCase());
     }//GEN-LAST:event_cTxtEmailCadAlunoKeyReleased
 
     private void cTxtRuaCadAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtRuaCadAlunoKeyReleased

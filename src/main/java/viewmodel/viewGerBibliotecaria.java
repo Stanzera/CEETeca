@@ -5,37 +5,37 @@
  */
 package viewmodel;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import org.hibernate.annotations.Immutable;
 
 /**
  *
  * @author Aluno
  */
-/*SELECT p.nomePessoa as Nome , 
-p.cpfPessoa as CPF, 
-c.emailContato as E_mail, 
-c.telefoneContato as Telefone, 
-c.CelularContato as Celular
 
-FROM pessoa p, professor pe, contato c
+/*
+SELECT p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato as Celular
 
-WHERE p.idPessoa = pe.pessoa_idpessoa and p.idPessoa= c.pessoa_idPessoa
+FROM pessoa p, bibliotecaria bi, contato c
+
+WHERE p.idPessoa = bi.pessoa_idpessoa and p.idPessoa= c.pessoa_idPessoa
 order by p.nomePessoa;
 */
 @Entity
 @Immutable
-public class viewGerProfessor {
-    
+public class viewGerBibliotecaria {
+
     @Id
     @Column(name="idPessoa")
     private int Id;
     
-    @Column(name="CPF")
-    private String CPF;
-    
     @Column(name="Nome")
     private String nome;
+    
+    @Column(name="CPF")
+    private String cpf;
     
     @Column(name="E_mail")
     private String email;
@@ -46,20 +46,20 @@ public class viewGerProfessor {
     @Column(name="Celular")
     private String celular;
 
-    public String getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -93,4 +93,5 @@ public class viewGerProfessor {
     public void setId(int Id) {
         this.Id = Id;
     }
+    
 }

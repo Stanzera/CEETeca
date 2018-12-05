@@ -5,10 +5,16 @@
  */
 package Telas;
 
-
+import DAO.NewHibernateUtil;
+import java.util.List;
+import java.util.Vector;
+import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import models.Aluno;
+import models.Livro;
+import org.hibernate.Session;
 
 /**
  *
@@ -21,37 +27,60 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
      */
     public TelaGerenciarLivro() {
         initComponents();
-        
+
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-            
-        //ListarCadastros();
-        
+
+        listarCadastros();
+
     }
-    
-        /*public void ListarCadastros(){
-        //Pegamos o modelo da tabela, as colunas.
-        DefaultTableModel tableModel = (DefaultTableModel) tabelaGerLivro.getModel();
-        //Itera sobre os elementos no banco
-        for (int i = 0; i < Banco.livros.size(); i++) {
-            //Pega o biliotecario
-            livroGetSet livro = Banco.livros.get(i);
-            //Passa os dados do bibliotecario para um objeto
-            Object[] linha = new Object[]{
-                livro.getIsbn(),
-                livro.getTitulo(),
-                livro.getAutor(),
-                livro.getAssunto(),
-                livro.getEditora(),
-                livro.getIdioma(),
-                livro.getQtdExemplar()
+
+    public void listarCadastros() {
+        Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        //Chama a view  //p.idPessoa
+        Query q = sessao.createSQLQuery("SELECT distinct l.idLivro as N_Chamada ,\n"
+                + "l.tituloLivro as Titulo,\n"
+                + "l.autorLivro as Autor,\n"
+                + "l.assunto as Assunto,\n"
+                + "l.editoraLivro as Editora,\n"
+                + "e.quantidadeExemplar as Quantidade\n"
+                + "\n"
+                + "FROM livro l, exemplar e\n"
+                + "\n"
+                + "WHERE l.idlivro = e.livro_idLivro\n"
+                + "order by l.idLivro;").addEntity(viewmodel.viewGerLivro.class);
+
+        //pega o resultado da query e retorna uma lista
+        List<viewmodel.viewGerLivro> registrosTelaPrincipal = q.getResultList();
+        sessao.getTransaction().commit();
+        sessao.close();
+
+        //pega o modelo da tabela
+        DefaultTableModel model = (DefaultTableModel) tabelaGerLivro.getModel();
+
+        for (int i = 0; i < registrosTelaPrincipal.size(); i++) {
+            //Pega o dado do registro usando i
+            viewmodel.viewGerLivro registro = registrosTelaPrincipal.get(i);
+            //adiciona os valores na linha
+            Object[] row = {
+                registro.getnChamada(),
+                registro.getTitulo(),
+                registro.getAutor(),
+                registro.getAssunto(),
+                registro.getEditora(),
+                registro.getQuantidadeEx()
             };
-            //Adiciona o objeto na linha da coluna
-            tableModel.addRow(linha);
+            //adiciona a linha no modelo da tabela
+            model.addRow(row);
         }
-        //Definimos o modelo com as linhas adicionadas novamente para a tabela
-        tabelaGerLivro.setModel(tableModel);
-    }*/
+        //adiciona o modelo novamente na tabela
+        tabelaGerLivro.setModel(model);
+
+        //Atualiza a parte grafica da tabela mostrando os novos valores
+        tabelaGerLivro.setVisible(true);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,15 +157,20 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
 
         tabelaGerLivro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "N° Chamada", "Título", "Autor", "Assunto", "Editora", "Quantidade"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabelaGerLivro);
 
         btVoltarGerLivro.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -226,42 +260,61 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
 
     private void btCadastrarGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerLivroActionPerformed
         // TODO add your handling code here:
-        
+
         //TelaCadastroLivro telaLivro = new TelaCadastroLivro();
         this.setVisible(false);
         new TelaCadastroLivro().setVisible(true);
-        
+
     }//GEN-LAST:event_btCadastrarGerLivroActionPerformed
 
     private void btVoltarGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarGerLivroActionPerformed
         // 
         setVisible(false);
         new TelaPrincipal().setVisible(true);
-        
+
     }//GEN-LAST:event_btVoltarGerLivroActionPerformed
 
     private void btExcluirGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerLivroActionPerformed
         // TODO add your handling code here:
-       /* 
-        if (tabelaGerLivro.getSelectedRow() != -1) {
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-            if (JOptionPane.showConfirmDialog(rootPane, "<html>Tem certeza que deseja remover<br>o seguinte usuário: <b>" + //(tabelaGerLivro.getSelectedRow()).getNome() + "?</b></html>", "Confirmar exclusão") == 0) {
-                //usuarioBD.removerUsuario(modelo.retornarListaUsuarios().get(tabelaGerLivro.getSelectedRow()).getId());
-                //preencherTabela();
-                cTxtBuscaGerLivro.setText("");
-                tabelaGerLivro.clearSelection();
-            }
+        switch (sim) {
 
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Por favor, selecione um Usuário!", "Impossível remover", 2);
+            case 0:
+                DefaultTableModel dtm = (DefaultTableModel) tabelaGerLivro.getModel();
+
+                //Pega a linha da jtable
+                Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerLivro.getSelectedRow());
+                //Pega o primeiro valor da linha
+                int id = (int) row.get(0);
+                //Abre a sessão
+                Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+                //Inicia uma transação com o banco
+                sessaoAtual.beginTransaction();
+                //Pega o objeto no banco pelo o id
+                Livro livro = sessaoAtual.get(Livro.class, id);
+                //Deleta o objeto do banco
+                sessaoAtual.delete(livro);
+                sessaoAtual.getTransaction().commit();
+                sessaoAtual.close();
+                JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
+                break;
+
+            default:
+                System.out.println("ERRO");
+                break;
         }
-        */
+
     }//GEN-LAST:event_btExcluirGerLivroActionPerformed
 
     private void cTxtBuscaGerLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerLivroKeyReleased
         // TODO add your handling code here:
-        
-         cTxtBuscaGerLivro.setText(cTxtBuscaGerLivro.getText().toUpperCase());
+
+        cTxtBuscaGerLivro.setText(cTxtBuscaGerLivro.getText().toUpperCase());
     }//GEN-LAST:event_cTxtBuscaGerLivroKeyReleased
 
     /**

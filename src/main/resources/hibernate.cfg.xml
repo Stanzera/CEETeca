@@ -30,5 +30,6 @@
     <mapping resource="models/Livro.hbm.xml"/>
     <mapping class="viewmodel.viewTabelaTelaPrincipal"/>
     <mapping class="viewmodel.viewGerProfessor"/>
+    <mapping class="viewmodel.viewGerBibliotecaria"/>
   </session-factory>
 </hibernate-configuration>

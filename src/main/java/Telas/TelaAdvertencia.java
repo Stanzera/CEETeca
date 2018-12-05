@@ -5,8 +5,13 @@
  */
 package Telas;
 
+import DAO.NewHibernateUtil;
+import java.util.List;
+import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,11 +24,57 @@ public class TelaAdvertencia extends javax.swing.JFrame {
      */
     public TelaAdvertencia() {
         initComponents();
-        
+
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-        
-            }
+
+    }
+    public void listarCadastros() {
+        Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        //Chama a view  //p.idPessoa
+        Query q = sessao.createSQLQuery("SELECT distinct p.nomePessoa as Nome,\n"
+                + "p.cpfPessoa as CPF,\n"
+                + "l.tituloLivro as Titulo,\n"
+                + "e.idEmprestimo as N_Chamada,\n"
+                + "e.dtDevolucaoEmprestimo as Data_Limite,\n"
+                + "e.observacaoEmprestimo as Situacao \n"
+                + "FROM pessoa p, emprestimo e, exemplar ex, livro l, livro_has_emprestimo le\n"
+                + "\n"
+                + "WHERE  p.idpessoa = e.pessoa_idPessoa and e.idEmprestimo = le.emprestimo_idEmprestimo \n"
+                + "and le.exemplar_idExemplar = ex.idExemplar and ex.livro_idLivro = l.idLivro\n"
+                + "\n"
+                + " \n"
+                + "order by e.idEmprestimo;").addEntity(viewmodel.viewAdvertencia.class);
+
+        //pega o resultado da query e retorna uma lista
+        List<viewmodel.viewAdvertencia> registrosTelaPrincipal = q.getResultList();
+        sessao.getTransaction().commit();
+        sessao.close();
+
+        //pega o modelo da tabela
+        DefaultTableModel model = (DefaultTableModel) tabelaTelaAdvertencia.getModel();
+
+        for (int i = 0; i < registrosTelaPrincipal.size(); i++) {
+            //Pega o dado do registro usando i
+            viewmodel.viewAdvertencia registro = registrosTelaPrincipal.get(i);
+            //adiciona os valores na linha
+            Object[] row = {
+                registro.getId(),
+                registro.getTitulo(),
+                registro.getNome(),
+                registro.getCpf()
+            };
+            //adiciona a linha no modelo da tabela
+            model.addRow(row);
+        }
+        //adiciona o modelo novamente na tabela
+        tabelaTelaAdvertencia.setModel(model);
+
+        //Atualiza a parte grafica da tabela mostrando os novos valores
+        tabelaTelaAdvertencia.setVisible(true);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,15 +143,20 @@ public class TelaAdvertencia extends javax.swing.JFrame {
 
         tabelaTelaAdvertencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nome", "CPF", "N° Chamada", "Titulo"
+                "N° Chamada", "Titulo", "Nome", "CPF"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tabelaTelaAdvertencia);
 
         btRegistrarTelaAdvertencia.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -229,34 +285,34 @@ public class TelaAdvertencia extends javax.swing.JFrame {
 
     private void btVoltarTelaAdvertenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarTelaAdvertenciaActionPerformed
         // TODO add your handling code here:
-        
+
         setVisible(false);
         new TelaGerenciarEmprestimo().setVisible(true);
-        
+
     }//GEN-LAST:event_btVoltarTelaAdvertenciaActionPerformed
 
     private void btRegistrarTelaAdvertenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarTelaAdvertenciaActionPerformed
         // TODO add your handling code here:
-        
-         int sim = JOptionPane.showConfirmDialog(null, "Deseja aplicar advertência?","",JOptionPane.YES_NO_OPTION);
+
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja aplicar advertência?", "", JOptionPane.YES_NO_OPTION);
         if (sim == 0) {
 
             //metodo excluir. 
             JOptionPane.showMessageDialog(null, "Advertência aplicada");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Advertência NÃO aplicada");
         }
-        
+
     }//GEN-LAST:event_btRegistrarTelaAdvertenciaActionPerformed
 
     private void cTxtNomeAdvertenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtNomeAdvertenciaKeyReleased
         // TODO add your handling code here:
-         cTxtNomeAdvertencia.setText(cTxtNomeAdvertencia.getText().toUpperCase());
+        cTxtNomeAdvertencia.setText(cTxtNomeAdvertencia.getText().toUpperCase());
     }//GEN-LAST:event_cTxtNomeAdvertenciaKeyReleased
 
     private void areaTxtDescricaoAdvertenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areaTxtDescricaoAdvertenciaKeyReleased
         // TODO add your handling code here:
-         areaTxtDescricaoAdvertencia.setText(areaTxtDescricaoAdvertencia.getText().toUpperCase());
+        areaTxtDescricaoAdvertencia.setText(areaTxtDescricaoAdvertencia.getText().toUpperCase());
     }//GEN-LAST:event_areaTxtDescricaoAdvertenciaKeyReleased
 
     private void btRegistrarTelaAdvertencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarTelaAdvertencia1ActionPerformed
@@ -296,7 +352,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
                 new TelaAdvertencia().setVisible(true);
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

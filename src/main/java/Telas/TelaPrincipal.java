@@ -127,15 +127,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         tabelaTelaPrincipal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "Matrícula/N° Funcional", "Título Livro", "Número Chamada", "Limite data", "Situação"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabelaTelaPrincipal);
 
         lbData.setText("                                  Data");

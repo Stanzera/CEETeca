@@ -5,9 +5,18 @@
  */
 package Telas;
 
+import DAO.NewHibernateUtil;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Vector;
+import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import models.Bibliotecaria;
+import org.hibernate.Session;
+import viewmodel.viewGerBibliotecaria;
 
 /**
  *
@@ -15,44 +24,60 @@ import javax.swing.JOptionPane;
  */
 public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
 
-
-    
     /**
      * Creates new form TelaGerenciarBiblitecario
      */
     public TelaGerenciarBibliotecario() {
         initComponents();
-        
+
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-        
-        //ListarCadastros();
+
+        listarCadastros();
     }
-    
 
+    public void listarCadastros() {
+        Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        //Chama a view
+        Query q = sessao.createSQLQuery("SELECT p.idPessoa, p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato as Celular\n"
+                + "\n"
+                + "FROM pessoa p, bibliotecaria bi, contato c\n"
+                + "\n"
+                + "WHERE p.idPessoa = bi.pessoa_idpessoa and p.idPessoa= c.pessoa_idPessoa\n"
+                + "order by p.nomePessoa;").addEntity(viewmodel.viewGerBibliotecaria.class);
 
-    /*public void ListarCadastros(){
-        //Pegamos o modelo da tabela, as colunas.
-        DefaultTableModel tableModel = (DefaultTableModel) tabelaGerBibliotecario.getModel();
-        //Itera sobre os elementos no banco
-        for (int i = 0; i < Banco.bibliotecarios.size(); i++) {
-            //Pega o biliotecario
-            bibliotecarioGetSet bibliotecario = Banco.bibliotecarios.get(i);
-            //Passa os dados do bibliotecario para um objeto
-            Object[] linha = new Object[]{
-                bibliotecario.getNome(),
-                bibliotecario.getCpf(),
-                bibliotecario.getEmail(),
-                bibliotecario.getTelefone(),
-                bibliotecario.getCelular()
+        //pega o resultado da query e retorna uma lista
+        List<viewmodel.viewGerBibliotecaria> registrosTelaPrincipal = q.getResultList();
+        sessao.getTransaction().commit();
+        sessao.close();
+
+        //pega o modelo da tabela
+        DefaultTableModel model = (DefaultTableModel) tabelaGerBibliotecario.getModel();
+
+        for (int i = 0; i < registrosTelaPrincipal.size(); i++) {
+            //Pega o dado do registro usando i
+            viewmodel.viewGerBibliotecaria registro = registrosTelaPrincipal.get(i);
+            //adiciona os valores na linha
+            Object[] row = {
+                registro.getId(),
+                registro.getNome(),
+                registro.getCpf(),
+                registro.getEmail(),
+                registro.getTelefone(),
+                registro.getCelular()
             };
-            //Adiciona o objeto na linha da coluna
-            tableModel.addRow(linha);
+            //adiciona a linha no modelo da tabela
+            model.addRow(row);
         }
-        //Definimos o modelo com as linhas adicionadas novamente para a tabela
-        tabelaGerBibliotecario.setModel(tableModel);
-    }*/
-    
+        //adiciona o modelo novamente na tabela
+        tabelaGerBibliotecario.setModel(model);
+
+        //Atualiza a parte grafica da tabela mostrando os novos valores
+        tabelaGerBibliotecario.setVisible(true);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,15 +153,28 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
 
         tabelaGerBibliotecario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "CPF", "E-mail", "Telefone", "Celular"
+                "Id", "Nome", "CPF", "E-mail", "Telefone", "Celular"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaGerBibliotecario.setToolTipText("");
         jScrollPane1.setViewportView(tabelaGerBibliotecario);
 
         btVoltarGerBibliotecario.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -236,53 +274,92 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
     private void btCadastrarGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerBibliotecarioActionPerformed
 
         this.setVisible(false);
-        new  TelaCadBibliotecario().setVisible(true);
+        new TelaCadBibliotecario().setVisible(true);
     }//GEN-LAST:event_btCadastrarGerBibliotecarioActionPerformed
 
     private void btVoltarGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarGerBibliotecarioActionPerformed
         // Volta para a tela anterior
-                
+
         setVisible(false);
         new TelaPrincipal().setVisible(true);
     }//GEN-LAST:event_btVoltarGerBibliotecarioActionPerformed
 
     private void cTxtBuscaGerBibliotecarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerBibliotecarioKeyReleased
         // TODO add your handling code here:
-        
-         cTxtBuscaGerBibliotecario.setText(cTxtBuscaGerBibliotecario.getText().toUpperCase());
+
+        cTxtBuscaGerBibliotecario.setText(cTxtBuscaGerBibliotecario.getText().toUpperCase());
     }//GEN-LAST:event_cTxtBuscaGerBibliotecarioKeyReleased
 
     private void btExcluirGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerBibliotecarioActionPerformed
         // TODO add your handling code here:
-        
-        int sim  = JOptionPane.showConfirmDialog(null, "Deseja excluir?","",JOptionPane.YES_NO_OPTION);
-        
-        switch(sim){
-        
+
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
+
+        switch (sim) {
+
             case 0:
+                DefaultTableModel dtm = (DefaultTableModel) tabelaGerBibliotecario.getModel();
+
+                //Pega a linha da jtable
+                Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerBibliotecario.getSelectedRow());
+                //Pega o primeiro valor da linha
+                int id = (int) row.get(0);
+                //Abre a sessão
+                Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+                //Inicia uma transação com o banco
+                sessaoAtual.beginTransaction();
+                //Pega o objeto no banco pelo o id
+                Bibliotecaria bibliotecario = sessaoAtual.get(Bibliotecaria.class, id);
+                //Deleta o objeto do banco
+                sessaoAtual.delete(bibliotecario);
+                sessaoAtual.getTransaction().commit();
+                sessaoAtual.close();
                 JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+
                 break;
             case 1:
                 JOptionPane.showMessageDialog(null, "Exclusão não realizada");
                 break;
-                
+
             default:
                 System.out.println("ERRO");
                 break;
         }
-        
+
     }//GEN-LAST:event_btExcluirGerBibliotecarioActionPerformed
 
     private void btEditarGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerBibliotecarioActionPerformed
-         int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?","",JOptionPane.YES_NO_OPTION);
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?", "", JOptionPane.YES_NO_OPTION);
 
         if (sim == 0) {
             // metodo editar         
             this.setVisible(false);
-            new TelaCadBibliotecario().setVisible(true);
-            
+
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerBibliotecario.getModel();
+
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerBibliotecario.getSelectedRow());
+
+            //Abre a sessão
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+
+            //Pega o objeto bibliotecario
+            Bibliotecaria bibliotecario = sessao.get(Bibliotecaria.class, id);
+
+            TelaCadBibliotecario tela = new TelaCadBibliotecario();
+
+            tela.SetInformacoes(bibliotecario);
+
+            tela.setVisible(true);
+
+            this.dispose();
+
             //JOptionPane.showMessageDialog(null, "Alteração Realizada");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
         }
     }//GEN-LAST:event_btEditarGerBibliotecarioActionPerformed

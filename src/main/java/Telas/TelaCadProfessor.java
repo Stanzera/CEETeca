@@ -6,19 +6,16 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
-import com.mysql.cj.core.util.StringUtils;
 import javax.swing.ImageIcon;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Query;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import models.Contato;
@@ -731,7 +728,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
 
     private void cTxtEmailCadProfessorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEmailCadProfessorKeyReleased
         // TODO add your handling code here:
-        cTxtEmailCadProfessor.setText(cTxtEmailCadProfessor.getText().toUpperCase());
+        cTxtEmailCadProfessor.setText(cTxtEmailCadProfessor.getText().toLowerCase());
     }//GEN-LAST:event_cTxtEmailCadProfessorKeyReleased
 
     private void butAdicionarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAdicionarCursoActionPerformed

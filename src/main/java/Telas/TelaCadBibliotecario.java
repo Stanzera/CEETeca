@@ -11,7 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Bibliotecaria;
@@ -653,6 +655,19 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         }
     }
 
+    
+    public void SetInformacoes(Bibliotecaria bib){
+        cTxtNomeCadBibliotecario.setText(bib.getPessoa().getNomePessoa());
+        cTxtCPFCadBibliotecario.setText(bib.getPessoa().getCpfPessoa());
+        cTxtNumFuncionalCadBibliotecario.setText(bib.getPessoa().getMatriculaPessoa());
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        cTxtDtNascimentoCadBibliotecario.setText(out.format(bib.getPessoa().getDtnascimento()));
+        ArrayList <Contato> contatos = new ArrayList(bib.getPessoa().getContatos());
+        cTxtEmailCadBibliotecario.setText(contatos.get(0).getEmailContato());
+        cTxtCelularCadBibliotecario.setText(contatos.get(0).getEmailContato());
+        //ctxt.setText(bib.getPessoa().getEnderecos());
+    }
+    
     private void btVoltarCadBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadBibliotecarioActionPerformed
         // Volta para a tela anterior aqui.
 
@@ -687,7 +702,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
 
     private void cTxtEmailCadBibliotecarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtEmailCadBibliotecarioKeyReleased
         // TODO add your handling code here:
-
+         cTxtCidadeCadBibliotecario.setText(cTxtCidadeCadBibliotecario.getText().toLowerCase());
     }//GEN-LAST:event_cTxtEmailCadBibliotecarioKeyReleased
 
     /**

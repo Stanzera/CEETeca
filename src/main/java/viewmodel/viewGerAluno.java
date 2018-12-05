@@ -5,53 +5,52 @@
  */
 package viewmodel;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import org.hibernate.annotations.Immutable;
 
 /**
  *
  * @author Aluno
  */
-/*SELECT p.nomePessoa as Nome , 
-p.cpfPessoa as CPF, 
-c.emailContato as E_mail, 
-c.telefoneContato as Telefone, 
-c.CelularContato as Celular
 
-FROM pessoa p, professor pe, contato c
+/*
+    SELECT p.idPessoa , p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato
+    as Celular
 
-WHERE p.idPessoa = pe.pessoa_idpessoa and p.idPessoa= c.pessoa_idPessoa
-order by p.nomePessoa;
+    FROM pessoa p, aluno al, contato c
+
+
+    WHERE p.idPessoa = al.pessoa_idpessoa and p.idPessoa= c.pessoa_idPessoa
+    order by p.nomePessoa;
 */
+
 @Entity
 @Immutable
-public class viewGerProfessor {
+public class viewGerAluno {
     
+
     @Id
     @Column(name="idPessoa")
-    private int Id;
-    
-    @Column(name="CPF")
-    private String CPF;
-    
+    private int id;
     @Column(name="Nome")
     private String nome;
-    
+    @Column(name="CPF")
+    private String cpf;
     @Column(name="E_mail")
     private String email;
-    
     @Column(name="Telefone")
     private String telefone;
-    
     @Column(name="Celular")
     private String celular;
 
-    public String getCPF() {
-        return CPF;
+    public int getId() {
+        return id;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -60,6 +59,14 @@ public class viewGerProfessor {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -86,11 +93,4 @@ public class viewGerProfessor {
         this.celular = celular;
     }
 
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
 }

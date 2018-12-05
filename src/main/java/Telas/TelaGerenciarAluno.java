@@ -5,9 +5,16 @@
  */
 package Telas;
 
+import DAO.NewHibernateUtil;
+import java.util.List;
+import java.util.Vector;
+import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.Aluno;
+import models.Bibliotecaria;
+import org.hibernate.Session;
 
 /**
  *
@@ -24,30 +31,53 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
 
-        // ListarCadastros();
+        listarCadastros();
     }
 
-    /*public void ListarCadastros(){
-        //Pegamos o modelo da tabela, as colunas.
-        DefaultTableModel tableModel = (DefaultTableModel) tabelaGerAluno.getModel();
-        //Itera sobre os elementos no banco
-        for (int i = 0; i < Banco.alunos.size(); i++) {
-            //Pega o biliotecario
-            alunoGetSet aluno = Banco.alunos.get(i);
-            //Passa os dados do bibliotecario para um objeto
-            Object[] linha = new Object[]{
-                aluno.getNome(),
-                aluno.getCpf(),
-                aluno.getEmail(),
-                aluno.getTelefone(),
-                aluno.getCelular()
+    public void listarCadastros() {
+        Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        //Chama a view  //p.idPessoa
+        Query q = sessao.createSQLQuery("    SELECT p.idPessoa , p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato\n"
+                + "    as Celular\n"
+                + "\n"
+                + "    FROM pessoa p, aluno al, contato c\n"
+                + "\n"
+                + "\n"
+                + "    WHERE p.idPessoa = al.pessoa_idpessoa and p.idPessoa= c.pessoa_idPessoa\n"
+                + "    order by p.nomePessoa;").addEntity(viewmodel.viewGerAluno.class);
+
+        //pega o resultado da query e retorna uma lista
+        List<viewmodel.viewGerAluno> registrosTelaPrincipal = q.getResultList();
+        sessao.getTransaction().commit();
+        sessao.close();
+
+        //pega o modelo da tabela
+        DefaultTableModel model = (DefaultTableModel) tabelaGerAluno.getModel();
+
+        for (int i = 0; i < registrosTelaPrincipal.size(); i++) {
+            //Pega o dado do registro usando i
+            viewmodel.viewGerAluno registro = registrosTelaPrincipal.get(i);
+            //adiciona os valores na linha
+            Object[] row = {
+                registro.getId(),
+                registro.getCpf(),
+                registro.getNome(),
+                registro.getEmail(),
+                registro.getCelular(),
+                registro.getTelefone()
             };
-            //Adiciona o objeto na linha da coluna
-            tableModel.addRow(linha);
+            //adiciona a linha no modelo da tabela
+            model.addRow(row);
         }
-        //Definimos o modelo com as linhas adicionadas novamente para a tabela
-        tabelaGerAluno.setModel(tableModel);
-    }*/
+        //adiciona o modelo novamente na tabela
+        tabelaGerAluno.setModel(model);
+
+        //Atualiza a parte grafica da tabela mostrando os novos valores
+        tabelaGerAluno.setVisible(true);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,15 +153,20 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
 
         tabelaGerAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "CPF", "E-mail", "Telefone", "Celular"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabelaGerAluno);
 
         btVoltarGerAluno.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -229,12 +264,38 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btExcluirGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerAlunoActionPerformed
-        // TODO add your handling code here:
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir este aluno?");
-        if (sim == 0) {
 
-            //metodo excluir. 
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
+
+        switch (sim) {
+
+            case 0:
+                DefaultTableModel dtm = (DefaultTableModel) tabelaGerAluno.getModel();
+
+                //Pega a linha da jtable
+                Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerAluno.getSelectedRow());
+                //Pega o primeiro valor da linha
+                int id = (int) row.get(0);
+                //Abre a sessão
+                Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+                //Inicia uma transação com o banco
+                sessaoAtual.beginTransaction();
+                //Pega o objeto no banco pelo o id
+                Aluno aluno = sessaoAtual.get(Aluno.class, id);
+                //Deleta o objeto do banco
+                sessaoAtual.delete(aluno);
+                sessaoAtual.getTransaction().commit();
+                sessaoAtual.close();
+                JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
+                break;
+
+            default:
+                System.out.println("ERRO");
+                break;
         }
     }//GEN-LAST:event_btExcluirGerAlunoActionPerformed
 
