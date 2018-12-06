@@ -59,13 +59,13 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         cTxtAssuntoCadLivro = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        cTxtAnoPublicacaoCadLivro = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         cTxtSerieCadLivro = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         cTxtNumPgCadLivro = new javax.swing.JTextField();
         cGiraExemplarCadLivro = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
+        cTxtAnoPublicacaoCadLivro = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         btConfirmarCadLivro = new javax.swing.JButton();
@@ -146,6 +146,12 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Exemplar:");
 
+        try {
+            cTxtAnoPublicacaoCadLivro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout painelCadLivroLayout = new javax.swing.GroupLayout(painelCadLivro);
         painelCadLivro.setLayout(painelCadLivroLayout);
         painelCadLivroLayout.setHorizontalGroup(
@@ -208,9 +214,10 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                                     .addComponent(cTxtEdicaoCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cComboBoxIdiomaCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(cTxtAnoPublicacaoCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(cTxtSerieCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cTxtNumPgCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cTxtAnoPublicacaoCadLivro, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(cTxtNumPgCadLivro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(painelCadLivroLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -251,8 +258,8 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(painelCadLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(cTxtAnoPublicacaoCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
+                            .addComponent(jLabel9)
+                            .addComponent(cTxtAnoPublicacaoCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelCadLivroLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cTxtISBNCadLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -506,7 +513,7 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
     private javax.swing.JButton btVoltarCadLivro;
     private javax.swing.JComboBox<String> cComboBoxIdiomaCadLivro;
     private javax.swing.JSpinner cGiraExemplarCadLivro;
-    private javax.swing.JTextField cTxtAnoPublicacaoCadLivro;
+    private javax.swing.JFormattedTextField cTxtAnoPublicacaoCadLivro;
     private javax.swing.JTextField cTxtAssuntoCadLivro;
     private javax.swing.JTextField cTxtAutorCadLivro;
     private javax.swing.JTextField cTxtCDDCadLivro;

@@ -503,61 +503,11 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
 
 
     private void btBuscarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarCadEmprestimoActionPerformed
-        //String nchamada = cTxtNumChamadaCadEmprestimo.getText();
-        /* if (StringUtils.isEmptyOrWhitespaceOnly(cTxtNumChamadaCadEmprestimo.getText())) {
-            for (int i = 0; i < Emprestimo; i++) {
-                livroGetSet livro = Banco.livros.get(i);
-                emprestimoGetSet emprestimo = Banco.emprestimos.get(i);
-                if (cTxtNumChamadaCadEmprestimo.getText().equals(livro.getNumChamada())) {
-                    lblNumChamadaCadEmprestimo.setText("Nº Chamada :" + livro.getNumChamada());
-                    lblTituloCadEmprestimo.setText("Titulo :" + livro.getTitulo());
-                    lblAutorCadEmprestimo.setText("Autor :" + livro.getAutor());
-                    lblAssuntoCadEmprestimo.setText("Assunto do Livro : " + livro.getAssunto());
-                    lblLiberadoCadEmprestimo.setText("Liberado para :" + cTxtNomeCadEmprestimo.getText());
-                    lblSituacaoCadEmprestimo.setText("Situação :" + emprestimo.getObservacoes());
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Não tem esse numero de chamada");
-        }*/
+        
+        
     }//GEN-LAST:event_btBuscarCadEmprestimoActionPerformed
 
     private void btPesquisarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarCadEmprestimoActionPerformed
-//
-
-        /*if (!cTxtNomeCadEmprestimo.getText().equals("")
-                && !cTxtCPFCadEmprestimo.getText().equals("")
-                && !cComboBoxTipoCadEmprestimo.equals(0)) {
-            for (int i = 0; i < Banco.alunos.size(); i++) {
-                alunoGetSet aluno = Banco.alunos.get(i);
-                if (cTxtNomeCadEmprestimo.getText().equals(aluno.getNome())
-                        && cTxtCPFCadEmprestimo.getText().equals(aluno.getCpf())
-                        && cComboBoxTipoCadEmprestimo.equals(2)) {
-                    JOptionPane.showMessageDialog(null, "Este aluno está cadastrada!");
-                }
-            }
-        } else if (!cTxtNomeCadEmprestimo.getText().equals("")
-                && !cTxtCPFCadEmprestimo.getText().equals("")
-                && !cComboBoxTipoCadEmprestimo.equals(0)) {
-            for (int i = 0; i < Banco.professores.size(); i++) {
-                professorGetSet professor = Banco.professores.get(i);
-                if (cTxtNomeCadEmprestimo.getText().equals(professor.getNome())
-                        && cTxtCPFCadEmprestimo.getText().equals(professor.getCpf())
-                        && cComboBoxTipoCadEmprestimo.equals(3)) {
-                    JOptionPane.showMessageDialog(null, "Este professor está cadastrado");
-                }
-            }
-        } else {
-            int sim = JOptionPane.showConfirmDialog(null, "Não a ninguem com essas\n"
-                    + "informações cadastrado.\n"
-                    + "Deseja Cadastrar?");
-
-            if (sim == 0) {
-                setVisible(false);
-                new TelaCadastroAluno().setVisible(true);
-            }
-
-        }*/
 
     }//GEN-LAST:event_btPesquisarCadEmprestimoActionPerformed
 

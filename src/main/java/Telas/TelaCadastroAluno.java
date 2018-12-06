@@ -12,9 +12,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Query;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 import models.Aluno;
 import models.AlunoHasCurso;
 import models.Contato;
@@ -38,6 +43,23 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         initComponents();
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
+        
+        try(Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession()){
+            sessaoAtual.beginTransaction();
+            Query q = sessaoAtual.createQuery("FROM Curso");
+            List<Curso> cursos = q.getResultList();
+            DefaultListModel listModel = new DefaultListModel<Curso>();
+            for (Curso c : cursos) {
+                listModel.addElement(c);
+            }
+            cxListModelo.setModel(listModel);
+            cxListModelo.setVisible(true);
+            sessaoAtual.getTransaction().commit();
+            sessaoAtual.close();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro:"+e.getMessage());
+        }
 
     }
 
@@ -69,18 +91,12 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         cTxtMatriculaCadAluno = new javax.swing.JFormattedTextField();
         painelComplementarCadEmprestimo = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        lbCurso = new javax.swing.JLabel();
         lbEndereco = new javax.swing.JLabel();
         lbBairro = new javax.swing.JLabel();
         lbCidade = new javax.swing.JLabel();
-        cComboBoxCursoCadAluno = new javax.swing.JComboBox<>();
         cTxtRuaCadAluno = new javax.swing.JTextField();
         cTxtBairroCadAluno = new javax.swing.JTextField();
         cTxtCidadeCadAluno = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        cComboBoxTurnoCadAluno = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        cComboBoxModuloCadAluno = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         cTxtNumeroCadAluno = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -89,6 +105,12 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         cTxtComplementoCadAluno = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         cTxtCEPCadAluno = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        cxListModelo = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        cxListaSelecionados = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         btLimparCadAluno = new javax.swing.JButton();
         btConfirmarCadAluno = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -215,29 +237,29 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         painelDadosCadEmprestimoLayout.setVerticalGroup(
             painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosCadEmprestimoLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addGroup(painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cTxtMatriculaCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNome)
                     .addComponent(cTxtNomeCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cTxtDtNascimentoCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCPF)
                     .addComponent(cTxtCPFCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbEmail)
                     .addComponent(cTxtEmailCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbTelefone)
                     .addComponent(cTxtTelefoneCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelDadosCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCelular)
                     .addComponent(cTxtCelularCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -247,9 +269,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel4.setText("Complementar");
 
-        lbCurso.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lbCurso.setText("Curso:");
-
         lbEndereco.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lbEndereco.setText("Av/Rua:");
 
@@ -258,13 +277,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
         lbCidade.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lbCidade.setText("Cidade:");
-
-        cComboBoxCursoCadAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Informática", "Jogos Digitais", "Redes" }));
-        cComboBoxCursoCadAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cComboBoxCursoCadAlunoActionPerformed(evt);
-            }
-        });
 
         cTxtRuaCadAluno.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -283,16 +295,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                 cTxtCidadeCadAlunoKeyReleased(evt);
             }
         });
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel2.setText("Turno:");
-
-        cComboBoxTurnoCadAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "M", "V", "N" }));
-
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel5.setText("Módulo:");
-
-        cComboBoxModuloCadAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "I", "II", "III", "IV" }));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("N°:");
@@ -320,38 +322,55 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jScrollPane1.setViewportView(cxListModelo);
+
+        jScrollPane2.setViewportView(cxListaSelecionados);
+
+        jButton1.setText(">>>");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("<<<");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelComplementarCadEmprestimoLayout = new javax.swing.GroupLayout(painelComplementarCadEmprestimo);
         painelComplementarCadEmprestimo.setLayout(painelComplementarCadEmprestimoLayout);
         painelComplementarCadEmprestimoLayout.setHorizontalGroup(
             painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addGap(59, 59, 59)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))
+                    .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
                 .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbEndereco)
-                    .addComponent(lbCurso, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbBairro, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbCidade, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lbCidade, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
-                        .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
-                                .addComponent(cTxtRuaCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7)
-                                .addGap(9, 9, 9))
-                            .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
-                                .addComponent(cComboBoxCursoCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
-                                .addComponent(cComboBoxTurnoCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cComboBoxModuloCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cTxtNumeroCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cTxtCEPCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
                         .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(cTxtBairroCadAluno, javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,35 +384,39 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                             .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
                                 .addComponent(cComboBoxEstadoCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(cTxtComplementoCadAluno)))))
-            .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
+                                .addComponent(cTxtComplementoCadAluno)
+                                .addContainerGap())))
                     .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cTxtCEPCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cTxtRuaCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel7)
+                        .addGap(9, 9, 9)
+                        .addComponent(cTxtNumeroCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         painelComplementarCadEmprestimoLayout.setVerticalGroup(
             painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cTxtCEPCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cTxtCEPCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)))
+                    .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(50, 50, 50)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCurso)
-                    .addComponent(cComboBoxCursoCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(cComboBoxTurnoCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(cComboBoxModuloCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbEndereco)
                     .addComponent(cTxtRuaCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -496,7 +519,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                 .addComponent(painelComplementarCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(74, 74, 74))
                     .addGroup(layout.createSequentialGroup()
@@ -511,10 +534,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cComboBoxCursoCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cComboBoxCursoCadAlunoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cComboBoxCursoCadAlunoActionPerformed
 
     private void btLimparCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparCadAlunoActionPerformed
         // Aqui e para limpar a tela de alunos.
@@ -532,23 +551,20 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         try {
             SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-            dtNascimento = in.parse(cTxtDtNascimentoCadAluno.getText());
+            dtNascimento = out.parse(cTxtDtNascimentoCadAluno.getText());
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
         }
         String email = cTxtEmailCadAluno.getText();
         String celular = cTxtCelularCadAluno.getText();
         String telefone = cTxtTelefoneCadAluno.getText();
-        String curso = String.valueOf(cComboBoxCursoCadAluno.getSelectedIndex());
-        String modulo = String.valueOf(cComboBoxModuloCadAluno.getSelectedIndex());
-        String turno = String.valueOf(cComboBoxTurnoCadAluno.getSelectedIndex());
-        String estado = String.valueOf(cComboBoxEstadoCadAluno.getSelectedIndex());
         String rua = cTxtRuaCadAluno.getText();
         int numero = Integer.parseInt(cTxtNumeroCadAluno.getText());
         String bairro = cTxtBairroCadAluno.getText();
         String cidade = cTxtCidadeCadAluno.getText();
         String cep = cTxtCEPCadAluno.getText();
         String complemento = cTxtComplementoCadAluno.getText();
+        String estado = String.valueOf(cComboBoxEstadoCadAluno.getSelectedIndex());
 
         Pessoa pss = new Pessoa();
 
@@ -573,23 +589,17 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         end.setCep(cep);
         end.setPessoa(pss);
 
+        ArrayList<Curso> cursosSelecionados = new ArrayList<Curso>();
+
+        DefaultListModel<Curso> cursinhos = (DefaultListModel<Curso>) cxListaSelecionados.getModel();
+
+        for (int i = 0; i < cursinhos.size(); i++) {
+            cursosSelecionados.add(cursinhos.get(i));
+        }
+
         Aluno aln = new Aluno();
         aln.setPessoa(pss);
 
-        Modulo mdl = new Modulo();
-        mdl.setDescricaoModulo(modulo);
-
-        Turno trn = new Turno();
-        trn.setDescricaoTurno(turno);
-
-        Curso crs = new Curso();
-        crs.setDescricaoCurso(curso);
-        crs.setModulo(mdl);
-        crs.setTurno(trn);
-
-        AlunoHasCurso ahc = new AlunoHasCurso();
-        ahc.setAluno(aln);
-        ahc.setCurso(crs);
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro do aluno?", "", JOptionPane.YES_NO_OPTION);
         switch (resposta) {
             case JOptionPane.YES_OPTION:
@@ -599,10 +609,13 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                     actualSession.saveOrUpdate(ctt);
                     actualSession.saveOrUpdate(end);
                     actualSession.saveOrUpdate(aln);
-                    actualSession.saveOrUpdate(crs);
-                    actualSession.saveOrUpdate(ahc);
-                    actualSession.saveOrUpdate(mdl);
-                    actualSession.saveOrUpdate(trn);
+                    AlunoHasCurso ahc = null;
+                    for (int i = 0; i < cursosSelecionados.size(); i++) {
+                        ahc = new AlunoHasCurso();
+                        ahc.setCurso(cursosSelecionados.get(i));
+                        ahc.setAluno(aln);
+                        actualSession.saveOrUpdate(ahc);
+                    }
                     actualSession.getTransaction().commit();
                     actualSession.close();
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
@@ -619,6 +632,25 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btConfirmarCadAlunoActionPerformed
 
+    public void SetInformacoes(Aluno bib) {
+        cTxtNomeCadAluno.setText(bib.getPessoa().getNomePessoa());
+        cTxtCPFCadAluno.setText(bib.getPessoa().getCpfPessoa());
+        cTxtMatriculaCadAluno.setText(bib.getPessoa().getMatriculaPessoa());
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        cTxtDtNascimentoCadAluno.setText(out.format(bib.getPessoa().getDtnascimento()));
+        ArrayList<Contato> contatos = new ArrayList(bib.getPessoa().getContatos());
+        cTxtEmailCadAluno.setText(contatos.get(0).getEmailContato());
+        cTxtCelularCadAluno.setText(contatos.get(0).getCelularContato());
+        cTxtTelefoneCadAluno.setText(contatos.get(0).getTelefoneContato());
+        ArrayList<Endereco> enderecos = new ArrayList(bib.getPessoa().getEnderecos());
+        cTxtCEPCadAluno.setText(enderecos.get(0).getCep());
+        cTxtBairroCadAluno.setText(enderecos.get(0).getBairroEndereco());
+        cTxtCidadeCadAluno.setText(enderecos.get(0).getCidadeEndereco());
+        cTxtComplementoCadAluno.setText(enderecos.get(0).getComplementoEndereco());
+        cComboBoxEstadoCadAluno.setSelectedItem(enderecos.get(0).getEstadoEndereco());
+        cTxtRuaCadAluno.setText(enderecos.get(0).getLogradouroEndereco());
+
+    }
     private void btVoltarCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadAlunoActionPerformed
         // 
         setVisible(false);
@@ -660,6 +692,55 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         cTxtCidadeCadAluno.setText(cTxtCidadeCadAluno.getText().toUpperCase());
     }//GEN-LAST:event_cTxtCidadeCadAlunoKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Curso curso = cxListModelo.getSelectedValue();
+
+        ListModel lm = cxListaSelecionados.getModel();
+        DefaultListModel cursosPegos = new DefaultListModel();
+        for (int i = 0; i < lm.getSize(); i++) {
+            cursosPegos.addElement(lm.getElementAt(i));
+        }
+        cursosPegos.addElement(curso);
+        cxListaSelecionados.setModel(cursosPegos);
+        cxListaSelecionados.setVisible(true);
+
+        ListModel modeloDisponiveis = cxListModelo.getModel();
+        DefaultListModel cursosDisponiveis = new DefaultListModel();
+        for (int i = 0; i < modeloDisponiveis.getSize(); i++) {
+            cursosDisponiveis.addElement(modeloDisponiveis.getElementAt(i));
+        }
+        cursosDisponiveis.removeElement(curso);
+        cxListModelo.setModel(cursosDisponiveis);
+        cxListModelo.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Curso curso = cxListaSelecionados.getSelectedValue();
+        if (curso != null) {
+            ListModel lm = cxListModelo.getModel();
+            DefaultListModel cursosPegos = new DefaultListModel();
+            for (int i = 0; i < lm.getSize(); i++) {
+                cursosPegos.addElement(lm.getElementAt(i));
+            }
+            cursosPegos.addElement(curso);
+            cxListModelo.setModel(cursosPegos);
+            cxListModelo.setVisible(true);
+
+            ListModel modeloDisponiveis = cxListaSelecionados.getModel();
+            DefaultListModel cursosDisponiveis = new DefaultListModel();
+            for (int i = 0; i < modeloDisponiveis.getSize(); i++) {
+                cursosDisponiveis.addElement(modeloDisponiveis.getElementAt(i));
+            }
+            cursosDisponiveis.removeElement(curso);
+            cxListaSelecionados.setModel(cursosDisponiveis);
+            cxListaSelecionados.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nulo!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public void Limpar() {
         //Dados Pessoais
         cTxtMatriculaCadAluno.setText("");
@@ -672,9 +753,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         cTxtCelularCadAluno.setText("");
 
         //endereço
-        cComboBoxCursoCadAluno.setSelectedIndex(0);
-        cComboBoxModuloCadAluno.setSelectedIndex(0);
-        cComboBoxTurnoCadAluno.setSelectedIndex(0);
         cComboBoxEstadoCadAluno.setSelectedIndex(0);
         cTxtCEPCadAluno.setText("");
         cTxtRuaCadAluno.setText("");
@@ -724,10 +802,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
     private javax.swing.JButton btConfirmarCadAluno;
     private javax.swing.JButton btLimparCadAluno;
     private javax.swing.JButton btVoltarCadAluno;
-    private javax.swing.JComboBox<String> cComboBoxCursoCadAluno;
     private javax.swing.JComboBox<String> cComboBoxEstadoCadAluno;
-    private javax.swing.JComboBox<String> cComboBoxModuloCadAluno;
-    private javax.swing.JComboBox<String> cComboBoxTurnoCadAluno;
     private javax.swing.JTextField cTxtBairroCadAluno;
     private javax.swing.JFormattedTextField cTxtCEPCadAluno;
     private javax.swing.JFormattedTextField cTxtCPFCadAluno;
@@ -741,18 +816,22 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
     private javax.swing.JTextField cTxtNumeroCadAluno;
     private javax.swing.JTextField cTxtRuaCadAluno;
     private javax.swing.JFormattedTextField cTxtTelefoneCadAluno;
+    private javax.swing.JList<Curso> cxListModelo;
+    private javax.swing.JList<Curso> cxListaSelecionados;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -760,7 +839,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
     private javax.swing.JLabel lbCPF;
     private javax.swing.JLabel lbCelular;
     private javax.swing.JLabel lbCidade;
-    private javax.swing.JLabel lbCurso;
     private javax.swing.JLabel lbEmail;
     private javax.swing.JLabel lbEndereco;
     private javax.swing.JLabel lbNome;

@@ -6,8 +6,11 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -214,6 +217,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         manualTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ManualPB16x16.png"))); // NOI18N
         manualTelaPrincipal.setText("Manual do Usuário");
+        manualTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manualTelaPrincipalActionPerformed(evt);
+            }
+        });
         ajudaTelaPrincipal.add(manualTelaPrincipal);
 
         sobreTelaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sobrePB16.x16.png"))); // NOI18N
@@ -306,6 +314,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
         new TelaGerenciarProfessor().setVisible(true);
     }//GEN-LAST:event_gerProfessorTelaPrincipalActionPerformed
+
+    private void manualTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualTelaPrincipalActionPerformed
+       
+        //Esse método será utilizado para gerar o manual do usuário em pdf
+        //com apenas um clique.
+        
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File("ajuda/Manual do usuário - CEETeca.pdf");
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                //no application registered for PDFs
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Arquivo não encontrado", "Erro!", 0);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_manualTelaPrincipalActionPerformed
 
     private void iconeSobre() {
 

@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.Endereco;
 import models.Livro;
 import models.Professor;
 import org.hibernate.Session;
@@ -288,35 +289,47 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-        switch (sim) {
+        if (sim == 0) {
+            // metodo editar         
+            this.setVisible(false);
 
-            case 0:
-                DefaultTableModel dtm = (DefaultTableModel) tabelaGerProfessor.getModel();
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerProfessor.getModel();
 
-                //Pega a linha da jtable
-                Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerProfessor.getSelectedRow());
-                //Pega o primeiro valor da linha
-                int id = (int) row.get(0);
-                //Abre a sessão
-                Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
-                //Inicia uma transação com o banco
-                sessaoAtual.beginTransaction();
-                //Pega o objeto no banco pelo o id
-                Professor professor = sessaoAtual.get(Professor.class, id);
-                //Deleta o objeto do banco
-                sessaoAtual.delete(professor);
-                sessaoAtual.getTransaction().commit();
-                sessaoAtual.close();
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerProfessor.getSelectedRow());
+
+            //Abre a sessão
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+            if (tabelaGerProfessor.getColumnSelectionAllowed()) {
+                
+            }//conferir
+            //Pega o objeto 
+            Professor professor = sessao.get(Professor.class, id);
+            professor.getPessoa().getEnderecos();
+            
+            Endereco endereco = (Endereco) professor.getPessoa().getContatos().get(0);
+            
+            //Deleta o objeto do banco
+                sessao.delete(professor);
+                sessao.getTransaction().commit();
+                sessao.close();
                 JOptionPane.showMessageDialog(null, "Excluído com sucesso");
 
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
-                break;
+            TelaCadProfessor tela = new TelaCadProfessor();
 
-            default:
-                System.out.println("ERRO");
-                break;
+            tela.SetInformacoes(professor);
+
+            tela.setVisible(true);
+
+            this.dispose();
+
+            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
         }
             
     }//GEN-LAST:event_btExcluirGerProfessorActionPerformed

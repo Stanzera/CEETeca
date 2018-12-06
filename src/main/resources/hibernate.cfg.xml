@@ -31,5 +31,9 @@
     <mapping class="viewmodel.viewTabelaTelaPrincipal"/>
     <mapping class="viewmodel.viewGerProfessor"/>
     <mapping class="viewmodel.viewGerBibliotecaria"/>
+    <mapping class="viewmodel.viewGerLivro"/>
+    <mapping class="viewmodel.viewGerAluno"/>
+    <mapping class="viewmodel.viewGerEmprestimo"/>
+    <mapping class="viewmodel.viewAdvertencia"/>
   </session-factory>
 </hibernate-configuration>

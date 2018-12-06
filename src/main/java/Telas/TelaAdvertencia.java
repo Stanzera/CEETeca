@@ -6,11 +6,18 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.Advertencia;
+import models.Pessoa;
 import org.hibernate.Session;
 
 /**
@@ -29,6 +36,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
         this.setIconImage(icone.getImage());
 
     }
+
     public void listarCadastros() {
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
@@ -87,11 +95,9 @@ public class TelaAdvertencia extends javax.swing.JFrame {
 
         pnGeralAdvertencia = new javax.swing.JPanel();
         lblDescricaoTelaAdvertencia = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        areaTxtDescricaoAdvertencia = new javax.swing.JTextArea();
         lblNomeTelaAdvertencia = new javax.swing.JLabel();
         cTxtNomeAdvertencia = new javax.swing.JTextField();
-        cTxDtDeAdvertencia = new javax.swing.JFormattedTextField();
+        cTxtDtAdvertencia = new javax.swing.JFormattedTextField();
         lblDtAdvertenciaTelaAdvertencia = new javax.swing.JLabel();
         lblTipoTelaAdvertencia = new javax.swing.JLabel();
         cListTipoAdvertencia = new javax.swing.JComboBox<>();
@@ -100,6 +106,8 @@ public class TelaAdvertencia extends javax.swing.JFrame {
         btRegistrarTelaAdvertencia = new javax.swing.JButton();
         btVoltarTelaAdvertencia = new javax.swing.JButton();
         btRegistrarTelaAdvertencia1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        cTxtDescricao = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -108,15 +116,6 @@ public class TelaAdvertencia extends javax.swing.JFrame {
 
         lblDescricaoTelaAdvertencia.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblDescricaoTelaAdvertencia.setText("Descrição da advertência:");
-
-        areaTxtDescricaoAdvertencia.setColumns(20);
-        areaTxtDescricaoAdvertencia.setRows(5);
-        areaTxtDescricaoAdvertencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                areaTxtDescricaoAdvertenciaKeyReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(areaTxtDescricaoAdvertencia);
 
         lblNomeTelaAdvertencia.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblNomeTelaAdvertencia.setText("Nome:");
@@ -128,7 +127,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
         });
 
         try {
-            cTxDtDeAdvertencia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            cTxtDtAdvertencia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -183,6 +182,10 @@ public class TelaAdvertencia extends javax.swing.JFrame {
             }
         });
 
+        cTxtDescricao.setColumns(20);
+        cTxtDescricao.setRows(5);
+        jScrollPane3.setViewportView(cTxtDescricao);
+
         javax.swing.GroupLayout pnGeralAdvertenciaLayout = new javax.swing.GroupLayout(pnGeralAdvertencia);
         pnGeralAdvertencia.setLayout(pnGeralAdvertenciaLayout);
         pnGeralAdvertenciaLayout.setHorizontalGroup(
@@ -191,7 +194,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnGeralAdvertenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnGeralAdvertenciaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane3)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnGeralAdvertenciaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -211,7 +214,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
                             .addGroup(pnGeralAdvertenciaLayout.createSequentialGroup()
                                 .addComponent(lblDtAdvertenciaTelaAdvertencia)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cTxDtDeAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cTxtDtAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnGeralAdvertenciaLayout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(lblTipoTelaAdvertencia)
@@ -240,12 +243,12 @@ public class TelaAdvertencia extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(pnGeralAdvertenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDtAdvertenciaTelaAdvertencia)
-                    .addComponent(cTxDtDeAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cTxtDtAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(lblDescricaoTelaAdvertencia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnGeralAdvertenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btVoltarTelaAdvertencia)
                     .addComponent(btRegistrarTelaAdvertencia))
@@ -294,11 +297,33 @@ public class TelaAdvertencia extends javax.swing.JFrame {
     private void btRegistrarTelaAdvertenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarTelaAdvertenciaActionPerformed
         // TODO add your handling code here:
 
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja aplicar advertência?", "", JOptionPane.YES_NO_OPTION);
-        if (sim == 0) {
+        String nomeDoMeliante = cTxtNomeAdvertencia.getText();
+        Date dtAdv = null;
+        try {
+            SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+            dtAdv = out.parse(cTxtDtAdvertencia.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String obs = cTxtDescricao.getText();
 
-            //metodo excluir. 
-            JOptionPane.showMessageDialog(null, "Advertência aplicada");
+        Advertencia adv = new Advertencia();
+        adv.setDescricaoAdvertencia(obs);
+        adv.setDtAdvertencia(dtAdv);
+        Pessoa pss = new Pessoa();
+        pss.setNomePessoa(nomeDoMeliante);
+
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja aplicar advertência?", "", JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                actualSession.beginTransaction();
+                actualSession.saveOrUpdate(pss);
+                actualSession.saveOrUpdate(adv);
+                actualSession.getTransaction().commit();
+                actualSession.close();
+                JOptionPane.showMessageDialog(null, "Advertência aplicada");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Advertência NÃO aplicada");
         }
@@ -309,11 +334,6 @@ public class TelaAdvertencia extends javax.swing.JFrame {
         // TODO add your handling code here:
         cTxtNomeAdvertencia.setText(cTxtNomeAdvertencia.getText().toUpperCase());
     }//GEN-LAST:event_cTxtNomeAdvertenciaKeyReleased
-
-    private void areaTxtDescricaoAdvertenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_areaTxtDescricaoAdvertenciaKeyReleased
-        // TODO add your handling code here:
-        areaTxtDescricaoAdvertencia.setText(areaTxtDescricaoAdvertencia.getText().toUpperCase());
-    }//GEN-LAST:event_areaTxtDescricaoAdvertenciaKeyReleased
 
     private void btRegistrarTelaAdvertencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarTelaAdvertencia1ActionPerformed
         // TODO add your handling code here:
@@ -356,16 +376,16 @@ public class TelaAdvertencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea areaTxtDescricaoAdvertencia;
     private javax.swing.JButton btRegistrarTelaAdvertencia;
     private javax.swing.JButton btRegistrarTelaAdvertencia1;
     private javax.swing.JButton btVoltarTelaAdvertencia;
     private javax.swing.JComboBox<String> cListTipoAdvertencia;
-    private javax.swing.JFormattedTextField cTxDtDeAdvertencia;
+    private javax.swing.JTextArea cTxtDescricao;
+    private javax.swing.JFormattedTextField cTxtDtAdvertencia;
     private javax.swing.JTextField cTxtNomeAdvertencia;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblDescricaoTelaAdvertencia;
     private javax.swing.JLabel lblDtAdvertenciaTelaAdvertencia;
     private javax.swing.JLabel lblNomeTelaAdvertencia;

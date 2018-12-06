@@ -275,10 +275,10 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarGerLivroActionPerformed
 
     private void btExcluirGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerLivroActionPerformed
-        // TODO add your handling code here:
+        
         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-        switch (sim) {
+        switch (sim){
 
             case 0:
                 DefaultTableModel dtm = (DefaultTableModel) tabelaGerLivro.getModel();
@@ -287,6 +287,8 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
                 Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerLivro.getSelectedRow());
                 //Pega o primeiro valor da linha
                 int id = (int) row.get(0);
+                
+                
                 //Abre a sessão
                 Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
                 //Inicia uma transação com o banco

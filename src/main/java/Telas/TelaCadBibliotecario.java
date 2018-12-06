@@ -574,7 +574,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         try {
             SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-            dtNascimento = in.parse(cTxtDtNascimentoCadBibliotecario.getText());
+            dtNascimento = out.parse(cTxtDtNascimentoCadBibliotecario.getText());
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadBibliotecario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -613,7 +613,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         //Valores Endereço
         Endereco endereco = new Endereco();
         endereco.setCep(cep);
-        //endereco.setLougradouroEndereco(avRua);
+        endereco.setLogradouroEndereco(avRua);
         endereco.setBairroEndereco(bairro);
         endereco.setCidadeEndereco(cidade);
         endereco.setComplementoEndereco(complemento);
@@ -664,8 +664,17 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         cTxtDtNascimentoCadBibliotecario.setText(out.format(bib.getPessoa().getDtnascimento()));
         ArrayList <Contato> contatos = new ArrayList(bib.getPessoa().getContatos());
         cTxtEmailCadBibliotecario.setText(contatos.get(0).getEmailContato());
-        cTxtCelularCadBibliotecario.setText(contatos.get(0).getEmailContato());
-        //ctxt.setText(bib.getPessoa().getEnderecos());
+        cTxtCelularCadBibliotecario.setText(contatos.get(0).getCelularContato());
+        cTxtTelefoneCadBibliotecario.setText(contatos.get(0).getTelefoneContato());
+        ArrayList <Endereco> enderecos = new ArrayList(bib.getPessoa().getEnderecos());
+        cTxtCEPCadBibliotecario.setText(enderecos.get(0).getCep());
+        cTxtBairroCadBibliotecario.setText(enderecos.get(0).getBairroEndereco());
+        cTxtCidadeCadBibliotecario.setText(enderecos.get(0).getCidadeEndereco());
+        cTxtComplementoCadBibliotecario.setText(enderecos.get(0).getComplementoEndereco());
+        cListUFCadBibliotecario.setSelectedItem(enderecos.get(0).getEstadoEndereco());
+        cTxtRuaCadBibliotecario.setText(enderecos.get(0).getLogradouroEndereco());
+        
+        
     }
     
     private void btVoltarCadBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadBibliotecarioActionPerformed
