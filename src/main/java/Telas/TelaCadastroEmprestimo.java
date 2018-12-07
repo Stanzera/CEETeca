@@ -65,11 +65,8 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cTxtNumChamadaCadEmprestimo = new javax.swing.JTextField();
         btBuscarCadEmprestimo = new javax.swing.JButton();
-        lblNumChamadaCadEmprestimo = new javax.swing.JLabel();
-        lblTituloCadEmprestimo = new javax.swing.JLabel();
-        lblAutorCadEmprestimo = new javax.swing.JLabel();
-        lblAssuntoCadEmprestimo = new javax.swing.JLabel();
-        lblSituacaoCadEmprestimo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaAdvertencia = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         painelDetalhamentoCadEmprestimo = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -129,8 +126,7 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadoUsuarioCadEmprestimoLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cTxtNomeCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cTxtNomeCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelDadoUsuarioCadEmprestimoLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -176,20 +172,23 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
             }
         });
 
-        lblNumChamadaCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblNumChamadaCadEmprestimo.setText("N° Chamada: ..........");
+        tabelaAdvertencia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        lblTituloCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblTituloCadEmprestimo.setText("Título: ..........");
+            },
+            new String [] {
+                "Nº Chamada", "Autor", "Assunto", "Titulo", "Situação"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        lblAutorCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblAutorCadEmprestimo.setText("Autor: ..........");
-
-        lblAssuntoCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblAssuntoCadEmprestimo.setText("Assunto: ..........");
-
-        lblSituacaoCadEmprestimo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblSituacaoCadEmprestimo.setText("Situação: ..........");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabelaAdvertencia);
 
         javax.swing.GroupLayout painelDadosExCadEmprestimoLayout = new javax.swing.GroupLayout(painelDadosExCadEmprestimo);
         painelDadosExCadEmprestimo.setLayout(painelDadosExCadEmprestimoLayout);
@@ -197,22 +196,16 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
             painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btBuscarCadEmprestimo)
-                            .addComponent(cTxtNumChamadaCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblNumChamadaCadEmprestimo)
-                    .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAutorCadEmprestimo)
-                            .addComponent(lblTituloCadEmprestimo)
-                            .addComponent(lblAssuntoCadEmprestimo)
-                            .addComponent(lblSituacaoCadEmprestimo))))
+                    .addComponent(btBuscarCadEmprestimo)
+                    .addComponent(cTxtNumChamadaCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(painelDadosExCadEmprestimoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         painelDadosExCadEmprestimoLayout.setVerticalGroup(
             painelDadosExCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,17 +216,9 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
                     .addComponent(cTxtNumChamadaCadEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btBuscarCadEmprestimo)
-                .addGap(18, 18, 18)
-                .addComponent(lblNumChamadaCadEmprestimo)
-                .addGap(18, 18, 18)
-                .addComponent(lblTituloCadEmprestimo)
-                .addGap(18, 18, 18)
-                .addComponent(lblAutorCadEmprestimo)
-                .addGap(18, 18, 18)
-                .addComponent(lblAssuntoCadEmprestimo)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(lblSituacaoCadEmprestimo)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -508,7 +493,7 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_btBuscarCadEmprestimoActionPerformed
 
     private void btPesquisarCadEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarCadEmprestimoActionPerformed
-
+        
     }//GEN-LAST:event_btPesquisarCadEmprestimoActionPerformed
 
     private void cTxtNomeCadEmprestimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtNomeCadEmprestimoKeyReleased
@@ -575,16 +560,13 @@ public class TelaCadastroEmprestimo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lblAssuntoCadEmprestimo;
-    private javax.swing.JLabel lblAutorCadEmprestimo;
-    private javax.swing.JLabel lblNumChamadaCadEmprestimo;
-    private javax.swing.JLabel lblSituacaoCadEmprestimo;
-    private javax.swing.JLabel lblTituloCadEmprestimo;
     private javax.swing.JPanel painelDadoUsuarioCadEmprestimo;
     private javax.swing.JPanel painelDadosExCadEmprestimo;
     private javax.swing.JPanel painelDetalhamentoCadEmprestimo;
+    private javax.swing.JTable tabelaAdvertencia;
     // End of variables declaration//GEN-END:variables
 }

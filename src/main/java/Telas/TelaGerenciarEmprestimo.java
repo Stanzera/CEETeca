@@ -313,8 +313,8 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
     private void btAdvertenciaGerEmprestimosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdvertenciaGerEmprestimosActionPerformed
         // TODO add your handling code here:
 
-        setVisible(false);
-        new TelaAdvertencia().setVisible(true);
+        /*setVisible(false);
+        new TelaAdvertencia().setVisible(true);*/
     }//GEN-LAST:event_btAdvertenciaGerEmprestimosActionPerformed
 
     private void cTxtBuscaGerEmprestimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerEmprestimoKeyReleased

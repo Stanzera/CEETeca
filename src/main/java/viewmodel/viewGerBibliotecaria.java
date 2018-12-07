@@ -28,7 +28,7 @@ order by p.nomePessoa;
 public class viewGerBibliotecaria {
 
     @Id
-    @Column(name="idPessoa")
+    @Column(name="idBibliotecaria")
     private int Id;
     
     @Column(name="Nome")

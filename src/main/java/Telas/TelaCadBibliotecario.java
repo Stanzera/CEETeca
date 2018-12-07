@@ -637,10 +637,10 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                 case JOptionPane.YES_OPTION:
                     try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
                         actualSession.beginTransaction();
-                        actualSession.save(pessoa);
-                        actualSession.save(endereco);
-                        actualSession.save(ctt);
-                        actualSession.save(bibliotecaria);
+                        actualSession.saveOrUpdate(pessoa);
+                        actualSession.saveOrUpdate(endereco);
+                        actualSession.saveOrUpdate(ctt);
+                        actualSession.saveOrUpdate(bibliotecaria);
                         actualSession.getTransaction().commit();
                         actualSession.close();
                         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
@@ -657,6 +657,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
 
     
     public void SetInformacoes(Bibliotecaria bib){
+        
         cTxtNomeCadBibliotecario.setText(bib.getPessoa().getNomePessoa());
         cTxtCPFCadBibliotecario.setText(bib.getPessoa().getCpfPessoa());
         cTxtNumFuncionalCadBibliotecario.setText(bib.getPessoa().getMatriculaPessoa());

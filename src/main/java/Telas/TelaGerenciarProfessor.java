@@ -7,12 +7,15 @@ package Telas;
 
 import DAO.NewHibernateUtil;
 import static DAO.NewHibernateUtil.getSessionFactory;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.Contato;
 import models.Endereco;
 import models.Livro;
 import models.Professor;
@@ -40,7 +43,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
         //Chama a view  //p.idPessoa
-        Query q = sessao.createSQLQuery("SELECT p.idPessoa, p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato as Celular\n"
+        Query q = sessao.createSQLQuery("SELECT pe.idProfessor, p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato as Celular\n"
                 + "\n"
                 + "FROM pessoa p, professor pe, contato c\n"
                 + "\n"
@@ -304,20 +307,32 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
             //Pega o primeiro valor da linha
             int id = (int) row.get(0);
-            if (tabelaGerProfessor.getColumnSelectionAllowed()) {
-                
-            }//conferir
-            //Pega o objeto 
-            Professor professor = sessao.get(Professor.class, id);
-            professor.getPessoa().getEnderecos();
             
-            Endereco endereco = (Endereco) professor.getPessoa().getContatos().get(0);
+            Professor professor =(Professor)sessao.get(Professor.class, id);
+            
+            //conferir
+            //Pega o objeto 
+            
+            List<Endereco> enderecos =  new ArrayList<Endereco>(professor.getPessoa().getEnderecos());
+            
+            for(Endereco endereco : enderecos){
+                sessao.remove(endereco);
+            }
+            /*sessao.getTransaction().commit();
+            sessao.beginTransaction();*/
+            List<Contato> contatos = new ArrayList<Contato>(professor.getPessoa().getContatos());
+            
+            for(Contato contato : contatos){
+                sessao.remove(contato);
+            }
+            
+            
             
             //Deleta o objeto do banco
-                sessao.delete(professor);
-                sessao.getTransaction().commit();
-                sessao.close();
-                JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+            sessao.remove(professor);
+            sessao.getTransaction().commit();
+            sessao.close();
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
 
             TelaCadProfessor tela = new TelaCadProfessor();
 

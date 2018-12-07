@@ -334,9 +334,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_manualTelaPrincipalActionPerformed
 
-    private void iconeSobre() {
-
-    }
     ActionListener ativar = (new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {

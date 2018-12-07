@@ -210,6 +210,7 @@ public class telaLogin extends javax.swing.JFrame {
                     break;
                 }
             }
+            
             if (achou == true) {
                 TelaPrincipal tela = new TelaPrincipal();
                 //Deixa uma janela visível(true), ou invisível(false)        

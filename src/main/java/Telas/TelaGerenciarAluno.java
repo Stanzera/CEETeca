@@ -38,7 +38,7 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
         //Chama a view  //p.idPessoa
-        Query q = sessao.createSQLQuery("    SELECT p.idPessoa , p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato\n"
+        Query q = sessao.createSQLQuery("    SELECT al.idAluno , p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato\n"
                 + "    as Celular\n"
                 + "\n"
                 + "    FROM pessoa p, aluno al, contato c\n"
@@ -156,11 +156,11 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "CPF", "E-mail", "Telefone", "Celular"
+                "Id", "CPF", "Nome", "E-mail", "Telefone", "Celular"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -316,11 +316,13 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarGerAlunoActionPerformed
 
     private void btEditarGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerAlunoActionPerformed
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?");
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja editar?","",JOptionPane.YES_NO_OPTION);
 
-        if (sim == 0) {
+        if (resposta == JOptionPane.YES_OPTION) {
             // metodo editar
             JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhuma alteração realizada");
         }
     }//GEN-LAST:event_btEditarGerAlunoActionPerformed
 

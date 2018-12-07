@@ -100,7 +100,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
         cTxtDtAdvertencia = new javax.swing.JFormattedTextField();
         lblDtAdvertenciaTelaAdvertencia = new javax.swing.JLabel();
         lblTipoTelaAdvertencia = new javax.swing.JLabel();
-        cListTipoAdvertencia = new javax.swing.JComboBox<>();
+        cComboBoxTipoAdvertencia = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaTelaAdvertencia = new javax.swing.JTable();
         btRegistrarTelaAdvertencia = new javax.swing.JButton();
@@ -138,7 +138,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
         lblTipoTelaAdvertencia.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblTipoTelaAdvertencia.setText("Tipo:");
 
-        cListTipoAdvertencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aluno", "Professor" }));
+        cComboBoxTipoAdvertencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aluno", "Professor" }));
 
         tabelaTelaAdvertencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,7 +219,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
                                 .addGap(8, 8, 8)
                                 .addComponent(lblTipoTelaAdvertencia)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cListTipoAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cComboBoxTipoAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(115, 115, 115)
                                 .addComponent(btRegistrarTelaAdvertencia1)
                                 .addGap(250, 250, 250)))
@@ -236,7 +236,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
                 .addGroup(pnGeralAdvertenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnGeralAdvertenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblTipoTelaAdvertencia)
-                        .addComponent(cListTipoAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cComboBoxTipoAdvertencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btRegistrarTelaAdvertencia1))
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -379,7 +379,7 @@ public class TelaAdvertencia extends javax.swing.JFrame {
     private javax.swing.JButton btRegistrarTelaAdvertencia;
     private javax.swing.JButton btRegistrarTelaAdvertencia1;
     private javax.swing.JButton btVoltarTelaAdvertencia;
-    private javax.swing.JComboBox<String> cListTipoAdvertencia;
+    private javax.swing.JComboBox<String> cComboBoxTipoAdvertencia;
     private javax.swing.JTextArea cTxtDescricao;
     private javax.swing.JFormattedTextField cTxtDtAdvertencia;
     private javax.swing.JTextField cTxtNomeAdvertencia;

@@ -40,18 +40,18 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
         //Chama a view
-        Query q = sessao.createSQLQuery("SELECT p.idPessoa, p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato as Celular\n"
+        Query q = sessao.createSQLQuery("SELECT bi.idBibliotecaria, p.nomePessoa as Nome , p.cpfPessoa as CPF, c.emailContato as E_mail, c.telefoneContato as Telefone, c.CelularContato as Celular\n"
                 + "\n"
                 + "FROM pessoa p, bibliotecaria bi, contato c\n"
                 + "\n"
-                + "WHERE p.idPessoa = bi.pessoa_idpessoa and p.idPessoa= c.pessoa_idPessoa\n"
+                + "WHERE p.idPessoa = bi.pessoa_idPessoa\n"
                 + "order by p.nomePessoa;").addEntity(viewmodel.viewGerBibliotecaria.class);
-
+        
         //pega o resultado da query e retorna uma lista
         List<viewmodel.viewGerBibliotecaria> registrosTelaPrincipal = q.getResultList();
         sessao.getTransaction().commit();
         sessao.close();
-
+        
         //pega o modelo da tabela
         DefaultTableModel model = (DefaultTableModel) tabelaGerBibliotecario.getModel();
 
@@ -156,7 +156,7 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "CPF", "E-mail", "Telefone", "Celular"
+                "Id", "CPF", "Nome", "E-mail", "Telefone", "Celular"
             }
         ) {
             Class[] types = new Class [] {

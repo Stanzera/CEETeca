@@ -32,7 +32,7 @@ public class viewGerAluno {
     
 
     @Id
-    @Column(name="idPessoa")
+    @Column(name="idAluno")
     private int id;
     @Column(name="Nome")
     private String nome;
