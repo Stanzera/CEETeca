@@ -6,6 +6,7 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.persistence.Query;
@@ -14,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Aluno;
 import models.Bibliotecaria;
+import models.Contato;
+import models.Emprestimo;
+import models.Endereco;
 import org.hibernate.Session;
 
 /**
@@ -267,36 +271,72 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
 
         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-        switch (sim) {
+        if (sim == JOptionPane.YES_NO_OPTION) {
+            // metodo editar         
+            this.setVisible(false);
 
-            case 0:
-                DefaultTableModel dtm = (DefaultTableModel) tabelaGerAluno.getModel();
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerAluno.getModel();
 
-                //Pega a linha da jtable
-                Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerAluno.getSelectedRow());
-                //Pega o primeiro valor da linha
-                int id = (int) row.get(0);
-                //Abre a sessão
-                Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
-                //Inicia uma transação com o banco
-                sessaoAtual.beginTransaction();
-                //Pega o objeto no banco pelo o id
-                Aluno aluno = sessaoAtual.get(Aluno.class, id);
-                //Deleta o objeto do banco
-                sessaoAtual.delete(aluno);
-                sessaoAtual.getTransaction().commit();
-                sessaoAtual.close();
-                JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerAluno.getSelectedRow());
 
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
-                break;
+            //Abre a sessão
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
 
-            default:
-                System.out.println("ERRO");
-                break;
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+            
+            Aluno aluno =(Aluno)sessao.get(Aluno.class, id);
+            
+            //conferir
+            //Pega o objeto 
+            
+            List<Endereco> enderecos =  new ArrayList<Endereco>(aluno.getPessoa().getEnderecos());
+            
+            for(Endereco endereco : enderecos){
+                sessao.remove(endereco);
+            }
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+            
+            List<Contato> contatos = new ArrayList<Contato>(aluno.getPessoa().getContatos());
+            
+            for(Contato contato : contatos){
+                sessao.remove(contato);
+            }
+            
+             sessao.getTransaction().commit();
+             sessao.beginTransaction();
+             
+             List<Emprestimo> emprestimos = new ArrayList<>(aluno.getPessoa().getEmprestimos());
+            
+            for(Emprestimo emprestimo  : emprestimos){
+                sessao.remove(emprestimo);
+            }
+            
+             sessao.getTransaction().commit();
+             sessao.beginTransaction();
+              
+            //Deleta o objeto do banco
+            sessao.remove(aluno);
+            sessao.getTransaction().commit();
+            sessao.close();
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+
+            TelaCadastroAluno tela = new TelaCadastroAluno();
+
+            tela.SetInformacoes(aluno);
+
+            tela.setVisible(true);
+
+            this.dispose();
+
+            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
+ 
     }//GEN-LAST:event_btExcluirGerAlunoActionPerformed
 
     private void btCadastrarGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerAlunoActionPerformed

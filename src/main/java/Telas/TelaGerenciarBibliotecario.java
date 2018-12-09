@@ -7,6 +7,7 @@ package Telas;
 
 import DAO.NewHibernateUtil;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
@@ -15,6 +16,9 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import models.Bibliotecaria;
+import models.Contato;
+import models.Emprestimo;
+import models.Endereco;
 import org.hibernate.Session;
 import viewmodel.viewGerBibliotecaria;
 
@@ -44,7 +48,7 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
                 + "\n"
                 + "FROM pessoa p, bibliotecaria bi, contato c\n"
                 + "\n"
-                + "WHERE p.idPessoa = bi.pessoa_idPessoa\n"
+                + "WHERE p.idPessoa = bi.pessoa_idPessoa and p.idPessoa = c.pessoa_idPessoa\n"
                 + "order by p.nomePessoa;").addEntity(viewmodel.viewGerBibliotecaria.class);
         
         //pega o resultado da query e retorna uma lista
@@ -291,41 +295,76 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
     }//GEN-LAST:event_cTxtBuscaGerBibliotecarioKeyReleased
 
     private void btExcluirGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerBibliotecarioActionPerformed
-        // TODO add your handling code here:
+       
+         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-        int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
+        if (sim == JOptionPane.YES_NO_OPTION) {
+            // metodo editar         
+            this.setVisible(false);
 
-        switch (sim) {
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerBibliotecario.getModel();
 
-            case 0:
-                DefaultTableModel dtm = (DefaultTableModel) tabelaGerBibliotecario.getModel();
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerBibliotecario.getSelectedRow());
 
-                //Pega a linha da jtable
-                Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerBibliotecario.getSelectedRow());
-                //Pega o primeiro valor da linha
-                int id = (int) row.get(0);
-                //Abre a sessão
-                Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
-                //Inicia uma transação com o banco
-                sessaoAtual.beginTransaction();
-                //Pega o objeto no banco pelo o id
-                Bibliotecaria bibliotecario = sessaoAtual.get(Bibliotecaria.class, id);
-                //Deleta o objeto do banco
-                sessaoAtual.delete(bibliotecario);
-                sessaoAtual.getTransaction().commit();
-                sessaoAtual.close();
-                JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+            //Abre a sessão
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
 
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
-                break;
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+            
+            Bibliotecaria bibliotecaria =(Bibliotecaria)sessao.get(Bibliotecaria.class, id);
+            
+            //conferir
+            //Pega o objeto 
+            
+            List<Endereco> enderecos =  new ArrayList<Endereco>(bibliotecaria.getPessoa().getEnderecos());
+            
+            for(Endereco endereco : enderecos){
+                sessao.remove(endereco);
+            }
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+            
+            List<Contato> contatos = new ArrayList<Contato>(bibliotecaria.getPessoa().getContatos());
+            
+            for(Contato contato : contatos){
+                sessao.remove(contato);
+            }
+            
+             sessao.getTransaction().commit();
+             sessao.beginTransaction();
+             
+             List<Emprestimo> emprestimos = new ArrayList<>(bibliotecaria.getPessoa().getEmprestimos());
+            
+            for(Emprestimo emprestimo  : emprestimos){
+                sessao.remove(emprestimo);
+            }
+            
+             sessao.getTransaction().commit();
+             sessao.beginTransaction();
+            
+   
+            //Deleta o objeto do banco
+            sessao.remove(bibliotecaria);
+            sessao.getTransaction().commit();
+            sessao.close();
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
 
-            default:
-                System.out.println("ERRO");
-                break;
+            TelaCadBibliotecario tela = new TelaCadBibliotecario();
+
+            tela.SetInformacoes(bibliotecaria);
+
+            tela.setVisible(true);
+
+            this.dispose();
+
+            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
-
+ 
     }//GEN-LAST:event_btExcluirGerBibliotecarioActionPerformed
 
     private void btEditarGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerBibliotecarioActionPerformed

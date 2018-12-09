@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Contato;
+import models.Emprestimo;
 import models.Endereco;
 import models.Livro;
 import models.Professor;
@@ -292,7 +293,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-        if (sim == 0) {
+        if (sim == JOptionPane.YES_NO_OPTION) {
             // metodo editar         
             this.setVisible(false);
 
@@ -311,23 +312,33 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
             Professor professor =(Professor)sessao.get(Professor.class, id);
             
             //conferir
-            //Pega o objeto 
-            
+            //Pega o objeto            
             List<Endereco> enderecos =  new ArrayList<Endereco>(professor.getPessoa().getEnderecos());
             
             for(Endereco endereco : enderecos){
                 sessao.remove(endereco);
             }
-            /*sessao.getTransaction().commit();
-            sessao.beginTransaction();*/
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+            
             List<Contato> contatos = new ArrayList<Contato>(professor.getPessoa().getContatos());
             
             for(Contato contato : contatos){
                 sessao.remove(contato);
             }
             
+             sessao.getTransaction().commit();
+             sessao.beginTransaction();
+             
+             List<Emprestimo> emprestimos = new ArrayList<>(professor.getPessoa().getEmprestimos());
             
+            for(Emprestimo emprestimo  : emprestimos){
+                sessao.remove(emprestimo);
+            }
             
+             sessao.getTransaction().commit();
+             sessao.beginTransaction();
+               
             //Deleta o objeto do banco
             sessao.remove(professor);
             sessao.getTransaction().commit();
@@ -344,7 +355,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
             //JOptionPane.showMessageDialog(null, "Alteração Realizada");
         } else {
-            JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
+            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
             
     }//GEN-LAST:event_btExcluirGerProfessorActionPerformed
