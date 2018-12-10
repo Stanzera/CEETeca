@@ -94,10 +94,8 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaGerEmprestimo = new javax.swing.JTable();
-        cCheckBoxGerEmprestimo = new javax.swing.JCheckBox();
         btCadastrarGerEmprestimos = new javax.swing.JButton();
         finalizarGerEmprestimo = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         btVoltarGerEmprestimos = new javax.swing.JButton();
         btAdvertenciaGerEmprestimos = new javax.swing.JButton();
 
@@ -167,13 +165,6 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaGerEmprestimo);
 
-        cCheckBoxGerEmprestimo.setText("Mostrar todos os empréstimos em aberto/finalizado.");
-        cCheckBoxGerEmprestimo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cCheckBoxGerEmprestimoActionPerformed(evt);
-            }
-        });
-
         btCadastrarGerEmprestimos.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btCadastrarGerEmprestimos.setText("Cadastrar");
         btCadastrarGerEmprestimos.addActionListener(new java.awt.event.ActionListener() {
@@ -189,9 +180,6 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
                 finalizarGerEmprestimoActionPerformed(evt);
             }
         });
-
-        jLabel5.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jLabel5.setText("*Para concluir o emprestimo clique em FINALIZAR");
 
         btVoltarGerEmprestimos.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btVoltarGerEmprestimos.setText("Voltar");
@@ -227,11 +215,6 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cCheckBoxGerEmprestimo)
-                                    .addComponent(jLabel5))
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)
@@ -268,11 +251,7 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
                     .addComponent(finalizarGerEmprestimo)
                     .addComponent(btVoltarGerEmprestimos)
                     .addComponent(btAdvertenciaGerEmprestimos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(cCheckBoxGerEmprestimo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addContainerGap())
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         pack();
@@ -305,10 +284,6 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
         setVisible(false);
         new TelaPrincipal().setVisible(true);
     }//GEN-LAST:event_btVoltarGerEmprestimosActionPerformed
-
-    private void cCheckBoxGerEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cCheckBoxGerEmprestimoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cCheckBoxGerEmprestimoActionPerformed
 
     private void btAdvertenciaGerEmprestimosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdvertenciaGerEmprestimosActionPerformed
         // TODO add your handling code here:
@@ -363,14 +338,12 @@ public class TelaGerenciarEmprestimo extends javax.swing.JFrame {
     private javax.swing.JButton btAdvertenciaGerEmprestimos;
     private javax.swing.JButton btCadastrarGerEmprestimos;
     private javax.swing.JButton btVoltarGerEmprestimos;
-    private javax.swing.JCheckBox cCheckBoxGerEmprestimo;
     private javax.swing.JTextField cTxtBuscaGerEmprestimo;
     private javax.swing.JButton finalizarGerEmprestimo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

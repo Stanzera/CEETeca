@@ -151,6 +151,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="cTxtBuscaGerLivro">
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtBuscaGerLivroKeyPressed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cTxtBuscaGerLivroKeyReleased"/>
           </Events>
         </Component>

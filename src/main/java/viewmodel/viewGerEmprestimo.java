@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 import org.hibernate.annotations.Immutable;
 
 /**
@@ -34,16 +35,18 @@ order by e.idEmprestimo;
 @Immutable
 public class viewGerEmprestimo {
     
-    @Id
+    
     @Column(name="Nome")
     private String nome;
     @Column(name="CPF")
     private String cpf;
     @Column(name="Titulo")
     private String titulo;
+    @Id
     @Column(name="N_Chamada")
     private int nChamada;
     @Column(name="Data_Limite")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtLimite;
     @Column(name="Situacao")
     private String situacao;

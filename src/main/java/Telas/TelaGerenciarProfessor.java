@@ -7,6 +7,7 @@ package Telas;
 
 import DAO.NewHibernateUtil;
 import static DAO.NewHibernateUtil.getSessionFactory;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -16,9 +17,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Contato;
+import models.Emprestimo;
 import models.Endereco;
 import models.Livro;
 import models.Professor;
+import models.ProfessorHasCurso;
 import org.hibernate.Session;
 
 /**
@@ -30,8 +33,15 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
     /**
      * Creates new form TelaGerenciarProfessor
      */
+    Professor DAO; //Objeto professor
+
     public TelaGerenciarProfessor() {
         initComponents();
+
+        try {
+            DAO = new Professor();
+        } catch (Exception e) {
+        }
 
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
@@ -110,6 +120,12 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel1.setText("GERENCIAMENTO DE PROFESSOR");
+
+        cTxtBuscaGerProfessor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cTxtBuscaGerProfessorKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Termo para busca: ");
@@ -292,7 +308,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-        if (sim == 0) {
+        if (sim == JOptionPane.YES_NO_OPTION) {
             // metodo editar         
             this.setVisible(false);
 
@@ -307,47 +323,87 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
 
             //Pega o primeiro valor da linha
             int id = (int) row.get(0);
-            
-            Professor professor =(Professor)sessao.get(Professor.class, id);
-            
-            //conferir
-            //Pega o objeto 
-            
-            List<Endereco> enderecos =  new ArrayList<Endereco>(professor.getPessoa().getEnderecos());
-            
-            for(Endereco endereco : enderecos){
+
+            Professor professor = (Professor) sessao.get(Professor.class, id);
+
+            //Pega o objeto            
+            List<Endereco> enderecos = new ArrayList<Endereco>(professor.getPessoa().getEnderecos());
+
+            for (Endereco endereco : enderecos) {
                 sessao.remove(endereco);
             }
             /*sessao.getTransaction().commit();
             sessao.beginTransaction();*/
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+
             List<Contato> contatos = new ArrayList<Contato>(professor.getPessoa().getContatos());
-            
-            for(Contato contato : contatos){
+
+            for (Contato contato : contatos) {
                 sessao.remove(contato);
             }
+
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+
+            List<Emprestimo> emprestimos = new ArrayList<>(professor.getPessoa().getEmprestimos());
+
+            for (Emprestimo emprestimo : emprestimos) {
+                sessao.remove(emprestimo);
+            }
+
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+
+            List<ProfessorHasCurso> cursosLecionados = new ArrayList<>(professor.getProfessorHasCursos());
             
-            
+            for(ProfessorHasCurso curso : cursosLecionados){
+                sessao.remove(curso);
+            }
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
             
             //Deleta o objeto do banco
             sessao.remove(professor);
+            sessao.remove(professor.getPessoa());
             sessao.getTransaction().commit();
             sessao.close();
-            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
-
-            TelaCadProfessor tela = new TelaCadProfessor();
-
-            tela.SetInformacoes(professor);
-
-            tela.setVisible(true);
-
-            this.dispose();
-
-            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
-        } else {
-            JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
-        }
             
+            JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
+        }
+
     }//GEN-LAST:event_btExcluirGerProfessorActionPerformed
+
+    private void cTxtBuscaGerProfessorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerProfessorKeyReleased
+
+        try {
+
+            Vector cabecalho = new Vector();
+
+            cabecalho.add("Id");
+            cabecalho.add("CPF");
+            cabecalho.add("Nome");
+            cabecalho.add("E-mail");
+            cabecalho.add("Celular");
+            cabecalho.add("Telefone");
+
+            if (!cTxtBuscaGerProfessor.getText().equals("")) {
+
+                DefaultTableModel novo = DAO.pesquisar(cTxtBuscaGerProfessor.getText());
+                tabelaGerProfessor.setModel(novo);
+
+            } else {
+
+                DefaultTableModel novo = new DefaultTableModel(new Vector(), cabecalho);
+                tabelaGerProfessor.setModel(novo);
+            }
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        }
+    }//GEN-LAST:event_cTxtBuscaGerProfessorKeyReleased
 
     /**
      * @param args the command line arguments

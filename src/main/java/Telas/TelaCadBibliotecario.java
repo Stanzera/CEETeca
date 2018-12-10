@@ -658,6 +658,10 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     
     public void SetInformacoes(Bibliotecaria bib){
         
+        
+        
+        cTxtUsuarioCadBibliotecario.setText(bib.getUsuarioBibliotecaria());
+        cTxtSenhaCadBibliotecario.setText(bib.getSenhaBibliotecaria());
         cTxtNomeCadBibliotecario.setText(bib.getPessoa().getNomePessoa());
         cTxtCPFCadBibliotecario.setText(bib.getPessoa().getCpfPessoa());
         cTxtNumFuncionalCadBibliotecario.setText(bib.getPessoa().getMatriculaPessoa());
@@ -674,6 +678,8 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         cTxtComplementoCadBibliotecario.setText(enderecos.get(0).getComplementoEndereco());
         cListUFCadBibliotecario.setSelectedItem(enderecos.get(0).getEstadoEndereco());
         cTxtRuaCadBibliotecario.setText(enderecos.get(0).getLogradouroEndereco());
+        
+        //cTxtRuaCadBibliotecario.setText(enderecos.get(0).getNumeroEndereco());
         
         
     }

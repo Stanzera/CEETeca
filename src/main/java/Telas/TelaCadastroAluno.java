@@ -403,10 +403,11 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                 .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cTxtCEPCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)))
+                            .addComponent(jLabel11))
+                        .addGap(12, 12, 12))
                     .addGroup(painelComplementarCadEmprestimoLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -416,7 +417,6 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(50, 50, 50)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelComplementarCadEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbEndereco)
                     .addComponent(cTxtRuaCadAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -632,24 +632,23 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btConfirmarCadAlunoActionPerformed
 
-    public void SetInformacoes(Aluno bib) {
-        cTxtNomeCadAluno.setText(bib.getPessoa().getNomePessoa());
-        cTxtCPFCadAluno.setText(bib.getPessoa().getCpfPessoa());
-        cTxtMatriculaCadAluno.setText(bib.getPessoa().getMatriculaPessoa());
+    public void SetInformacoes(Aluno aluno) {
+        cTxtNomeCadAluno.setText(aluno.getPessoa().getNomePessoa());
+        cTxtCPFCadAluno.setText(aluno.getPessoa().getCpfPessoa());
+        cTxtMatriculaCadAluno.setText(aluno.getPessoa().getMatriculaPessoa());
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-        cTxtDtNascimentoCadAluno.setText(out.format(bib.getPessoa().getDtnascimento()));
-        ArrayList<Contato> contatos = new ArrayList(bib.getPessoa().getContatos());
+        cTxtDtNascimentoCadAluno.setText(out.format(aluno.getPessoa().getDtnascimento()));
+        ArrayList<Contato> contatos = new ArrayList(aluno.getPessoa().getContatos());
         cTxtEmailCadAluno.setText(contatos.get(0).getEmailContato());
         cTxtCelularCadAluno.setText(contatos.get(0).getCelularContato());
         cTxtTelefoneCadAluno.setText(contatos.get(0).getTelefoneContato());
-        ArrayList<Endereco> enderecos = new ArrayList(bib.getPessoa().getEnderecos());
+        ArrayList<Endereco> enderecos = new ArrayList(aluno.getPessoa().getEnderecos());
         cTxtCEPCadAluno.setText(enderecos.get(0).getCep());
         cTxtBairroCadAluno.setText(enderecos.get(0).getBairroEndereco());
         cTxtCidadeCadAluno.setText(enderecos.get(0).getCidadeEndereco());
         cTxtComplementoCadAluno.setText(enderecos.get(0).getComplementoEndereco());
         cComboBoxEstadoCadAluno.setSelectedItem(enderecos.get(0).getEstadoEndereco());
         cTxtRuaCadAluno.setText(enderecos.get(0).getLogradouroEndereco());
-
     }
     private void btVoltarCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadAlunoActionPerformed
         // 

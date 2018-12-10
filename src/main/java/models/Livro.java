@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class Livro  implements java.io.Serializable {
 
-
      private int idLivro;
      private int cddLivro;
      private String tituloLivro;

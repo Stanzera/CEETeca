@@ -693,17 +693,17 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btConfirmarCadProfessorActionPerformed
 
-     public void SetInformacoes(Professor bib){
-        cTxtNomeCadProfessor.setText(bib.getPessoa().getNomePessoa());
-        cTxtCPFCadProfessor.setText(bib.getPessoa().getCpfPessoa());
-        cTxtNumFuncionalCadProfessor.setText(bib.getPessoa().getMatriculaPessoa());
+     public void SetInformacoes(Professor prof){
+        cTxtNomeCadProfessor.setText(prof.getPessoa().getNomePessoa());
+        cTxtCPFCadProfessor.setText(prof.getPessoa().getCpfPessoa());
+        cTxtNumFuncionalCadProfessor.setText(prof.getPessoa().getMatriculaPessoa());
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-        cTxtDtNascimentoCadProfessor.setText(out.format(bib.getPessoa().getDtnascimento()));
-        ArrayList <Contato> contatos = new ArrayList(bib.getPessoa().getContatos());
+        cTxtDtNascimentoCadProfessor.setText(out.format(prof.getPessoa().getDtnascimento()));
+        ArrayList <Contato> contatos = new ArrayList(prof.getPessoa().getContatos());
         cTxtEmailCadProfessor.setText(contatos.get(0).getEmailContato());
         cTxtCelularCadProfessor.setText(contatos.get(0).getCelularContato());
         cTxtTelefoneCadProfessor.setText(contatos.get(0).getTelefoneContato());
-        ArrayList <Endereco> enderecos = new ArrayList(bib.getPessoa().getEnderecos());
+        ArrayList <Endereco> enderecos = new ArrayList(prof.getPessoa().getEnderecos());
         cTxtCEPCadProfessor.setText(enderecos.get(0).getCep());
         cTxtBairroCadProfessor.setText(enderecos.get(0).getBairroEndereco());
         cTxtCidadeCadProfessor.setText(enderecos.get(0).getCidadeEndereco());

@@ -6,6 +6,8 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
+import com.mysql.cj.core.util.StringUtils;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Vector;
 import javax.persistence.Query;
@@ -27,14 +29,14 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
      */
     public TelaGerenciarLivro() {
         initComponents();
-
+        
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-
+        
         listarCadastros();
-
+        
     }
-
+    
     public void listarCadastros() {
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
@@ -52,16 +54,16 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
                 + "order by l.idLivro;").addEntity(viewmodel.viewGerLivro.class);
 
         //pega o resultado da query e retorna uma lista
-        List<viewmodel.viewGerLivro> registrosTelaPrincipal = q.getResultList();
+        List<viewmodel.viewGerLivro> registrosTelaLivro = q.getResultList();
         sessao.getTransaction().commit();
         sessao.close();
 
         //pega o modelo da tabela
         DefaultTableModel model = (DefaultTableModel) tabelaGerLivro.getModel();
-
-        for (int i = 0; i < registrosTelaPrincipal.size(); i++) {
+        
+        for (int i = 0; i < registrosTelaLivro.size(); i++) {
             //Pega o dado do registro usando i
-            viewmodel.viewGerLivro registro = registrosTelaPrincipal.get(i);
+            viewmodel.viewGerLivro registro = registrosTelaLivro.get(i);
             //adiciona os valores na linha
             Object[] row = {
                 registro.getnChamada(),
@@ -79,7 +81,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
 
         //Atualiza a parte grafica da tabela mostrando os novos valores
         tabelaGerLivro.setVisible(true);
-
+        
     }
 
     /**
@@ -120,6 +122,9 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
         jLabel3.setText("Termo para a busca:");
 
         cTxtBuscaGerLivro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cTxtBuscaGerLivroKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cTxtBuscaGerLivroKeyReleased(evt);
             }
@@ -277,9 +282,9 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
     private void btExcluirGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerLivroActionPerformed
         
         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
-
-        switch (sim){
-
+        
+        switch (sim) {
+            
             case 0:
                 DefaultTableModel dtm = (DefaultTableModel) tabelaGerLivro.getModel();
 
@@ -287,8 +292,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
                 Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerLivro.getSelectedRow());
                 //Pega o primeiro valor da linha
                 int id = (int) row.get(0);
-                
-                
+
                 //Abre a sessão
                 Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
                 //Inicia uma transação com o banco
@@ -300,12 +304,12 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
                 sessaoAtual.getTransaction().commit();
                 sessaoAtual.close();
                 JOptionPane.showMessageDialog(null, "Excluído com sucesso");
-
+                
                 break;
             case 1:
                 JOptionPane.showMessageDialog(null, "Exclusão não realizada");
                 break;
-
+            
             default:
                 System.out.println("ERRO");
                 break;
@@ -314,10 +318,31 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_btExcluirGerLivroActionPerformed
 
     private void cTxtBuscaGerLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerLivroKeyReleased
-        // TODO add your handling code here:
-
-        cTxtBuscaGerLivro.setText(cTxtBuscaGerLivro.getText().toUpperCase());
+        
     }//GEN-LAST:event_cTxtBuscaGerLivroKeyReleased
+
+    private void cTxtBuscaGerLivroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerLivroKeyPressed
+        /*
+        cTxtBuscaGerLivro.setText(cTxtBuscaGerLivro.getText().toUpperCase());
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER
+                && StringUtils.isEmptyOrWhitespaceOnly(cTxtBuscaGerLivro.getText())) {
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            if (cTxtBuscaGerLivro == Livro) {
+                
+                Query q = sessao.createSQLQuery("select distinct l.idLivro as N_Chamada, \n"
+                        + "l.tituloLivro as Titulo, \n"
+                        + "l.autorLivro as Autor\n"
+                        + "from livro l;");
+                
+            }
+            sessao.getTransaction().commit();
+            sessao.close();
+            
+        }
+        */
+    }//GEN-LAST:event_cTxtBuscaGerLivroKeyPressed
 
     /**
      * @param args the command line arguments
