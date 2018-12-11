@@ -6,14 +6,12 @@
 package Telas;
 
 import DAO.NewHibernateUtil;
-import com.mysql.cj.core.util.StringUtils;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Bibliotecaria;
@@ -33,7 +31,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
      */
     public TelaCadBibliotecario() {
         initComponents();
-
+        jlblIdProf.setVisible(false);
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
 
@@ -70,7 +68,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         cTxtRuaCadBibliotecario = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        cTxtNumCadBibliotecario = new javax.swing.JTextField();
+        cTxtNumEndCadBibliotecario = new javax.swing.JTextField();
         cTxtBairroCadBibliotecario = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -96,6 +94,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
+        jlblIdProf = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CEETECA");
@@ -167,7 +166,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                         .addGroup(painelDadosCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
                                 .addComponent(cTxtNomeCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(41, Short.MAX_VALUE))
+                                .addContainerGap(43, Short.MAX_VALUE))
                             .addGroup(painelDadosCadBibliotecarioLayout.createSequentialGroup()
                                 .addComponent(cTxtCPFCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -324,10 +323,10 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                         .addComponent(jLabel11)
                         .addGap(10, 10, 10)
                         .addComponent(cTxtRuaCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cTxtNumCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cTxtNumEndCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
         painelEnderecoCadBibliotecarioLayout.setVerticalGroup(
@@ -339,7 +338,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(jLabel11)
                     .addComponent(cTxtRuaCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cTxtNumCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cTxtNumEndCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(20, 20, 20)
                 .addGroup(painelEnderecoCadBibliotecarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -463,6 +462,8 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel16.setText("Endereço");
 
+        jlblIdProf.setText("otario");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -476,10 +477,6 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                 .addComponent(btVoltarCadBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
-                .addGap(284, 284, 284)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -487,21 +484,28 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
                         .addComponent(jLabel16)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4)
-                            .addComponent(painelEnderecoCadBibliotecario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
-                            .addComponent(painelContatoCadBibliotecario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(painelDadosCadBibliotecario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlblIdProf)
+                                .addGap(240, 240, 240)
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator3)
+                            .addComponent(jSeparator2)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(painelEnderecoCadBibliotecario, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+                            .addComponent(painelContatoCadBibliotecario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(painelDadosCadBibliotecario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jlblIdProf))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -549,7 +553,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         cTxtCEPCadBibliotecario.setText("");
         cTxtRuaCadBibliotecario.setText("");
         cTxtComplementoCadBibliotecario.setText("");
-        cTxtNumCadBibliotecario.setText("");
+        cTxtNumEndCadBibliotecario.setText("");
         cListUFCadBibliotecario.setSelectedIndex(0);
         //Atributos dos campos de contato.
         cTxtTelefoneCadBibliotecario.setText("");
@@ -589,7 +593,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         String bairro = cTxtBairroCadBibliotecario.getText();
         String cidade = cTxtCidadeCadBibliotecario.getText();
         String complemento = cTxtComplementoCadBibliotecario.getText();
-        int numero = Integer.parseInt(cTxtNumCadBibliotecario.getText());
+        int numero = Integer.parseInt(cTxtNumEndCadBibliotecario.getText());
         String uf = String.valueOf(cListUFCadBibliotecario.getSelectedIndex());
         //Pegando informações de contato.
         String celular = cTxtCelularCadBibliotecario.getText();
@@ -598,20 +602,38 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         //Atribuindo valores a classe usuario.
         //Valores Dados Pessoais
         //bibliotecarioGetSet infos = new bibliotecarioGetSet();
-
+        
         Pessoa pessoa = new Pessoa();
+        
+        if(!jlblIdProf.getText().equals("otario")){
+            int idProf = Integer.parseInt(jlblIdProf.getText());
+            Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+            pessoa = sessaoAtual.get(Pessoa.class, idProf);
+        }
+        
         pessoa.setNomePessoa(nome);
         pessoa.setCpfPessoa(cpf);
         pessoa.setDtnascimento(dtNascimento);//
         pessoa.setMatriculaPessoa(numFuncional);
 
         Bibliotecaria bibliotecaria = new Bibliotecaria();
+        
+        if(!jlblIdProf.getText().equals("otario")){
+            int idProf = Integer.parseInt(jlblIdProf.getText());
+            Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+            bibliotecaria = sessaoAtual.get(Bibliotecaria.class, idProf);
+        }
         bibliotecaria.setSenhaBibliotecaria(senha);
         bibliotecaria.setUsuarioBibliotecaria(usuario);
         bibliotecaria.setPessoa(pessoa);
 
         //Valores Endereço
         Endereco endereco = new Endereco();
+        if(!jlblIdProf.getText().equals("otario")){
+            int idProf = Integer.parseInt(jlblIdProf.getText());
+            Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+            endereco = sessaoAtual.get(Endereco.class, idProf);
+        }
         endereco.setCep(cep);
         endereco.setLogradouroEndereco(avRua);
         endereco.setBairroEndereco(bairro);
@@ -623,6 +645,11 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
 
         //Valores contato
         Contato ctt = new Contato();
+        if(!jlblIdProf.getText().equals("otario")){
+            int idProf = Integer.parseInt(jlblIdProf.getText());
+            Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+            ctt = sessaoAtual.get(Contato.class, idProf);
+        }
         ctt.setCelularContato(celular);
         ctt.setTelefoneContato(telefone);
         ctt.setEmailContato(email);
@@ -636,6 +663,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
             switch (resposta) {
                 case JOptionPane.YES_OPTION:
                     try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {
+                        SetInformacoes(bibliotecaria);
                         actualSession.beginTransaction();
                         actualSession.saveOrUpdate(pessoa);
                         actualSession.saveOrUpdate(endereco);
@@ -658,8 +686,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     
     public void SetInformacoes(Bibliotecaria bib){
         
-        
-        
+        jlblIdProf.setText(String.valueOf(bib.getPessoa().getIdPessoa()));
         cTxtUsuarioCadBibliotecario.setText(bib.getUsuarioBibliotecaria());
         cTxtSenhaCadBibliotecario.setText(bib.getSenhaBibliotecaria());
         cTxtNomeCadBibliotecario.setText(bib.getPessoa().getNomePessoa());
@@ -678,8 +705,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         cTxtComplementoCadBibliotecario.setText(enderecos.get(0).getComplementoEndereco());
         cListUFCadBibliotecario.setSelectedItem(enderecos.get(0).getEstadoEndereco());
         cTxtRuaCadBibliotecario.setText(enderecos.get(0).getLogradouroEndereco());
-        
-        cTxtRuaCadBibliotecario.setText(String.valueOf(enderecos.get(0).getNumeroEndereco()));
+        cTxtNumEndCadBibliotecario.setText(String.valueOf(enderecos.get(0).getNumeroEndereco()));
         
         
     }
@@ -783,7 +809,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField cTxtDtNascimentoCadBibliotecario;
     private javax.swing.JTextField cTxtEmailCadBibliotecario;
     private javax.swing.JTextField cTxtNomeCadBibliotecario;
-    private javax.swing.JTextField cTxtNumCadBibliotecario;
+    private javax.swing.JTextField cTxtNumEndCadBibliotecario;
     private javax.swing.JFormattedTextField cTxtNumFuncionalCadBibliotecario;
     private javax.swing.JTextField cTxtRuaCadBibliotecario;
     private javax.swing.JTextField cTxtSenhaCadBibliotecario;
@@ -810,6 +836,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel jlblIdProf;
     private javax.swing.JLabel lblCPFCadBibliotecario;
     private javax.swing.JLabel lblDtNascCadBibliotecario;
     private javax.swing.JLabel lblNFuncCadBibliotecario;

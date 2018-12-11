@@ -708,6 +708,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         cTxtComplementoCadProfessor.setText(enderecos.get(0).getComplementoEndereco());
         cComboBoxUFCadProfessor.setSelectedItem(enderecos.get(0).getEstadoEndereco());
         cTxtRuaCadProfessor.setText(enderecos.get(0).getLogradouroEndereco());
+        cTxtNumeroCadProfessor.setText(String.valueOf(enderecos.get(0).getNumeroEndereco()));
     }
     
      

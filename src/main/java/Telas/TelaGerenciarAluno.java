@@ -356,13 +356,27 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarGerAlunoActionPerformed
 
     private void btEditarGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerAlunoActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja editar?", "", JOptionPane.YES_NO_OPTION);
-
-        if (resposta == JOptionPane.YES_OPTION) {
-            // metodo editar
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?", "", JOptionPane.YES_NO_OPTION);
+        if (sim == 0) {
+            // metodo editar         
+            this.setVisible(false);
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerAluno.getModel();
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerAluno.getSelectedRow());
+            //Abre a sessão
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+            //Pega o objeto bibliotecario
+            Aluno aluno = sessao.get(Aluno.class, id);
+            TelaCadastroAluno tela = new TelaCadastroAluno();
+            tela.SetInformacoes(aluno);
+            tela.setVisible(true);
+            this.dispose();
             JOptionPane.showMessageDialog(null, "Alteração Realizada");
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma alteração realizada");
+            JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
         }
     }//GEN-LAST:event_btEditarGerAlunoActionPerformed
 

@@ -649,6 +649,7 @@ public class TelaCadastroAluno extends javax.swing.JFrame {
         cTxtComplementoCadAluno.setText(enderecos.get(0).getComplementoEndereco());
         cComboBoxEstadoCadAluno.setSelectedItem(enderecos.get(0).getEstadoEndereco());
         cTxtRuaCadAluno.setText(enderecos.get(0).getLogradouroEndereco());
+        cTxtNumeroCadAluno.setText(String.valueOf(enderecos.get(0).getNumeroEndereco()));
     }
     private void btVoltarCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCadAlunoActionPerformed
         // 

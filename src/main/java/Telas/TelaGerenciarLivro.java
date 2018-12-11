@@ -201,6 +201,11 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
 
         btEditarGerLivro.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btEditarGerLivro.setText("Editar");
+        btEditarGerLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarGerLivroActionPerformed(evt);
+            }
+        });
 
         btCadastrarGerLivro.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btCadastrarGerLivro.setText("Cadastrar");
@@ -364,6 +369,42 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
         }
          */
     }//GEN-LAST:event_cTxtBuscaGerLivroKeyPressed
+
+    private void btEditarGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerLivroActionPerformed
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?", "", JOptionPane.YES_NO_OPTION);
+
+        if (sim == 0) {
+            // metodo editar         
+            this.setVisible(false);
+
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerLivro.getModel();
+
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerLivro.getSelectedRow());
+
+            //Abre a sessão
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+
+            //Pega o objeto bibliotecario
+            Livro professor = sessao.get(Livro.class, id);
+
+            TelaCadastroLivro tela = new TelaCadastroLivro();
+
+            tela.SetInformacoes(professor);
+
+            tela.setVisible(true);
+
+            this.dispose();
+
+            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
+        }
+    }//GEN-LAST:event_btEditarGerLivroActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,10 +7,15 @@ package Telas;
 
 import DAO.NewHibernateUtil;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import models.Contato;
+import models.Endereco;
 import models.Exemplar;
 import models.Livro;
+import models.Professor;
 import org.hibernate.Session;
 
 /**
@@ -417,6 +422,38 @@ public class TelaCadastroLivro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btConfirmarCadLivroActionPerformed
 
+    public void SetInformacoes(Livro liv){
+        cTxtAnoPublicacaoCadLivro.setText(liv.getAnoLivro());
+        cTxtAssuntoCadLivro.setText(liv.getAssunto());
+        cTxtAutorCadLivro.setText(liv.getAutorLivro());
+        cTxtCDDCadLivro.setText(String.valueOf(liv.getCddLivro()));
+        cTxtEdicaoCadLivro.setText(liv.getEdicaoLivro());
+        cTxtEditoraCadLivro.setText(liv.getEditoraLivro());
+        cTxtISBNCadLivro.setText(liv.getIsbn());
+        cTxtNumPgCadLivro.setText(String.valueOf(liv.getPaginas()));
+        cTxtSerieCadLivro.setText(String.valueOf(liv.getSerieLivro()));
+        cTxtSubtituloCadLivro.setText(liv.getSubTituloLivro());
+        cTxtTituloCadLivro.setText(liv.getTituloLivro());
+        //cComboBoxIdiomaCadLivro.setSelectedIndex(opt);
+        ArrayList <Exemplar> exemplar = new ArrayList(liv.getExemplars());
+        cGiraExemplarCadLivro.setValue(exemplar.get(0).getQuantidadeExemplar());
+        
+        //String opIdioma = cComboBoxIdiomaCadLivro.getSelectedIndex();
+        
+        /*int opt;
+        switch(cComboBoxIdiomaCadLivro.getSelectedIndex()){
+            case 1:
+                 opt = "Portugues"; 
+                break;
+            case 2:
+                opt = "Inglês";
+                break;
+            case 3:
+                opt = "Espanhol";
+                break;
+        }*/
+        
+    }
     private void btLimparCadLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparCadLivroActionPerformed
         limpar();
     }//GEN-LAST:event_btLimparCadLivroActionPerformed

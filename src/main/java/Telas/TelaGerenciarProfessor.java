@@ -294,13 +294,38 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarGerProfessorActionPerformed
 
     private void btEditarGerProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerProfessorActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja editar?", "", JOptionPane.YES_NO_OPTION);
+        int sim = JOptionPane.showConfirmDialog(null, "Deseja editar?", "", JOptionPane.YES_NO_OPTION);
 
-        switch (resposta) {
-            case JOptionPane.YES_OPTION:
-                break;
-            case JOptionPane.NO_OPTION:
-                break;
+        if (sim == 0) {
+            // metodo editar         
+            this.setVisible(false);
+
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerProfessor.getModel();
+
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerProfessor.getSelectedRow());
+
+            //Abre a sessão
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+
+            //Pega o objeto bibliotecario
+            Professor professor = sessao.get(Professor.class, id);
+
+            TelaCadProfessor tela = new TelaCadProfessor();
+
+            tela.SetInformacoes(professor);
+
+            tela.setVisible(true);
+
+            this.dispose();
+
+            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Alteração NÃO realizada");
         }
     }//GEN-LAST:event_btEditarGerProfessorActionPerformed
 
@@ -334,15 +359,15 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
             }
             sessao.getTransaction().commit();
             sessao.beginTransaction();
-            
+
             List<Contato> contatos = new ArrayList<Contato>(professor.getPessoa().getContatos());
 
             for (Contato contato : contatos) {
                 sessao.remove(contato);
             }
 
-             sessao.getTransaction().commit();
-             sessao.beginTransaction();
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
 
             List<Emprestimo> emprestimos = new ArrayList<>(professor.getPessoa().getEmprestimos());
 
@@ -354,20 +379,21 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
             sessao.beginTransaction();
 
             List<ProfessorHasCurso> cursosLecionados = new ArrayList<>(professor.getProfessorHasCursos());
-            
-            for(ProfessorHasCurso curso : cursosLecionados){
+
+            for (ProfessorHasCurso curso : cursosLecionados) {
                 sessao.remove(curso);
             }
             sessao.getTransaction().commit();
             sessao.beginTransaction();
-               
+
             //Deleta o objeto do banco
             sessao.remove(professor);
             sessao.remove(professor.getPessoa());
             sessao.getTransaction().commit();
             sessao.close();
-            
+
             JOptionPane.showMessageDialog(null, "Alteração Realizada");
+            this.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
@@ -393,7 +419,7 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
                 tabelaGerProfessor.setModel(novo);
 
             } else {
-            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
+                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
                 DefaultTableModel novo = new DefaultTableModel(new Vector(), cabecalho);
                 tabelaGerProfessor.setModel(novo);
             }
