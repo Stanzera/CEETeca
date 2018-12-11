@@ -356,7 +356,7 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
 
             tela.SetInformacoes(bibliotecaria);
 
-            tela.setVisible(true);
+            tela.setVisible(false);
 
             this.dispose();
 

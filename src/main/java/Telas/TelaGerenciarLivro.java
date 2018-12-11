@@ -323,7 +323,6 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
             for (Emprestimo emprestimo : emprestimos) {
                 sessaoAtual.remove(emprestimo);
             }
-
             sessaoAtual.getTransaction().commit();
             sessaoAtual.beginTransaction();
 

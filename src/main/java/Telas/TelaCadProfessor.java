@@ -72,7 +72,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("CEETECA?createDatabaseIfNotExist=TRUE&useTimezone=true&serverTimezone=UTC&unicode=true&characterEncoding=UTF-8PU").createEntityManager();
         painelGeralCadProfessor = new javax.swing.JPanel();
         painelDadosCadProfessor = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -512,7 +511,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
                 .addComponent(painelDadosCadProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2))
-            .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(painelEnderecoCadProfessor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 629, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
                 .addGroup(painelGeralCadProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGeralCadProfessorLayout.createSequentialGroup()
@@ -889,7 +888,6 @@ public class TelaCadProfessor extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField cTxtTelefoneCadProfessor;
     private javax.swing.JList<Curso> cxListModelo;
     private javax.swing.JList<Curso> cxListSelecionados;
-    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
