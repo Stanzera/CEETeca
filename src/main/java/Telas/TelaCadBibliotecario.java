@@ -679,7 +679,7 @@ public class TelaCadBibliotecario extends javax.swing.JFrame {
         cListUFCadBibliotecario.setSelectedItem(enderecos.get(0).getEstadoEndereco());
         cTxtRuaCadBibliotecario.setText(enderecos.get(0).getLogradouroEndereco());
         
-        //cTxtRuaCadBibliotecario.setText(enderecos.get(0).getNumeroEndereco());
+        cTxtRuaCadBibliotecario.setText(String.valueOf(enderecos.get(0).getNumeroEndereco()));
         
         
     }

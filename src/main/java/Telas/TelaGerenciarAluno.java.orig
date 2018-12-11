@@ -291,52 +291,45 @@ public class TelaGerenciarAluno extends javax.swing.JFrame {
 
             //conferir
             //Pega o objeto 
-            
-            List<Endereco> enderecos =  new ArrayList<Endereco>(aluno.getPessoa().getEnderecos());
-            
-            for(Endereco endereco : enderecos){
+            List<Endereco> enderecos = new ArrayList<Endereco>(aluno.getPessoa().getEnderecos());
+
+        for(Endereco endereco : enderecos){
+
                 sessao.remove(endereco);
             }
             sessao.getTransaction().commit();
             sessao.beginTransaction();
-            
+
+
             List<Contato> contatos = new ArrayList<Contato>(aluno.getPessoa().getContatos());
-            
-            for(Contato contato : contatos){
+
+            for (Contato contato : contatos) {
                 sessao.remove(contato);
             }
-            
-             sessao.getTransaction().commit();
-             sessao.beginTransaction();
-             
-             List<Emprestimo> emprestimos = new ArrayList<>(aluno.getPessoa().getEmprestimos());
-            
-            for(Emprestimo emprestimo  : emprestimos){
+
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+
+            List<Emprestimo> emprestimos = new ArrayList<>(aluno.getPessoa().getEmprestimos());
+
+            for (Emprestimo emprestimo : emprestimos) {
                 sessao.remove(emprestimo);
             }
-            
-             sessao.getTransaction().commit();
-             sessao.beginTransaction();
-              
+
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+
             //Deleta o objeto do banco
             sessao.remove(aluno);
+            sessao.remove(aluno.getPessoa());
             sessao.getTransaction().commit();
             sessao.close();
             JOptionPane.showMessageDialog(null, "Excluído com sucesso");
 
-            TelaCadastroAluno tela = new TelaCadastroAluno();
-
-            tela.SetInformacoes(aluno);
-
-            tela.setVisible(true);
-
-            this.dispose();
-
-            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
         } else {
             JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
- 
+
     }//GEN-LAST:event_btExcluirGerAlunoActionPerformed
 
     private void btCadastrarGerAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarGerAlunoActionPerformed

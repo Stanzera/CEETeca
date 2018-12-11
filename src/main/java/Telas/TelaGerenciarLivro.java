@@ -8,14 +8,19 @@ package Telas;
 import DAO.NewHibernateUtil;
 import com.mysql.cj.core.util.StringUtils;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.persistence.Query;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import models.Advertencia;
 import models.Aluno;
+import models.Emprestimo;
+import models.Exemplar;
 import models.Livro;
+import models.LivroHasEmprestimo;
 import org.hibernate.Session;
 
 /**
@@ -29,14 +34,14 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
      */
     public TelaGerenciarLivro() {
         initComponents();
-        
+
         ImageIcon icone = new ImageIcon(getClass().getResource("/images/ceetecaicon16x16.png"));
         this.setIconImage(icone.getImage());
-        
+
         listarCadastros();
-        
+
     }
-    
+
     public void listarCadastros() {
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
@@ -60,7 +65,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
 
         //pega o modelo da tabela
         DefaultTableModel model = (DefaultTableModel) tabelaGerLivro.getModel();
-        
+
         for (int i = 0; i < registrosTelaLivro.size(); i++) {
             //Pega o dado do registro usando i
             viewmodel.viewGerLivro registro = registrosTelaLivro.get(i);
@@ -81,7 +86,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
 
         //Atualiza a parte grafica da tabela mostrando os novos valores
         tabelaGerLivro.setVisible(true);
-        
+
     }
 
     /**
@@ -280,45 +285,62 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_btVoltarGerLivroActionPerformed
 
     private void btExcluirGerLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirGerLivroActionPerformed
-        
+
         int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
-        
-        switch (sim) {
-            
-            case 0:
-                DefaultTableModel dtm = (DefaultTableModel) tabelaGerLivro.getModel();
 
-                //Pega a linha da jtable
-                Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerLivro.getSelectedRow());
-                //Pega o primeiro valor da linha
-                int id = (int) row.get(0);
+        if (sim == JOptionPane.YES_NO_OPTION) {
 
-                //Abre a sessão
-                Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
-                //Inicia uma transação com o banco
-                sessaoAtual.beginTransaction();
-                //Pega o objeto no banco pelo o id
-                Livro livro = sessaoAtual.get(Livro.class, id);
-                //Deleta o objeto do banco
-                sessaoAtual.delete(livro);
-                sessaoAtual.getTransaction().commit();
-                sessaoAtual.close();
-                JOptionPane.showMessageDialog(null, "Excluído com sucesso");
-                
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Exclusão não realizada");
-                break;
+            DefaultTableModel dtm = (DefaultTableModel) tabelaGerLivro.getModel();
+
+            //Pega a linha da jtable
+            Vector row = (Vector) dtm.getDataVector().elementAt(tabelaGerLivro.getSelectedRow());
+
+            //Abre a sessão
+            Session sessaoAtual = NewHibernateUtil.getSessionFactory().openSession();
+            //Inicia uma transação com o banco
+            sessaoAtual.beginTransaction();
+
+            //Pega o primeiro valor da linha
+            int id = (int) row.get(0);
+
+            //Pega o objeto no banco pelo o id
+            Livro livro = (Livro) sessaoAtual.get(Livro.class, id);
             
-            default:
-                System.out.println("ERRO");
-                break;
+            List<Exemplar> exemplares = new ArrayList<>(livro.getExemplars());
+
+            for (Exemplar exemplar : exemplares) {
+                ArrayList<LivroHasEmprestimo> livroHasEmprestimos = new ArrayList<>(exemplar.getLivroHasEmprestimos());
+                for(LivroHasEmprestimo emprestimoLivro : livroHasEmprestimos){
+                    sessaoAtual.remove(emprestimoLivro);
+                }
+                sessaoAtual.remove(exemplar);
+            }
+            sessaoAtual.getTransaction().commit();
+            sessaoAtual.beginTransaction();
+
+            List<Emprestimo> emprestimos = new ArrayList<>(livro.getExemplars());
+
+            for (Emprestimo emprestimo : emprestimos) {
+                sessaoAtual.remove(emprestimo);
+            }
+
+            sessaoAtual.getTransaction().commit();
+            sessaoAtual.beginTransaction();
+
+            //Deleta o objeto do banco
+            sessaoAtual.remove(livro);
+            sessaoAtual.getTransaction().commit();
+            sessaoAtual.close();
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
 
     }//GEN-LAST:event_btExcluirGerLivroActionPerformed
 
     private void cTxtBuscaGerLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerLivroKeyReleased
-        
+
     }//GEN-LAST:event_cTxtBuscaGerLivroKeyReleased
 
     private void cTxtBuscaGerLivroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerLivroKeyPressed
@@ -341,7 +363,7 @@ public class TelaGerenciarLivro extends javax.swing.JFrame {
             sessao.close();
             
         }
-        */
+         */
     }//GEN-LAST:event_cTxtBuscaGerLivroKeyPressed
 
     /**

@@ -662,8 +662,7 @@ public class TelaCadProfessor extends javax.swing.JFrame {
         Professor prf = new Professor();
         prf.setPessoa(pss);
 
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro\n"
-                + "do professor?", "", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja confirmar o cadastro?", "", JOptionPane.YES_NO_OPTION);
         
         if (resposta == JOptionPane.YES_OPTION) {
             try (Session actualSession = NewHibernateUtil.getSessionFactory().openSession()) {

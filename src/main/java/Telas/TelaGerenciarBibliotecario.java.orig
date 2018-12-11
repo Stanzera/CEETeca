@@ -50,6 +50,7 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
                 + "\n"
                 + "WHERE p.idPessoa = bi.pessoa_idPessoa and p.idPessoa = c.pessoa_idPessoa\n"
                 + "order by bi.idBibliotecaria;").addEntity(viewmodel.viewGerBibliotecaria.class);
+                + "order by p.nomePessoa;").addEntity(viewmodel.viewGerBibliotecaria.class);
         
         //pega o resultado da query e retorna uma lista
         List<viewmodel.viewGerBibliotecaria> registrosTelaPrincipal = q.getResultList();
@@ -298,7 +299,7 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
        
          int sim = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "", JOptionPane.YES_NO_OPTION);
 
-        if (sim == JOptionPane.YES_NO_OPTION) {
+         if (sim == JOptionPane.YES_NO_OPTION) {
             // metodo editar         
             this.setVisible(false);
 
@@ -315,7 +316,6 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
             int id = (int) row.get(0);
             
             Bibliotecaria bibliotecaria =(Bibliotecaria)sessao.get(Bibliotecaria.class, id);
-            
             //conferir
             //Pega o objeto 
             
@@ -348,24 +348,16 @@ public class TelaGerenciarBibliotecario extends javax.swing.JFrame {
    
             //Deleta o objeto do banco
             sessao.remove(bibliotecaria);
+            sessao.remove(bibliotecaria.getPessoa());
             sessao.getTransaction().commit();
             sessao.close();
             JOptionPane.showMessageDialog(null, "Excluído com sucesso");
 
-            TelaCadBibliotecario tela = new TelaCadBibliotecario();
-
-            tela.SetInformacoes(bibliotecaria);
-
-            tela.setVisible(true);
-
-            this.dispose();
-
-            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
         } else {
             JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
  
- 
+     
     }//GEN-LAST:event_btExcluirGerBibliotecarioActionPerformed
 
     private void btEditarGerBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarGerBibliotecarioActionPerformed

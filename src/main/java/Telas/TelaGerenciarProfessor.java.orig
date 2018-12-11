@@ -332,17 +332,19 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
             for (Endereco endereco : enderecos) {
                 sessao.remove(endereco);
             }
+            /*sessao.getTransaction().commit();
+            sessao.beginTransaction();*/
             sessao.getTransaction().commit();
             sessao.beginTransaction();
-            
+
             List<Contato> contatos = new ArrayList<Contato>(professor.getPessoa().getContatos());
 
             for (Contato contato : contatos) {
                 sessao.remove(contato);
             }
 
-             sessao.getTransaction().commit();
-             sessao.beginTransaction();
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
 
             List<Emprestimo> emprestimos = new ArrayList<>(professor.getPessoa().getEmprestimos());
 
@@ -360,23 +362,24 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
             }
             sessao.getTransaction().commit();
             sessao.beginTransaction();
-               
+            sessao.getTransaction().commit();
+            sessao.beginTransaction();
+                   
             //Deleta o objeto do banco
             sessao.remove(professor);
             sessao.remove(professor.getPessoa());
             sessao.getTransaction().commit();
             sessao.close();
             
-            JOptionPane.showMessageDialog(null, "Alteração Realizada");
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
         } else {
             JOptionPane.showMessageDialog(null, "Exclusão não realizada");
         }
-
     }//GEN-LAST:event_btExcluirGerProfessorActionPerformed
 
     private void cTxtBuscaGerProfessorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cTxtBuscaGerProfessorKeyReleased
 
-        try {
+       /* try {
 
             Vector cabecalho = new Vector();
 
@@ -393,14 +396,18 @@ public class TelaGerenciarProfessor extends javax.swing.JFrame {
                 tabelaGerProfessor.setModel(novo);
 
             } else {
-            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
+
                 DefaultTableModel novo = new DefaultTableModel(new Vector(), cabecalho);
                 tabelaGerProfessor.setModel(novo);
             }
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+            //JOptionPane.showMessageDialog(null, "Alteração Realizada");
         }
+        else {
+            JOptionPane.showMessageDialog(null, "Exclusão não realizada");
+        }*/
     }//GEN-LAST:event_cTxtBuscaGerProfessorKeyReleased
 
     /**
